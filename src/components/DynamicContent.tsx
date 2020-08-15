@@ -3,7 +3,8 @@ import { gql, useQuery } from '@apollo/client';
 import { Card, StyledBody } from 'baseui/card';
 import { ListItem, ListItemLabel } from 'baseui/list';
 import { Accordion, Panel } from "baseui/accordion";
-import {Grid, Cell, BEHAVIOR} from 'baseui/layout-grid';
+import { Grid, Cell, BEHAVIOR } from 'baseui/layout-grid';
+import ReactHtmlParser from 'react-html-parser';
 import Loading from './Loading';
 
 // Get all services
@@ -71,17 +72,17 @@ export function renderServices(data) {
 				}}
 				key={serviceCategory.title}
 				title={serviceCategory.title}>
-					<ul>
-						{serviceCategory.services.map((service) =>
-							<ListItem
-								key={`${serviceCategory.title}${service.name}`}
-								endEnhancer={() => (
-									<ListItemLabel>{service.price}&nbsp;{service.per}</ListItemLabel>
-								)}>
-								<ListItemLabel sublist>{service.name}</ListItemLabel>
-							</ListItem>
-						)}
-					</ul>
+				<ul>
+					{serviceCategory.services.map((service) =>
+						<ListItem
+							key={`${serviceCategory.title}${service.name}`}
+							endEnhancer={() => (
+								<ListItemLabel>{service.price}&nbsp;{service.per}</ListItemLabel>
+							)}>
+							<ListItemLabel sublist>{service.name}</ListItemLabel>
+						</ListItem>
+					)}
+				</ul>
 			</Card>
 		</Cell>
 	);
@@ -90,7 +91,7 @@ export function renderServices(data) {
 export function renderTeamMembers(data) {
 	console.debug("renderTeamMembers", data);
 	return data.teamMembers.map(teamMember =>
-		<Cell span={4}>
+		<Cell key={`cell-${teamMember.name}`} span={4}>
 			<Card
 				key={teamMember.name}
 				headerImage={teamMember.profileImage.url}
@@ -106,11 +107,11 @@ export function renderTeamMembers(data) {
 export function renderFAQs(data) {
 	console.debug("renderFAQs", data);
 	return data.faqCategories.map(faqCategory =>
-		<Panel title={faqCategory.title}>
+		<Panel key={`panel-${faqCategory.title}`} title={faqCategory.title}>
 			<ul>
 				{faqCategory.questions.map(q =>
-					<ListItem>
-						<ListItemLabel description={q.answer.html}>{q.question}</ListItemLabel>
+					<ListItem key={`faq-${faqCategory.title}${q.question}`}>
+						<ListItemLabel description={ReactHtmlParser(q.answer.html)}>{q.question}</ListItemLabel>
 					</ListItem>
 				)}
 			</ul>

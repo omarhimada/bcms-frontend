@@ -4,6 +4,7 @@ import ReactHtmlParser from 'react-html-parser';
 import Loading from './Loading';
 import { Block } from 'baseui/block';
 import DynamicContent from './DynamicContent';
+import { Grid, Cell, BEHAVIOR } from 'baseui/layout-grid';
 
 // Get page content using the ID provided
 const GET_PAGE = gql`
@@ -31,12 +32,18 @@ export default (params) => {
 
 	return (
 		<React.Fragment>
-			<Block>
-				{ReactHtmlParser(data.page.content.html)}
-			</Block>
-			<Block>
-				<DynamicContent type={data.page.dynamicContent} />
-			</Block>
+			<Grid behavior={BEHAVIOR.fluid}>
+				<Cell span={12}>
+					<Block>
+						{ReactHtmlParser(data.page.content.html)}
+					</Block>
+				</Cell>
+				<Cell span={12}>
+				<Block>
+						<DynamicContent type={data.page.dynamicContent} />
+					</Block>
+				</Cell>
+			</Grid>
 		</React.Fragment>
 	);
 };
