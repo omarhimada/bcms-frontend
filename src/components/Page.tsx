@@ -39,55 +39,57 @@ export default (params) => {
 	return (
 		<React.Fragment>
 			<Block maxWidth={'1440px'}>
-				<Grid behavior={BEHAVIOR.fluid}>
-					{/* Hero/heading text of the page (optional) */}
-					{data.page.heading !== null
-						? <Cell span={12}>
-							<HeadingLevel>
-								<Heading>
-									{data.page.heading}
-								</Heading>
-							</HeadingLevel>
-							</Cell>
-						: <></>}
-					{/* Hero/header image of page (optional) */}
-					{data.page.image !== null
-						? <Cell span={12}>
-							<Card
-								overrides={{ 
-									Root: { 
-										style: { 
-											width: '100%', border: 0 
-										} 
-									},
-									HeaderImage: {
-										style: {
-											width: '100%'
+				<HeadingLevel>
+					<Grid behavior={BEHAVIOR.fluid}>
+						{/* Hero/heading text of the page (optional) */}
+						{data.page.heading !== null
+							? <Cell span={12}>
+								
+									<Heading>
+										{data.page.heading}
+									</Heading>
+								
+								</Cell>
+							: <></>}
+						{/* Hero/header image of page (optional) */}
+						{data.page.image !== null
+							? <Cell span={12}>
+								<Card
+									overrides={{ 
+										Root: { 
+											style: { 
+												width: '100%', border: 0 
+											} 
+										},
+										HeaderImage: {
+											style: {
+												width: '100%'
+											}
 										}
-									}
-								}}
-								headerImage={data.page.image.url}>
-								{/* <StyledBody>
-									Proin ut dui sed metus pharetra hend rerit vel non mi. Nulla
-									ornare faucibus ex, non facilisis nisl.
-									</StyledBody> */}
-								{/* <StyledAction>
-									<Button overrides={{BaseButton: {style: {width: '100%'}}}}>
-										Button Label
-									</Button>
-									</StyledAction> */}
-							</Card>
+									}}
+									headerImage={data.page.image.url}>
+									{/* <StyledBody>
+										Proin ut dui sed metus pharetra hend rerit vel non mi. Nulla
+										ornare faucibus ex, non facilisis nisl.
+										</StyledBody> */}
+									{/* <StyledAction>
+										<Button overrides={{BaseButton: {style: {width: '100%'}}}}>
+											Button Label
+										</Button>
+										</StyledAction> */}
+								</Card>
+							</Cell>
+							: <></>}
+						<Cell span={12}>
+							{/* WYSIWYG body/content of page */}
+							{ReactHtmlParser(data.page.content.html)}
 						</Cell>
-						: <></>}
-					<Cell span={12}>
-						{/* WYSIWYG body/content of page */}
-						{ReactHtmlParser(data.page.content.html)}
-					</Cell>
-					<Cell span={12}>
-						{/* Dynamic content (e.g.: services, FAQ, etc.) */}
-						<DynamicContent type={data.page.dynamicContent} />
-					</Cell>
-				</Grid>
+						<Cell span={12}>
+							{/* Dynamic content (e.g.: services, FAQ, etc.) */}
+							<DynamicContent type={data.page.dynamicContent} />
+						</Cell>
+					</Grid>
+				</HeadingLevel>
 			</Block>
 		</React.Fragment>
 	);

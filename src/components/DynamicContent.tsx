@@ -3,10 +3,13 @@ import { gql, useQuery } from '@apollo/client';
 import { Card, StyledBody } from 'baseui/card';
 import { ListItem, ListItemLabel } from 'baseui/list';
 import { Accordion, Panel } from "baseui/accordion";
-import { Grid, Cell, BEHAVIOR } from 'baseui/layout-grid';
 import ReactHtmlParser from 'react-html-parser';
 import Loading from './Loading';
-import { Block } from 'baseui/block';
+import { Heading, HeadingLevel } from 'baseui/heading';
+import { List } from 'antd';
+import { FrequentlyAskedQuestion } from '../Types/FrequentlyAskedQuestion';
+import { QuestionOutlined } from '@ant-design/icons'
+import { Row, Col } from 'antd';
 
 // Get all services
 const GET_SERVICES = gql`
@@ -52,9 +55,42 @@ const GET_FAQS = gql`
 	}
 `;
 
-export function renderServices(data) {
+export default (params) => {
+	if (params.type === null) return <></>;
+	const query = {
+		'Services': GET_SERVICES,
+		'TeamMembers': GET_TEAM_MEMBERS,
+		'FAQs': GET_FAQS
+	}[params.type];
+
+	const { loading, error, data } = useQuery(query);
+
+	if (loading) return (<Loading />);
+	if (error) return (<span>Error! {error.message}</span>);
+
+	return WrapDynamicContent(data, params.type);
+};
+
+export function WrapDynamicContent(data, type) {
+	return <HeadingLevel><Row gutter={[16, 16]}>{RenderDynamicContent(data, type)}</Row></HeadingLevel>
+}
+
+export function RenderDynamicContent(data, type) {
+	switch (type) {
+		case 'Services':
+			return _renderServices(data);
+		case 'TeamMembers':
+			return _renderTeamMembers(data);
+		case 'FAQs':
+			return _renderFAQs(data);
+		default:
+			return <></>;
+	}
+}
+
+export function _renderServices(data) {
 	return data.serviceCategories.map(serviceCategory =>
-		<Cell key={`cell-${serviceCategory.title}`} span={[12, 6]}>
+		<Col xs={{ span: 24 }} lg={{ span: 12 }}>
 			<Card
 				overrides={{
 					Root: {
@@ -78,13 +114,13 @@ export function renderServices(data) {
 					)}
 				</ul>
 			</Card>
-		</Cell>
+		</Col>
 	);
 }
 
-export function renderTeamMembers(data) {
+export function _renderTeamMembers(data) {
 	return data.teamMembers.map(teamMember =>
-		<Cell key={`cell-${teamMember.name}`} span={4}>
+		<Col xs={{ span: 24 }} lg={{ span: 8 }}>
 			<Card
 				overrides={{
 					Root: {
@@ -101,49 +137,34 @@ export function renderTeamMembers(data) {
 					{teamMember.description}
 				</StyledBody>
 			</Card>
-		</Cell>
+		</Col>
 	);
 }
 
-export function renderFAQs(data) {
-	return data.faqCategories.map(faqCategory =>
-		<Panel key={`panel-${faqCategory.title}`} title={faqCategory.title}>
-			<ul className='faq-ul'>
-				{faqCategory.questions.map(q =>
-					<ListItem key={`faq-${faqCategory.title}${q.question}`}>
-						<ListItemLabel>{q.question}</ListItemLabel>
-						<Block>
-							{ReactHtmlParser(q.answer.html)}
-						</Block>
-					</ListItem>
-					
-				)}
-			</ul>
+export function _renderFAQs(data) {
+	return <Accordion renderAll>{_renderFAQCategories(data.faqCategories)}</Accordion>
+}
+
+export function _renderFAQCategories(faqCategories) {
+	return faqCategories.map(faqCategory =>
+		<Panel 
+			key={`panel-${faqCategory.title}`} 
+			title={faqCategory.title}>
+
+			<List
+				size="large"
+				header={<Heading styleLevel={6}>{faqCategory.title}</Heading>}
+				bordered
+				dataSource={faqCategory.questions}
+				renderItem={(faq: FrequentlyAskedQuestion) => 
+					<List.Item>
+						<List.Item.Meta
+							avatar={<QuestionOutlined />}
+							title={faq.question}
+							description={ReactHtmlParser(faq.answer.html)}
+						/>
+					</List.Item>}
+				/>
 		</Panel>
 	);
 }
-
-export default (params) => {
-	if (params.type === null) return <></>;
-	const query = {
-		'Services': GET_SERVICES,
-		'TeamMembers': GET_TEAM_MEMBERS,
-		'FAQs': GET_FAQS
-	}[params.type];
-
-	const { loading, error, data } = useQuery(query);
-
-	if (loading) return (<Loading />);
-	if (error) return (<span>Error! {error.message}</span>);
-
-	switch (params.type) {
-		case 'Services':
-			return <Grid>{renderServices(data)}</Grid>;
-		case 'TeamMembers':
-			return <Grid behavior={BEHAVIOR.fluid}>{renderTeamMembers(data)}</Grid>;
-		case 'FAQs':
-			return <Grid><Cell span={12}><Accordion renderAll>{renderFAQs(data)}</Accordion></Cell></Grid>
-		default:
-			return <></>;
-	}
-};
