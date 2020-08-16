@@ -6,6 +6,7 @@ import { Accordion, Panel } from "baseui/accordion";
 import { Grid, Cell, BEHAVIOR } from 'baseui/layout-grid';
 import ReactHtmlParser from 'react-html-parser';
 import Loading from './Loading';
+import { Block } from 'baseui/block';
 
 // Get all services
 const GET_SERVICES = gql`
@@ -27,7 +28,8 @@ const GET_TEAM_MEMBERS = gql`
 	query TeamMembers {
 		teamMembers {
 			profileImage {
-				url
+				url,
+				width
 			}
 			name
 			description
@@ -51,30 +53,22 @@ const GET_FAQS = gql`
 `;
 
 export function renderServices(data) {
-	console.debug("renderServices", data);
-	// const itemProps: BlockProps = {
-	// 	backgroundColor: 'mono300',
-	// 	height: 'scale1000',
-	// 	display: 'flex',
-	// 	alignItems: 'center',
-	// 	justifyContent: 'center',
-	// };
-
 	return data.serviceCategories.map(serviceCategory =>
-		<Cell key={`cell-${serviceCategory.title}`} span={6}>
+		<Cell key={`cell-${serviceCategory.title}`} span={[12, 6]}>
 			<Card
 				overrides={{
 					Root: {
-						style: ({ $theme }) => {
-							return { marginBottom: "1rem" };
+						style: {
+							marginBottom: '1rem'
 						}
 					}
 				}}
 				key={serviceCategory.title}
 				title={serviceCategory.title}>
-				<ul>
+				<ul className='services-ul'>
 					{serviceCategory.services.map((service) =>
 						<ListItem
+							sublist
 							key={`${serviceCategory.title}${service.name}`}
 							endEnhancer={() => (
 								<ListItemLabel>{service.price}&nbsp;{service.per}</ListItemLabel>
@@ -89,10 +83,17 @@ export function renderServices(data) {
 }
 
 export function renderTeamMembers(data) {
-	console.debug("renderTeamMembers", data);
 	return data.teamMembers.map(teamMember =>
 		<Cell key={`cell-${teamMember.name}`} span={4}>
 			<Card
+				overrides={{
+					Root: {
+						style: {
+							marginBottom: '1rem',
+							maxWidth: `${teamMember.profileImage.width}px`
+						}
+					}
+				}}
 				key={teamMember.name}
 				headerImage={teamMember.profileImage.url}
 				title={teamMember.name}>
@@ -105,14 +106,17 @@ export function renderTeamMembers(data) {
 }
 
 export function renderFAQs(data) {
-	console.debug("renderFAQs", data);
 	return data.faqCategories.map(faqCategory =>
 		<Panel key={`panel-${faqCategory.title}`} title={faqCategory.title}>
-			<ul>
+			<ul className='faq-ul'>
 				{faqCategory.questions.map(q =>
 					<ListItem key={`faq-${faqCategory.title}${q.question}`}>
-						<ListItemLabel description={ReactHtmlParser(q.answer.html)}>{q.question}</ListItemLabel>
+						<ListItemLabel>{q.question}</ListItemLabel>
+						<Block>
+							{ReactHtmlParser(q.answer.html)}
+						</Block>
 					</ListItem>
+					
 				)}
 			</ul>
 		</Panel>
@@ -120,7 +124,6 @@ export function renderFAQs(data) {
 }
 
 export default (params) => {
-	console.debug("DynamicContent.tsx", params);
 	if (params.type === null) return <></>;
 	const query = {
 		'Services': GET_SERVICES,
@@ -135,11 +138,11 @@ export default (params) => {
 
 	switch (params.type) {
 		case 'Services':
-			return <Grid behavior={BEHAVIOR.fluid}>{renderServices(data)}</Grid>;
+			return <Grid>{renderServices(data)}</Grid>;
 		case 'TeamMembers':
 			return <Grid behavior={BEHAVIOR.fluid}>{renderTeamMembers(data)}</Grid>;
 		case 'FAQs':
-			return <Accordion renderAll>{renderFAQs(data)}</Accordion>
+			return <Grid><Cell span={12}><Accordion renderAll>{renderFAQs(data)}</Accordion></Cell></Grid>
 		default:
 			return <></>;
 	}

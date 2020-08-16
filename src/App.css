@@ -31,3 +31,7 @@
     transform: rotate(360deg);
   }
 }
+
+.faq-ul, .services-ul {
+	padding: 0;
+}
