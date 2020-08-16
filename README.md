@@ -1,5 +1,5 @@
-## bcms
-### typescript, react, graphql (apollo), antd, baseui
+# bcms
+## typescript, react, graphql (apollo), antd, baseui
 
 CMS for small businesses
 
