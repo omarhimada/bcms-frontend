@@ -1,5 +1,9 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## bcms
+### typescript, react, graphql (apollo), antd, baseui
 
+CMS for small businesses
+
+---
 ## Available Scripts
 
 In the project directory, you can run:
