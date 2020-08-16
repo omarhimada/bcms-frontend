@@ -7,7 +7,7 @@ import ReactHtmlParser from 'react-html-parser';
 import Loading from './Loading';
 import { Heading, HeadingLevel } from 'baseui/heading';
 import { List } from 'antd';
-import { FrequentlyAskedQuestion } from '../types/FrequentlyAskedQuestion';
+import { FrequentlyAskedQuestion } from './types/FrequentlyAskedQuestion';
 import { QuestionOutlined } from '@ant-design/icons'
 import { Row, Col } from 'antd';
 
