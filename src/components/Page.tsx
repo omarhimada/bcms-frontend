@@ -1,29 +1,13 @@
 import * as React from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import ReactHtmlParser from 'react-html-parser';
 import Loading from './Loading';
 import DynamicContent from './DynamicContent';
-import { Grid, Cell, BEHAVIOR } from 'baseui/layout-grid';
 import { Card } from 'baseui/card';
 import { Heading, HeadingLevel } from 'baseui/heading';
 import { Block } from 'baseui/block';
-
-// Get page content using the ID provided
-const GET_PAGE = gql`
-	query Page($pageId: ID!) {
-		page(where: {id: $pageId}) {
-			id,
-			heading,
-			content {
-				html
-			},
-			dynamicContent,
-			image {
-				url
-			}
-		}
-	}
-`;
+import { Row, Col } from 'antd';
+import { GET_PAGE } from './gql/Queries';
 
 export default (params) => {
 	const { loading, error, data } =
@@ -40,20 +24,18 @@ export default (params) => {
 		<React.Fragment>
 			<Block maxWidth={'1440px'}>
 				<HeadingLevel>
-					<Grid behavior={BEHAVIOR.fluid}>
+					<Row gutter={[16, 16]}>
 						{/* Hero/heading text of the page (optional) */}
 						{data.page.heading !== null
-							? <Cell span={12}>
-								
+							? <Col xs={{ span: 24 }}>
 									<Heading>
 										{data.page.heading}
 									</Heading>
-								
-								</Cell>
+								</Col>
 							: <></>}
 						{/* Hero/header image of page (optional) */}
 						{data.page.image !== null
-							? <Cell span={12}>
+							? <Col xs={{ span: 24 }}>
 								<Card
 									overrides={{ 
 										Root: { 
@@ -78,17 +60,17 @@ export default (params) => {
 										</Button>
 										</StyledAction> */}
 								</Card>
-							</Cell>
+							</Col>
 							: <></>}
-						<Cell span={12}>
+						<Col xs={{ span: 24 }}>
 							{/* WYSIWYG body/content of page */}
 							{ReactHtmlParser(data.page.content.html)}
-						</Cell>
-						<Cell span={12}>
+						</Col>
+						<Col xs={{ span: 24 }}>
 							{/* Dynamic content (e.g.: services, FAQ, etc.) */}
 							<DynamicContent type={data.page.dynamicContent} />
-						</Cell>
-					</Grid>
+						</Col>
+					</Row>
 				</HeadingLevel>
 			</Block>
 		</React.Fragment>

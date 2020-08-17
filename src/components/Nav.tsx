@@ -1,19 +1,10 @@
 import * as React from 'react';
 import { Tab, StatefulTabs } from 'baseui/tabs-motion';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { styled } from 'baseui';
 import Page from './Page'
 import Loading from './Loading';
-
-// Get page titles and IDs for navigation
-const GET_PAGES_NAV = gql`
-	query PagesNav {
-		pages {
-			title
-			id
-		}
-	}
-`;
+import { GET_PAGES_NAV } from './gql/Queries';
 
 const Centered = styled('div', {
 	display: 'flex',

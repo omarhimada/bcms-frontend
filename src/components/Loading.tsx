@@ -1,4 +1,4 @@
 import * as React from 'react';
-import { StyledSpinnerNext } from 'baseui/spinner';
+import { Spin } from 'antd';
 
-export default () => <StyledSpinnerNext />;
+export default () => <Spin size="large" tip="Loading..." />;

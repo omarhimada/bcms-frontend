@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { Card, StyledBody } from 'baseui/card';
 import { ListItem, ListItemLabel } from 'baseui/list';
 import { Accordion, Panel } from "baseui/accordion";
@@ -7,53 +7,12 @@ import ReactHtmlParser from 'react-html-parser';
 import Loading from './Loading';
 import { Heading, HeadingLevel } from 'baseui/heading';
 import { List } from 'antd';
-import { FrequentlyAskedQuestion } from './types/FrequentlyAskedQuestion';
+import { FrequentlyAskedQuestionCategory, FrequentlyAskedQuestion } from './types/FAQ';
 import { QuestionOutlined } from '@ant-design/icons'
 import { Row, Col } from 'antd';
-
-// Get all services
-const GET_SERVICES = gql`
-	query ServiceCategories {
-		serviceCategories {
-			title
-			services {
-				name
-				price
-				per
-				onSale
-			}
-		}
-	}
-`;
-
-// Get all team members
-const GET_TEAM_MEMBERS = gql`
-	query TeamMembers {
-		teamMembers {
-			profileImage {
-				url,
-				width
-			}
-			name
-			description
-		}
-	}
-`;
-
-// Get all FAQs
-const GET_FAQS = gql`
-	query FAQCategories {
-		faqCategories {
-			title
-			questions {
-				question
-				answer {
-					html
-				}
-			}
-		}
-	}
-`;
+import { GET_SERVICES, GET_TEAM_MEMBERS, GET_FAQS } from './gql/Queries';
+import { ServiceCategory } from './types/Service';
+import { TeamMember } from './types/TeamMember';
 
 export default (params) => {
 	if (params.type === null) return <></>;
@@ -78,18 +37,18 @@ export function WrapDynamicContent(data, type) {
 export function RenderDynamicContent(data, type) {
 	switch (type) {
 		case 'Services':
-			return _renderServices(data);
+			return _renderServices(data.serviceCategories);
 		case 'TeamMembers':
-			return _renderTeamMembers(data);
+			return _renderTeamMembers(data.teamMembers);
 		case 'FAQs':
-			return _renderFAQs(data);
+			return _renderFAQs(data.faqCategories);
 		default:
 			return <></>;
 	}
 }
 
-export function _renderServices(data) {
-	return data.serviceCategories.map(serviceCategory =>
+export function _renderServices(serviceCategories: ServiceCategory[]) {
+	return serviceCategories.map(serviceCategory =>
 		<Col xs={{ span: 24 }} lg={{ span: 12 }}>
 			<Card
 				overrides={{
@@ -102,7 +61,7 @@ export function _renderServices(data) {
 				key={serviceCategory.title}
 				title={serviceCategory.title}>
 				<ul className='services-ul'>
-					{serviceCategory.services.map((service) =>
+					{serviceCategory.services.map(service =>
 						<ListItem
 							sublist
 							key={`${serviceCategory.title}${service.name}`}
@@ -118,8 +77,8 @@ export function _renderServices(data) {
 	);
 }
 
-export function _renderTeamMembers(data) {
-	return data.teamMembers.map(teamMember =>
+export function _renderTeamMembers(teamMembers: TeamMember[]) {
+	return teamMembers.map(teamMember =>
 		<Col xs={{ span: 24 }} lg={{ span: 8 }}>
 			<Card
 				overrides={{
@@ -141,11 +100,11 @@ export function _renderTeamMembers(data) {
 	);
 }
 
-export function _renderFAQs(data) {
-	return <Accordion renderAll>{_renderFAQCategories(data.faqCategories)}</Accordion>
+export function _renderFAQs(faqCategories: FrequentlyAskedQuestionCategory[]) {
+	return <Accordion renderAll>{_renderFAQCategories(faqCategories)}</Accordion>
 }
 
-export function _renderFAQCategories(faqCategories) {
+export function _renderFAQCategories(faqCategories: FrequentlyAskedQuestionCategory[]) {
 	return faqCategories.map(faqCategory =>
 		<Panel 
 			key={`panel-${faqCategory.title}`} 
