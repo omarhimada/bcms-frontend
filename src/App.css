@@ -50,3 +50,15 @@
 	width: 100%;
 	display: block;
 }
+
+.layout {
+	background-color: #fff;
+}
+
+.ant-col {
+	padding-top: 0;
+}
+
+.graphcms-image-outer-wrapper {
+	display: inline-block;
+}

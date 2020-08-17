@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import { styled } from 'baseui';
 import Page from './Page'
 import Loading from './Loading';
-import { GET_PAGES_NAV } from './gql/Queries';
+import { GET_PAGES_NAV } from './gql/Page';
 
 const Centered = styled('div', {
 	display: 'flex',
@@ -21,6 +21,7 @@ export default () => {
 
 	return (
 		<StatefulTabs
+			renderAll
 			activateOnFocus>
 			{data.pages.map(page => (
 				<Tab key={page.id} title={page.title}>
