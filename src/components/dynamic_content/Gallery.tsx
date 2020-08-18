@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Divider, Row, Col } from 'antd';
-import GraphImg from "graphcms-image";
+import { Divider, Row, Col, Button } from 'antd';
+import GraphImg from 'graphcms-image';
 import { useQuery } from '@apollo/client';
 import { Heading, HeadingLevel } from 'baseui/heading';
 import Loading from '../Loading';
@@ -24,21 +24,33 @@ export default () => {
 						<Divider />
 						{gallery.images.map(image => 
 							<Col>
-								<GraphImg
-									key={image.handle}
-									// title="Sample"
-									// alt="Sample"
-									image={{
-										handle: image.handle,
-										width: 330,
-										height: 330
-									}}
-									maxWidth={500}
-									withWebp
-									style={{
-										width: 330
-									}}
-								/>
+							<Button 
+								//danger
+								type='ghost'
+								ghost
+								//onClick={() => _openImage(image)}
+								style={{
+									width: '332px',
+									height: '332px',
+									padding: 0
+								}}>
+									<GraphImg
+										key={image.handle}
+										// title="Sample"
+										// alt="Sample"
+										image={{
+											handle: image.handle,
+											width: 330,
+											height: 330
+										}}
+										maxWidth={500}
+										withWebp
+										style={{
+											width: 330,
+											height: 330
+										}}
+									/>	
+								</Button>
 							</Col>
 						)}
 					</Row>
