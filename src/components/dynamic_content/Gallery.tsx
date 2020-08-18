@@ -18,7 +18,9 @@ export function _imageModal(image) {
 		},
 		width: image.width,
 		content: (
-			<div className="image-modal-wrap">
+			<div
+				key={`image-modal-wrap-${image.handle}`}
+				className="image-modal-wrap">
 				<GraphImg
 					key={`large-${image.handle}`}
 					image={{
@@ -50,21 +52,26 @@ export default () => {
 		<React.Fragment>
 			<HeadingLevel>
 				{galleries.map(gallery => 
-					<Row justify="space-around" align="middle" gutter={[8, 8]}>
+					<Row 
+						key={`row-${gallery.title}`}
+						justify="space-around" 
+						align="middle" 
+						gutter={[8, 8]}>
 						<Heading>{gallery.title}</Heading>
 						<Divider />
 						{gallery.images.map(image => 
-							<Col>
-							<Button 
-								//danger
-								type='ghost'
-								ghost
-								onClick={() => _imageModal(image)}
-								style={{
-									width: '332px',
-									height: '332px',
-									padding: 0
-								}}>
+							<Col
+								key={`col-${image.handle}`}>
+								<Button 
+									//danger
+									type='ghost'
+									ghost
+									onClick={() => _imageModal(image)}
+									style={{
+										width: '332px',
+										height: '332px',
+										padding: 0
+									}}>
 									<GraphImg
 										key={image.handle}
 										// title="Sample"

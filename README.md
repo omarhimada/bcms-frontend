@@ -1,13 +1,23 @@
-# bcms
-## TypeScript, React, GraphQL, antd, baseui
+# bCMS
+## TypeScript, React, GraphQL, ant.design, Base Web
 
-CMS for small businesses written in TypeScript. Uses React, GraphQL (via Apollo), ant.design, and Base Web UI Framework
+CMS front-end written in TypeScript. Uses React, GraphQL (via Apollo), ant.design, and Base Web UI Framework
 
-https://www.apollographql.com/
-https://ant.design
-https://baseweb.design/
+- Apollo https://www.apollographql.com/  
+- ant.design https://ant.design  
+- Base Web UI Framework https://baseweb.design/  
+- GraphCMS https://graphcms.com
+
+### Features
+- Gallery 
+- FAQ
+- Products/services
+- Carousel
+- Team members
+
 
 ---
+## yarn
 ### Available Scripts
 
 In the project directory, you can run:

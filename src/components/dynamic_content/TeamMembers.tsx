@@ -18,7 +18,10 @@ export default () => {
 // Render a Col containing a Card for each team member
 export function _renderTeamMembers(teamMembers: TeamMember[]) {
 	return teamMembers.map(teamMember =>
-		<Col xs={{ span: 24 }} lg={{ span: 8 }}>
+		<Col
+			key={`col-team-member-${teamMember.name}`} 
+			xs={{ span: 24 }} 
+			lg={{ span: 8 }}>
 			<Card
 				overrides={{
 					Root: {

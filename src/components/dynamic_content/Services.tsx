@@ -21,7 +21,10 @@ export default () => {
 // Render a Col containing a Card for each service category, which holds a List of products/services
 export function _renderServices(serviceCategories: ServiceCategory[]) {
 	return serviceCategories.map(serviceCategory =>
-		<Col xs={{ span: 24 }} lg={{ span: 12 }}>
+		<Col 
+			key={`col-service-category-${serviceCategory.title}`}
+			xs={{ span: 24 }} 
+			lg={{ span: 12 }}>
 			<Card
 				overrides={{
 					Root: {

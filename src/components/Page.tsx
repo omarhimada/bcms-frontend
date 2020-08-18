@@ -46,7 +46,7 @@ export default (params) => {
 														<div 
 															className='page-carousel-item'
 															key={`carousel-${carouselImage.url}`}>
-															<img src={carouselImage.url} />
+															<img alt={carouselImage.url} src={carouselImage.url} />
 
 															{/* Carousel with hero/heading text inside */}
 															{/* {data.page.heading !== null ?
