@@ -62,3 +62,41 @@
 .graphcms-image-outer-wrapper {
 	display: inline-block;
 }
+
+.image-modal.ant-modal-confirm .ant-modal-body {
+	padding: 0;
+}
+
+.image-modal.ant-modal-confirm .ant-modal-confirm-content {
+	margin: 0;
+}
+
+.image-modal.ant-modal-confirm .ant-modal-confirm-btns {
+	margin: 0;
+	height: 0;
+}
+
+.image-modal.ant-modal-confirm .image-modal-wrap {
+	line-height: 0;
+	height: 0;
+}
+
+.page-carousel-item {
+	position: relative;
+	text-align: center;
+}
+
+.ant-typography .services-ul li,
+.ant-typography .services-ul li > div {
+	margin-left: 0;
+	padding-left: 0;
+	padding-right: 0;
+}
+/* .page-carousel-item .page-carousel-heading {
+	position: absolute;
+    top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+    font-size: 72px;
+    opacity: 0.6;
+} */

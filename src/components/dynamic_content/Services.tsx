@@ -3,9 +3,11 @@ import { useQuery } from '@apollo/client';
 import { Card } from 'baseui/card';
 import { ListItem, ListItemLabel } from 'baseui/list';
 import Loading from '../Loading';
-import { Col } from 'antd';
+import { Col, Typography } from 'antd';
 import { GET_SERVICES } from '../gql/dynamic_content/Service';
 import { ServiceCategory } from '../types/dynamic_content/Service';
+
+const { Title } = Typography;
 
 export default () => {
 	const { loading, error, data } = useQuery(GET_SERVICES);
@@ -28,8 +30,10 @@ export function _renderServices(serviceCategories: ServiceCategory[]) {
 						}
 					}
 				}}
-				key={serviceCategory.title}
-				title={serviceCategory.title}>
+				key={serviceCategory.title}>
+				<Title level={3}>
+					{serviceCategory.title}
+				</Title>
 				<ul className='services-ul'>
 					{serviceCategory.services.map(service =>
 						<ListItem

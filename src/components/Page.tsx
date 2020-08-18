@@ -3,12 +3,12 @@ import { useQuery } from '@apollo/client';
 import ReactHtmlParser from 'react-html-parser';
 import Loading from './Loading';
 import { Block } from 'baseui/block';
-import { Heading, HeadingLevel } from 'baseui/heading';
 import { Layout, Row, Col, Carousel, Divider, Typography } from 'antd';
 import { GET_PAGE } from './gql/Page';
 import DynamicContent from './dynamic_content/DynamicContent';
 
 const { Content } = Layout;
+const { Title } = Typography;
 
 export default (params) => {
 	const { loading, error, data } =
@@ -23,12 +23,13 @@ export default (params) => {
 
 	return (
 		<React.Fragment>
-			<HeadingLevel>
-				<Block maxWidth={'1376px'} width={'100%'}>
+			<Block maxWidth={'1376px'} width={'100%'}>
+				<Typography>
 					<Layout className="layout">
-						{data.page.heading !== null && !data.page.carouselImages.length ? 
+						{/* && !data.page.carouselImages.length */}
+						{data.page.heading !== null ? 
 							/* Hero/heading text of the page with no carousel (optional) */
-							<Heading>{data.page.heading}</Heading>
+							<Title level={1}>{data.page.heading}</Title>
 						: ''}
 						<Content>
 							<div className="site-layout-content">
@@ -37,15 +38,22 @@ export default (params) => {
 										{/* Carousel images (optional) */}
 										{data.page.carouselImages !== null && data.page.carouselImages.length ?
 											<React.Fragment> 
-												<Carousel effect='fade' autoplay autoplaySpeed={5000}>
+												<Carousel 
+													effect='fade' 
+													autoplay 
+													autoplaySpeed={5000}>
 													{data.page.carouselImages.map(carouselImage => 
-														<div key={`carousel-${carouselImage.url}`}>
+														<div 
+															className='page-carousel-item'
+															key={`carousel-${carouselImage.url}`}>
 															<img src={carouselImage.url} />
 
 															{/* Carousel with hero/heading text inside */}
-															{/* data.page.heading !== null ?
-																<Heading>{data.page.heading}</Heading>
-															: '' */}
+															{/* {data.page.heading !== null ?
+																<Heading className='page-carousel-heading'>
+																	{data.page.heading}
+																</Heading>
+															: ''} */}
 														</div>
 													)}
 												</Carousel>
@@ -54,10 +62,9 @@ export default (params) => {
 										: ''}
 									</Col>
 									<Col xs={{ span: 24 }}>
-										<Typography>
+										
 											{/* Page content */}
 											{ReactHtmlParser(data.page.content.html)}
-										</Typography>
 									</Col>
 									<Col xs={{ span: 24 }}>
 										{/* Dynamic content (e.g.: services, FAQ, etc.) */}
@@ -68,8 +75,8 @@ export default (params) => {
 						</Content>
 						{/* <Footer>Footer</Footer> */}
 					</Layout>
-				</Block>
-			</HeadingLevel>
+				</Typography>
+			</Block>
 		</React.Fragment>
 	);
 };

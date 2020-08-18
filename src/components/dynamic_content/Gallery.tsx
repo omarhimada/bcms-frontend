@@ -1,11 +1,42 @@
 import * as React from 'react';
-import { Divider, Row, Col, Button } from 'antd';
+import { Divider, Row, Col, Button, Modal } from 'antd';
 import GraphImg from 'graphcms-image';
 import { useQuery } from '@apollo/client';
 import { Heading, HeadingLevel } from 'baseui/heading';
 import Loading from '../Loading';
 import { Gallery } from '../types/dynamic_content/Gallery';
 import { GET_GALLERIES } from '../gql/dynamic_content/Gallery';
+
+// Open a Modal with the full-size image inside
+export function _imageModal(image) {
+	Modal.info({
+		icon: <></>,
+		className: 'image-modal',
+		maskClosable: true,
+		okButtonProps: {
+			hidden: true
+		},
+		width: image.width,
+		content: (
+			<div className="image-modal-wrap">
+				<GraphImg
+					key={`large-${image.handle}`}
+					image={{
+						handle: image.handle,
+						width: image.width,
+						height: image.height
+					}}
+					maxWidth={1024}
+					withWebp
+					style={{
+						width: image.width,
+						height: image.height
+					}}
+				/>	
+			</div>
+		)
+	  });
+}
 
 export default () => {
 	const { loading, error, data } = useQuery(GET_GALLERIES);
@@ -28,7 +59,7 @@ export default () => {
 								//danger
 								type='ghost'
 								ghost
-								//onClick={() => _openImage(image)}
+								onClick={() => _imageModal(image)}
 								style={{
 									width: '332px',
 									height: '332px',
