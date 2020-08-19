@@ -72,6 +72,7 @@ export default () => {
 										height: '332px',
 										padding: 0
 									}}>
+									{/* Render a clickable thumbnail image */}
 									<GraphImg
 										key={image.handle}
 										// title="Sample"
