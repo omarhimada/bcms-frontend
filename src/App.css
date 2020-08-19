@@ -86,17 +86,18 @@
 	text-align: center;
 }
 
+.ant-typography ul[data-baseweb="accordion"] li,
 .ant-typography .services-ul li,
 .ant-typography .services-ul li > div {
 	margin-left: 0;
 	padding-left: 0;
 	padding-right: 0;
 }
-/* .page-carousel-item .page-carousel-heading {
-	position: absolute;
-    top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-    font-size: 72px;
-    opacity: 0.6;
-} */
+
+@media (max-width: 767px) {
+	.ant-modal,
+	.graphcms-image-outer-wrapper,
+	.graphcms-image-wrapper {
+		max-width: 100%;
+	}
+}

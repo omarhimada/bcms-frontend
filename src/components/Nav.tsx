@@ -5,12 +5,20 @@ import { styled } from 'baseui';
 import Page from './Page'
 import Loading from './Loading';
 import { GET_PAGES_NAV } from './gql/Page';
+import { BackTop, Button } from 'antd';
+import { UpOutlined } from '@ant-design/icons';
 
 const Centered = styled('div', {
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
 	height: '100%'
+});
+
+const BackTopInner = styled('span', {
+	textAlign: 'center',
+	fontSize: 14,
+	fontWeight: 'bold'
 });
   
 export default () => {
@@ -28,6 +36,15 @@ export default () => {
 					<Centered>
 						<Page pageId={page.id} />
 					</Centered>
+					<BackTop>
+						<Button
+							size='large'>
+							<UpOutlined />
+							<BackTopInner>
+								TOP
+							</BackTopInner>
+						</Button>
+					</BackTop>
 				</Tab>
 			))}
 		</StatefulTabs>

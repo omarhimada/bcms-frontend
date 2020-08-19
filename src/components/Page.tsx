@@ -41,7 +41,7 @@ export default (params) => {
 												<Carousel 
 													effect='fade' 
 													autoplay 
-													autoplaySpeed={5000}>
+													autoplaySpeed={2000}>
 													{data.page.carouselImages.map(carouselImage => 
 														<div 
 															className='page-carousel-item'
