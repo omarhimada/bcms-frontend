@@ -16,6 +16,7 @@
     "@types/styletron-react": "^5.0.2",
     "@types/styletron-standard": "^2.0.1",
     "antd": "^4.5.4",
+    "applicationinsights": "^1.8.5",
     "baseui": "^9.95.1",
     "dotenv": "^8.2.0",
     "graphcms-image": "^1.1.0-beta4",
@@ -23,7 +24,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-html-parser": "^2.0.2",
-    "react-scripts": "3.4.3",
+    "react-scripts": "^3.4.3",
     "styletron-engine-atomic": "^1.4.6",
     "styletron-react": "^5.2.7",
     "typescript": "~3.7.2"

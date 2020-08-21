@@ -26,3 +26,9 @@ yarn-debug.log*
 yarn-error.log*
 
 /src/react-app-env.d.ts
+
+aisettings.json
+.deployment
+
+/.vscode/*
+.github/workflows/workflow.yml
