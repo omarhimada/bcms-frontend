@@ -31,4 +31,3 @@ aisettings.json
 .deployment
 
 /.vscode/*
-.github/workflows/workflow.yml

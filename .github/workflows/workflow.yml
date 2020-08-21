@@ -1,0 +1,42 @@
+on:
+  push:
+    branches:
+      - master
+
+name: Deploy bCMS
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    # checkout the repo
+    - uses: actions/checkout@master
+
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS_98115f09 }}
+
+    # install dependencies, build, and test
+    - name: npm install, build, and test
+      working-directory: .
+      run: |
+        yarn install --production --network-timeout=1000000
+      env:
+        APPLICATIONINSIGHTSKEY: ${{ secrets.APPLICATIONINSIGHTSKEY }}
+        REACT_APP_GRAPHQL_ENDPOINT: ${{ secrets.REACT_APP_GRAPHQL_ENDPOINT }}
+
+    - uses: azure/appservice-settings@v1
+      with:
+        app-name: ${{ secrets.AZURE_APP_NAME }}
+        general-settings-json: '{"linuxFxVersion": "NODE|lts"}' #'General configuration settings as Key Value pairs'
+
+    # deploy web app
+    - uses: azure/webapps-deploy@v1
+      with:
+        app-name: ${{ secrets.AZURE_APP_NAME }}
+        package: .
+
+    # Azure logout
+    - name: logout
+      run: |
+        az logout
