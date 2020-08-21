@@ -1,5 +1,3 @@
-@import '~antd/dist/antd.css';
-
 .App {
   text-align: center;
 }
@@ -86,12 +84,75 @@
 	text-align: center;
 }
 
+.ant-typography,
+.ant-typography h1,
+.ant-typography h2,
+.ant-typography h3,
+.ant-typography h4,
+.ant-typography h5,
+.ant-typography h6,
+.ant-typography .ant-list-item {
+	font-family: 'Roboto';
+	font-weight: normal;
+}
+
+.ant-typography h4 {
+    font-weight: normal;
+    font-size: 1.5rem;
+}
+
+section.ant-layout > h1.ant-typography {
+    margin-bottom: 0;
+    font-weight: normal;
+    font-size: 4.2rem;
+}
+
+.site-layout-content .ant-row > h2 {
+	margin-bottom: 0;
+	font-weight: normal;
+	font-size: 2.4rem;
+}
+
+.ant-typography .ant-list-header h3 {
+    margin-bottom: 0;
+}
+
+.ant-typography .ant-list-item-meta-description p {
+	margin-bottom: 0;
+}
+
+.ant-typography h1.page-carousel-heading {
+    position: absolute;
+	top: 5rem;
+	padding: 1rem;
+    width: 100%;
+	font-size: 6rem;
+    font-weight: 300;
+    filter: opacity(0.5);
+    color: rgba(255,255,255,0.7);
+    filter: sepia(1);
+}
+
+.ant-typography .ant-list-item-meta-description {
+    font-size: 1rem;
+}
+
+.ant-typography .page-carousel-item img {
+	filter: brightness(55%);
+}
+
 .ant-typography ul[data-baseweb="accordion"] li,
 .ant-typography .services-ul li,
 .ant-typography .services-ul li > div {
 	margin-left: 0;
 	padding-left: 0;
 	padding-right: 0;
+}
+
+.ant-typography .ant-list-item-meta span.anticon-question svg {
+	width: 1.2rem;
+    height: 1.2rem;
+    margin-top: 0.4rem;
 }
 
 @media (max-width: 767px) {

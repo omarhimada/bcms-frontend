@@ -26,34 +26,40 @@ export default (params) => {
 			<Block maxWidth={'1376px'} width={'100%'}>
 				<Typography>
 					<Layout className="layout">
-						{/* && !data.page.carouselImages.length */}
-						{data.page.heading !== null ? 
+						{data.page.heading !== null && !data.page.carouselImages.length ? 
 							/* Hero/heading text of the page with no carousel (optional) */
 							<Title level={1}>{data.page.heading}</Title>
 						: ''}
 						<Content>
 							<div className="site-layout-content">
-								<Row gutter={[16, 16]}>
-									<Col xs={{ span: 24 }} style={{ paddingTop: 0 }}>
+								<Row gutter={[16, 16]} style={{ margin: '-16px -16px 16px' }}>
+									<Col xs={{ span: 24 }} style={{ padding: '0px 16px 16px' }}>
 										{/* Carousel images (optional) */}
 										{data.page.carouselImages !== null && data.page.carouselImages.length ?
 											<React.Fragment> 
 												<Carousel 
 													effect='fade' 
 													autoplay 
-													autoplaySpeed={2000}>
+													autoplaySpeed={2250}
+													slidesToScroll={1}
+													adaptiveHeight={true}>
 													{data.page.carouselImages.map(carouselImage => 
 														<div 
 															className='page-carousel-item'
 															key={`carousel-${carouselImage.url}`}>
-															<img alt={carouselImage.url} src={carouselImage.url} />
-
-															{/* Carousel with hero/heading text inside */}
-															{/* {data.page.heading !== null ?
-																<Heading className='page-carousel-heading'>
-																	{data.page.heading}
-																</Heading>
-															: ''} */}
+															{/* <img alt={carouselImage.url} src={carouselImage.url} /> */}
+															{/* <div style={{
+																background: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5))`
+															}}> */}
+																<img alt={carouselImage.url} src={carouselImage.url} />
+																{/* Carousel with hero/heading text inside */}
+																{data.page.heading !== null ?
+																	<Title 
+																		className='page-carousel-heading' 
+																		level={1}>{data.page.heading}
+																	</Title>
+																: ''}
+															{/* </div> */}
 														</div>
 													)}
 												</Carousel>

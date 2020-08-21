@@ -3,12 +3,23 @@ export class Page {
 	content: PageContent;
 	dynamicContent: string;
 	carouselImages: CarouselImage[];
+	carouselCtaText: string;
+	carouselCtaLink: string;
 
-	constructor(id: string, pageContent: PageContent, dynamicContent: string, carouselImages: CarouselImage[]) {
+	constructor(
+		id: string, 
+		pageContent: PageContent, 
+		dynamicContent: string, 
+		carouselImages: CarouselImage[], 
+		carouselCtaText: string, 
+		carouselCtaLink: string) {
+			
 		this.id = id;
 		this.content = pageContent;
 		this.dynamicContent = dynamicContent;
 		this.carouselImages = carouselImages;
+		this.carouselCtaText = carouselCtaText;
+		this.carouselCtaLink = carouselCtaLink;
 	}
 }
 

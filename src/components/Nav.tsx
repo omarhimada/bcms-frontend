@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Tab, StatefulTabs } from 'baseui/tabs-motion';
+import { Tab, StatefulTabs, FILL } from 'baseui/tabs-motion';
 import { useQuery } from '@apollo/client';
 import { styled } from 'baseui';
 import Page from './Page'
@@ -24,12 +24,13 @@ const BackTopInner = styled('span', {
 export default () => {
 	const { loading, error, data } = useQuery(GET_PAGES_NAV);
 
-	if (loading) return (<Loading />);
+	if (loading) return (<Centered><Loading /></Centered>);
 	if (error) return (<span>Error! {error.message}</span>);
 
 	return (
 		<StatefulTabs
 			renderAll
+			fill={FILL.fixed}
 			activateOnFocus>
 			{data.pages.map(page => (
 				<Tab key={page.id} title={page.title}>

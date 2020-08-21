@@ -12,7 +12,9 @@ export const GET_PAGE = gql`
 			dynamicContent,
 			carouselImages {
 				url
-			}
+			},
+			carouselCtaText,
+			carouselCtaLink
 		}
 	}
 `;
