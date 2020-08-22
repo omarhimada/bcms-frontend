@@ -33,8 +33,10 @@ export class PageContent {
 
 export class CarouselImage {
 	url: string;
+	id: string;
 
-	constructor(url: string) {
+	constructor(url: string, id: string) {
 		this.url = url;
+		this.id = id;
 	}
 }

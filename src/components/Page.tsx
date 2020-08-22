@@ -3,6 +3,8 @@ import { useQuery } from '@apollo/client';
 import ReactHtmlParser from 'react-html-parser';
 import Loading from './Loading';
 import { Block } from 'baseui/block';
+import { Button, SIZE } from 'baseui/button';
+import { ArrowRight } from 'baseui/icon';
 import { Layout, Row, Col, Carousel, Divider, Typography } from 'antd';
 import { GET_PAGE } from './gql/Page';
 import DynamicContent from './dynamic_content/DynamicContent';
@@ -46,11 +48,7 @@ export default (params) => {
 													<div 
 														className='page-carousel-item'
 														key={`carousel-${carouselImage.url}`}>
-														{/* <img alt={carouselImage.url} src={carouselImage.url} /> */}
-														{/* <div style={{
-															background: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5))`
-														}}> */}
-															<img alt={carouselImage.url} src={carouselImage.url} />
+															<img alt={carouselImage.id} src={carouselImage.url} />
 															{/* Carousel with hero/heading text inside */}
 															{data.page.heading !== null ?
 																<Title 
@@ -58,7 +56,15 @@ export default (params) => {
 																	level={1}>{data.page.heading}
 																</Title>
 															: ''}
-														{/* </div> */}
+															{/* CTA button on the carousel */}
+															{data.page.carouselCtaText !== null && data.page.carouselCtaLink !== null ?
+																<Button
+																	onClick={() => window.open(data.page.carouselCtaLink)}
+																	startEnhancer={() => <ArrowRight size={24} />}
+																	size={SIZE.large}>
+																	{data.page.carouselCtaText}
+																</Button>
+															: ''}
 													</div>
 												)}
 											</Carousel>

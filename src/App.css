@@ -84,6 +84,24 @@
 	text-align: center;
 }
 
+.page-carousel-item button {
+	margin: auto;
+    position: absolute;
+    width: 100%;
+	left: 33%;
+	width: 33%;
+    bottom: 7.2rem;
+    filter: opacity(0.77);
+}
+
+
+@media screen and (max-width: 768px) {
+	.page-carousel-item button {
+		left: 12.5%;
+		width: 75%;
+	}
+}
+
 .ant-typography .ant-list-item-meta-description p {
 	margin-bottom: 0;
 }
