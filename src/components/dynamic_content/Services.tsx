@@ -15,11 +15,12 @@ export default () => {
 	if (loading) return (<Loading />);
 	if (error) return (<span>Error! {error.message}</span>);
 
-	return <React.Fragment>{_renderServices(data.serviceCategories)}</React.Fragment>;
+	return <React.Fragment>{_renderServiceCategories(data.serviceCategories)}</React.Fragment>;
 };
 
-// Render a Col containing a Card for each service category, which holds a List of products/services
-export function _renderServices(serviceCategories: ServiceCategory[]) {
+/* Render a Col containing a Card for each service category, 
+ * which holds a List of products/services */
+export function _renderServiceCategories(serviceCategories: ServiceCategory[]) {
 	return serviceCategories.map(serviceCategory =>
 		<Col 
 			key={`col-service-category-${serviceCategory.title}`}
@@ -37,19 +38,26 @@ export function _renderServices(serviceCategories: ServiceCategory[]) {
 				<Title level={3}>
 					{serviceCategory.title}
 				</Title>
-				<ul className='services-ul'>
-					{serviceCategory.services.map(service =>
-						<ListItem
-							sublist
-							key={`${serviceCategory.title}${service.name}`}
-							endEnhancer={() => (
-								<ListItemLabel>{service.price}&nbsp;{service.per}</ListItemLabel>
-							)}>
-							<ListItemLabel sublist>{service.name}</ListItemLabel>
-						</ListItem>
-					)}
-				</ul>
+				{_renderServices(serviceCategory)}
 			</Card>
 		</Col>
+	);
+}
+
+/* Render a list of services */
+export function _renderServices(serviceCategory) {
+	return (
+		<ul className='services-ul'>
+			{serviceCategory.services.map(service =>
+				<ListItem
+					sublist
+					key={`${serviceCategory.title}${service.name}`}
+					endEnhancer={() => (
+						<ListItemLabel>{service.price}&nbsp;{service.per}</ListItemLabel>
+					)}>
+					<ListItemLabel sublist>{service.name}</ListItemLabel>
+				</ListItem>
+			)}
+		</ul>
 	);
 }

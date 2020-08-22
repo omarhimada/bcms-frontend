@@ -15,7 +15,7 @@ export default () => {
 	return <React.Fragment>{_renderTeamMembers(data.teamMembers)}</React.Fragment>;
 };
 
-// Render a Col containing a Card for each team member
+/* Render a Col containing a Card for each team member */
 export function _renderTeamMembers(teamMembers: TeamMember[]) {
 	return teamMembers.map(teamMember =>
 		<Col

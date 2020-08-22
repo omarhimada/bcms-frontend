@@ -19,12 +19,12 @@ export default () => {
 	return <React.Fragment>{_renderFAQs(data.faqCategories)}</React.Fragment>;
 };
 
-// Render an Accordion where each Panel is an FAQ category
+/* Render an Accordion where each Panel is an FAQ category */
 export function _renderFAQs(faqCategories: FAQCategory[]) {
 	return <Accordion renderAll>{_renderFAQCategories(faqCategories)}</Accordion>
 }
 
-// Render a Panel which holds a List of questions
+/* Render a Panel which holds a List of questions */
 export function _renderFAQCategories(faqCategories: FAQCategory[]) {
 	return faqCategories.map(faqCategory =>
 		<Panel 

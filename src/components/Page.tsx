@@ -28,53 +28,12 @@ export default (params) => {
 			<Block maxWidth={'1376px'} width={'100%'}>
 				<Typography>
 					<Layout className="layout">
-						{data.page.heading !== null && !data.page.carouselImages.length ? 
-							/* Hero/heading text of the page with no carousel (optional) */
-							<Title level={1}>{data.page.heading}</Title>
-						: ''}
+						{_renderHeading(data.page)}
 						<Content>
 							<div className="site-layout-content">
 								<Row gutter={[16, 16]} style={{ margin: '0 -16px 16px' }}>
-									{/* Carousel images (optional) */}
-									{data.page.carouselImages !== null && data.page.carouselImages.length ?
-										<Col xs={{ span: 24 }} style={{ padding: '0', marginTop: '-16px' }}>
-											<Carousel 
-												effect='fade' 
-												autoplay 
-												autoplaySpeed={2250}
-												slidesToScroll={1}
-												adaptiveHeight={true}>
-												{data.page.carouselImages.map(carouselImage => 
-													<div 
-														className='page-carousel-item'
-														key={`carousel-${carouselImage.url}`}>
-															<img alt={carouselImage.id} src={carouselImage.url} />
-															{/* Carousel with hero/heading text inside */}
-															{data.page.heading !== null ?
-																<Title 
-																	className='page-carousel-heading' 
-																	level={1}>{data.page.heading}
-																</Title>
-															: ''}
-															{/* CTA button on the carousel */}
-															{data.page.carouselCtaText !== null && data.page.carouselCtaLink !== null ?
-																<Button
-																	onClick={() => window.open(data.page.carouselCtaLink)}
-																	startEnhancer={() => <ArrowRight size={24} />}
-																	size={SIZE.large}>
-																	{data.page.carouselCtaText}
-																</Button>
-															: ''}
-													</div>
-												)}
-											</Carousel>
-											<Divider />
-										</Col>
-									: ''}
-									<Col xs={{ span: 24 }} style={{ padding: '0px 16px 0' }}>
-										{/* Page content */}
-										{ReactHtmlParser(data.page.content.html)}
-									</Col>
+									{_renderCarousel(data.page)}
+									{_renderPageContent(data.page)}
 									{/* Dynamic content (e.g.: services, FAQ, etc.) */}
 									<DynamicContent type={data.page.dynamicContent} />
 								</Row>
@@ -87,3 +46,59 @@ export default (params) => {
 		</React.Fragment>
 	);
 };
+
+/* Render the hero/heading text if no carousel data was setup for this page (optional) */
+export function _renderHeading(page) {
+	return page.heading !== null && !page.carouselImages.length ? 
+		<Title level={1}>{page.heading}</Title>
+	: '';
+}
+
+/* Render the carousel with the hero/heading and CTA (optional) */
+export function _renderCarousel(page) {
+	return page.carouselImages !== null && page.carouselImages.length ?
+		<Col xs={{ span: 24 }} style={{ padding: '0', marginTop: '-16px' }}>
+			<Carousel 
+				effect='fade' 
+				autoplay 
+				autoplaySpeed={2250}
+				slidesToScroll={1}
+				adaptiveHeight={true}>
+				{page.carouselImages.map(carouselImage => 
+					<div 
+						className='page-carousel-item'
+						key={`carousel-${carouselImage.url}`}>
+							<img alt={carouselImage.id} src={carouselImage.url} />
+							{/* Carousel with hero/heading text inside */}
+							{page.heading !== null ?
+								<Title 
+									className='page-carousel-heading' 
+									level={1}>{page.heading}
+								</Title>
+							: ''}
+							{/* CTA button on the carousel */}
+							{page.carouselCtaText !== null && page.carouselCtaLink !== null ?
+								<Button
+									onClick={() => window.open(page.carouselCtaLink)}
+									startEnhancer={() => <ArrowRight size={24} />}
+									size={SIZE.large}>
+									{page.carouselCtaText}
+								</Button>
+							: ''}
+					</div>
+				)}
+			</Carousel>
+			<Divider />
+		</Col>
+	: '';
+}
+
+/* Render the main WYSIWYG content of the page */
+export function _renderPageContent(page) {
+	return (
+		<Col xs={{ span: 24 }} style={{ padding: '0px 16px 0' }}>
+			{/* Page content */}
+			{ReactHtmlParser(page.content.html)}
+		</Col>
+	);
+}
