@@ -209,3 +209,15 @@ section.ant-layout > h1.ant-typography {
 		margin: auto;
 	}
 }
+
+@media screen and (max-width: 480px) {
+	.ant-back-top {
+		right: 40px;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.ant-back-top {
+		right: 80px;
+	}
+}
