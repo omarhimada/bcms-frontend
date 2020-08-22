@@ -84,6 +84,11 @@
 	text-align: center;
 }
 
+.ant-typography .ant-list-item-meta-description p {
+	margin-bottom: 0;
+}
+
+/* Headings */
 .ant-typography,
 .ant-typography h1,
 .ant-typography h2,
@@ -96,31 +101,60 @@
 	font-weight: normal;
 }
 
+/* <h6> */
+.ant-typography h6 {
+	font-size: 1.18rem;
+	line-height: 1.18rem;
+	margin-bottom: calc(1.18rem / 2);
+}
+
+/* <h5> */
+.ant-typography h5 {
+    font-size: 1.38rem;
+	line-height: 1.38rem;
+	margin-bottom: calc(1.38rem / 2);
+}
+
+/* <h4> */
 .ant-typography h4 {
-    font-weight: normal;
     font-size: 1.5rem;
+	line-height: 1.5rem;
+	margin-bottom: calc(1.5rem / 2);
 }
 
-section.ant-layout > h1.ant-typography {
-    margin-bottom: 0;
-    font-weight: normal;
-    font-size: 4.2rem;
+/* <h3> */
+.ant-typography h3 {
+	font-size: 1.88rem;
+	line-height: 1.88rem;
+	margin-bottom: calc(1.88rem / 2);
 }
 
-.site-layout-content .ant-row > h2 {
-	margin-bottom: 0;
-	font-weight: normal;
-	font-size: 2.4rem;
-}
-
+/* <h3>: lists */
 .ant-typography .ant-list-header h3 {
     margin-bottom: 0;
 }
 
-.ant-typography .ant-list-item-meta-description p {
+/* <h2> */
+.ant-typography h2 {
+	font-size: 2.4rem;
+	line-height: 2.4rem;
+	margin-bottom: calc(2.4rem / 2);
+}
+
+/* <h2>: dynamic content headings */
+.site-layout-content .ant-row > h2 {
 	margin-bottom: 0;
 }
 
+/* <h1> */
+section.ant-layout > h1.ant-typography {
+    margin-bottom: 0.25rem;
+    font-size: 4.2rem;
+	line-height: 4.2rem;
+	margin-bottom: calc(4.2rem / 3);
+}
+
+/* <h1>: carousel */
 .ant-typography h1.page-carousel-heading {
     position: absolute;
 	top: 5rem;
@@ -134,10 +168,11 @@ section.ant-layout > h1.ant-typography {
 }
 
 @media (max-width: 767px) {
+	/* <h1>: carousel */
 	.ant-typography h1.page-carousel-heading {
 		top: 3rem;
 		padding: 0.8rem;
-		font-size: 4rem;
+		font-size: 4.20rem;
 	}
 }
 
