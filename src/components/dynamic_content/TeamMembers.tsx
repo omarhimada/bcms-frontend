@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { useQuery } from '@apollo/client';
+import ReactHtmlParser from 'react-html-parser';
 import { Card, StyledBody } from 'baseui/card';
-import Loading from '../Loading';
 import { Col } from 'antd';
 import { GET_TEAM_MEMBERS } from '../gql/dynamic_content/TeamMember';
 import { TeamMember } from '../types/dynamic_content/TeamMember';
+import Loading from '../Loading';
 
 export default () => {
 	const { loading, error, data } = useQuery(GET_TEAM_MEMBERS);
@@ -35,7 +36,7 @@ export function _renderTeamMembers(teamMembers: TeamMember[]) {
 				headerImage={teamMember.profileImage.url}
 				title={teamMember.name}>
 				<StyledBody>
-					{teamMember.description}
+					{ReactHtmlParser(teamMember.blurb.html)}
 				</StyledBody>
 			</Card>
 		</Col>

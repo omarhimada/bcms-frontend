@@ -9,7 +9,9 @@ export const GET_TEAM_MEMBERS = gql`
 				width
 			}
 			name
-			description
+			blurb {
+				html
+			}
 		}
 	}
 `;

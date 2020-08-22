@@ -1,13 +1,22 @@
-// Team member has a name, description (e.g.: title, responsibilities, etc.), and a profile image
+// Team member has a name, a rich-text blurb (e.g.: title, responsibilities, etc.), and a profile image
 export class TeamMember {
 	name: string;
-	description: string;
+	blurb: Blurb;
 	profileImage: ProfileImage;
 
-	constructor(name: string, description: string, profileImage: ProfileImage) {
+	constructor(name: string, blurb: Blurb, profileImage: ProfileImage) {
 		this.name = name;
-		this.description = description;
+		this.blurb = blurb;
 		this.profileImage = profileImage;
+	}
+}
+
+// Blurb has HTML
+export class Blurb {
+	html: string;
+
+	constructor(html: string) {
+		this.html = html;
 	}
 }
 

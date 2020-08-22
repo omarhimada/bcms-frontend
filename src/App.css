@@ -33,20 +33,19 @@
 }
 
 /* Logo in tab navigation */
-.tabs-logo-wrap > svg,
-.tabs-logo-wrap > img {
-	width: 100%;
-    margin: auto;
-    position: absolute;
-    height: 100%;
-    padding: 0.125rem;
+.tabs-logo-wrap {
+	height: 100%;
 }
 
-@media screen and (max-width: 768px) {
-	.tabs-logo-wrap > svg,
-	.tabs-logo-wrap > img {
-		padding: 0.25rem;
-	}
+.tabs-logo-wrap > svg,
+.tabs-logo-wrap > img {
+	opacity: 0.85;
+	width: 100%;
+    height: 100%;
+}
+
+div[data-baseweb='tab-list'] {
+	height: 100%;
 }
 
 .faq-ul, .services-ul {
@@ -70,13 +69,26 @@
 	background-color: #fff;
 }
 
+.graphcms-image-outer-wrapper {
+	display: inline-block;
+}
+
+.ant-carousel {
+	width: 100%;
+	display: block;
+}
+
+.ant-carousel > .slick-slider {
+	overflow: hidden;
+}
+
 .ant-col {
 	padding-top: 0;
 }
 
-.graphcms-image-outer-wrapper {
-	display: inline-block;
-}
+.slick-slider {
+	width: 100%;
+	}
 
 .image-modal.ant-modal-confirm .ant-modal-body {
 	padding: 0;

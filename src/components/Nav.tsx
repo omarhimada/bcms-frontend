@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { useQuery } from '@apollo/client';
 import { styled } from 'baseui';
+import { Grid, Cell, BEHAVIOR } from 'baseui/layout-grid';
 import { Tab, StatefulTabs, FILL, StyledTabList } from 'baseui/tabs-motion';
-import { Row, Col, BackTop, Button } from 'antd';
+import { BackTop, Button } from 'antd';
 import { UpOutlined } from '@ant-design/icons';
 import { GET_PAGES_NAV } from './gql/Page';
 import { GET_CONFIGURATION } from './gql/Configuration';
@@ -21,7 +22,7 @@ export default () => {
 			fill={FILL.fixed}
 			overrides={TabsOverrides}
 			activateOnFocus>
-			{data.pages.map(page => (
+			{data.pages.map((page, index) => (
 				<Tab key={page.id} title={page.title}>
 					<Centered>
 						<Page pageId={page.id} />
@@ -49,7 +50,18 @@ export function _renderLogo() {
 	if (error) return (<span>Error! {error.message}</span>);
 
 	// If the logo HTML is an <svg> use dangerouslySetInnerHtml to avoid React parsing issues
-	return <span className='tabs-logo-wrap' dangerouslySetInnerHTML={{__html: data.configurations[0].logoHtml}} />;
+	return (
+		<div 
+			className='tabs-logo-wrap' 
+			dangerouslySetInnerHTML={{__html: data.configurations[0].logoHtml}} 
+			onClick={() => {
+				// If the user clicks the logo navigate to the first tab (assume 'Home')
+				let homeTab = document.querySelector<HTMLButtonElement>('button[data-baseweb=tab]:first-child');
+				homeTab!.click();
+				homeTab!.focus();
+			}}
+		/>
+	);
 }
 
 /* Centered <div> */
@@ -75,25 +87,43 @@ const BackTopInner = styled('span', {
 	fontSize: 14,
 	fontWeight: 'bold'
 });
-  
-/* Override the default baseui tabs to include the logo */
+
+/* Logo cell overrides */
+const LogoCellOverrides = {
+	Cell: {
+		style: {
+			paddingLeft: '0 !important'
+		}
+	}
+};
+
+/* Tabs cell overrides */
+const TabsCellOverrides = {
+	Cell: {
+		style: {
+			paddingRight: '0 !important'
+		}
+	}
+};
+
+/* Override the default baseui tabs to include the logo and tabsRef */
 const TabsOverrides = {
 	TabList: {
-	  component: function TabsListOverride(props: any) {
-		return (
-			<Centered>
-				<Boundary>
-					<Row>
-						<Col span={8}>
-							{_renderLogo()}
-						</Col>
-						<Col span={16}>
-							<StyledTabList {...props} />
-						</Col>
-					</Row>
-				</Boundary>
-			</Centered>
-		);
-	  },
-	},
+		component: function TabsListOverride(props: any) {
+			return (
+				<Centered>
+					<Boundary>
+						<Grid behavior={BEHAVIOR.fluid}>
+							<Cell span={[4,3,4]} overrides={LogoCellOverrides}>
+								{_renderLogo()}
+							</Cell>
+							<Cell span={[4,5,8]} overrides={TabsCellOverrides}>
+								<StyledTabList {...props} />
+							</Cell>
+						</Grid>
+					</Boundary>
+				</Centered>
+			);
+		},
+	}
 };
