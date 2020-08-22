@@ -7,6 +7,10 @@ import { Provider as StyletronProvider } from 'styletron-react';
 import { BaseProvider, LightTheme } from 'baseui';
 import * as serviceWorker from './serviceWorker';
 
+// Roboto font
+import 'typeface-roboto';
+
+// Apollo for GraphQL
 import {
 	ApolloClient,
 	ApolloProvider,
@@ -14,9 +18,10 @@ import {
 	NormalizedCacheObject
 } from '@apollo/client';
 
-// dotenv for environment variables
+// dotenv to load environment variables
 require('dotenv').config();
 
+// ApolloClient
 const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
 	uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
 	cache: new InMemoryCache()

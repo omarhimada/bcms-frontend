@@ -133,6 +133,14 @@ section.ant-layout > h1.ant-typography {
     filter: sepia(1);
 }
 
+@media (max-width: 767px) {
+	.ant-typography h1.page-carousel-heading {
+		top: 3rem;
+		padding: 0.8rem;
+		font-size: 4rem;
+	}
+}
+
 .ant-typography .ant-list-item-meta-description {
     font-size: 1rem;
 }
@@ -160,5 +168,9 @@ section.ant-layout > h1.ant-typography {
 	.graphcms-image-outer-wrapper,
 	.graphcms-image-wrapper {
 		max-width: 100%;
+	}
+
+	section[data-baseweb="card"] {
+		margin: auto;
 	}
 }

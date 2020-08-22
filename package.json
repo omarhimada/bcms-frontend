@@ -27,12 +27,13 @@
     "react-scripts": "^3.4.3",
     "styletron-engine-atomic": "^1.4.6",
     "styletron-react": "^5.2.7",
+    "typeface-roboto": "^0.0.75",
     "typescript": "~3.7.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "lint": "eslint --fix",
-    "build": "react-scripts build",
+    "build": "react-scripts build --production",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
