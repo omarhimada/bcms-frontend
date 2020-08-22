@@ -23,7 +23,10 @@ export default () => {
 						key={`row-${gallery.title}`}
 						justify="space-around" 
 						align="middle" 
-						gutter={[8, 8]}>
+						gutter={[8, 8]}
+						style={{
+							margin: '0'
+						}}>
 						<Heading>{gallery.title}</Heading>
 						<Divider />
 						{_renderImages(gallery.images)}

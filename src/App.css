@@ -32,6 +32,23 @@
   }
 }
 
+/* Logo in tab navigation */
+.tabs-logo-wrap > svg,
+.tabs-logo-wrap > img {
+	width: 100%;
+    margin: auto;
+    position: absolute;
+    height: 100%;
+    padding: 0.125rem;
+}
+
+@media screen and (max-width: 768px) {
+	.tabs-logo-wrap > svg,
+	.tabs-logo-wrap > img {
+		padding: 0.25rem;
+	}
+}
+
 .faq-ul, .services-ul {
 	padding: 0;
 }
