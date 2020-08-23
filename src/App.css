@@ -262,7 +262,7 @@ h1.ant-typography {
     background: transparent;
 	color: rgba(255,255,255,0.85);
 	padding-top: 1rem;
-	margin-bottom: 3rem;
+	margin-bottom: 1.66rem;
 	text-align: center;
 }
 
@@ -283,11 +283,23 @@ footer .ant-descriptions-item-content {
 	font-size: 1rem;
 }
 
+footer .ant-descriptions-item-content a {
+	font-weight: 300;
+}
+
+footer .ant-descriptions-item-content > p {
+	width: 100%;
+}
+
 footer .ant-descriptions-small .ant-descriptions-row > th, 
 footer .ant-descriptions-small .ant-descriptions-row > td {
 	padding-bottom: 0;
 }
 
-footer .ant-descriptions-item-content a {
-	font-weight: 300;
+footer .ant-descriptions-item.physical-address-wrap .ant-descriptions-item-content {
+	display: block !important;
+}
+
+footer .ant-descriptions-item.physical-address-wrap .ant-descriptions-item-content p {
+	margin-bottom: 0;
 }

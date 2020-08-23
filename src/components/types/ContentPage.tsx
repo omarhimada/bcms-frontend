@@ -1,6 +1,7 @@
-export class Page {
+export class ContentPage {
 	id: string;
-	content: PageContent;
+	title: string;
+	content: Content;
 	dynamicContent: string;
 	carouselImages: CarouselImage[];
 	carouselCtaText: string;
@@ -8,14 +9,16 @@ export class Page {
 
 	constructor(
 		id: string, 
-		pageContent: PageContent, 
+		title: string,
+		content: Content, 
 		dynamicContent: string, 
 		carouselImages: CarouselImage[], 
 		carouselCtaText: string, 
 		carouselCtaLink: string) {
 			
 		this.id = id;
-		this.content = pageContent;
+		this.title = title;
+		this.content = content;
 		this.dynamicContent = dynamicContent;
 		this.carouselImages = carouselImages;
 		this.carouselCtaText = carouselCtaText;
@@ -23,7 +26,7 @@ export class Page {
 	}
 }
 
-export class PageContent {
+export class Content {
 	html: string;
 
 	constructor(html: string) {

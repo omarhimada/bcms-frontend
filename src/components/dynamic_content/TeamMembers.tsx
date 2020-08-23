@@ -27,8 +27,7 @@ export function _renderTeamMembers(teamMembers: TeamMember[]) {
 				overrides={{
 					Root: {
 						style: {
-							margin: 'auto',
-							marginBottom: '1rem',
+							margin: '0 auto 1rem auto',
 							maxWidth: `${teamMember.profileImage.width}px`
 						}
 					}

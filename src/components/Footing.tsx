@@ -11,35 +11,35 @@ export default (params) => {
 	const configuration: Configuration = params.configuration;
 	return (
 		<ThemeProvider theme={DarkTheme}>
-			<Row style={{ maxWidth: '1376px', margin: '0 auto' }} justify="center">
+			<Row style={{ maxWidth: '1376px', margin: '0 auto' }} justify="center" key='footer-row-0'>
 				<Col xs={12} sm={12} md={12} lg={6} key='contact-col-1'>
-					<Descriptions title="Contact" size={'small'} column={{ xxl: 1, xs: 1 }}>
-						<Descriptions.Item span={3} label='Phone'>
+					<Descriptions title="Contact" size={'small'} column={{ xxl: 3, xs: 3 }} key='descriptions-0'>
+						<Descriptions.Item span={3} label='Phone' key='descriptions-0-0'>
 							<StyledLink
-								href={`tel:${configuration.contactPhoneNumber}`}
-								animateUnderline>
+							 	key='footer-link-0'
+								href={`tel:${configuration.contactPhoneNumber}`}>
 								{configuration.contactPhoneNumber}
 							</StyledLink>
 						</Descriptions.Item>
-						<Descriptions.Item span={3} label='Email'>
+						<Descriptions.Item span={3} label='Email' key='descriptions-0-1'>
 							<StyledLink
-								href={`mailto:${configuration.contactEmail}`}
-								animateUnderline>
+								key='footer-link-1'
+								href={`mailto:${configuration.contactEmail}`}>
 								{configuration.contactEmail}
 							</StyledLink>
 						</Descriptions.Item>
 					</Descriptions>
 				</Col>
 				<Col xs={12} sm={12} md={12} lg={6} key='contact-col-2'>
-					<Descriptions title="Address" size={'small'}>
-						<Descriptions.Item>
-							{configuration.physicalAddress.split('\n').map(line => <>{line}<br /></>)}
+					<Descriptions title="Address" size={'small'} key='descriptions-1'>
+						<Descriptions.Item key='descriptions-1-0' className='physical-address-wrap'>
+							{configuration.physicalAddress.split('\n').map((line, i) => <p key={`address-${i}`}>{line}</p>)}
 						</Descriptions.Item>
 					</Descriptions>
 				</Col>
 				<Col xs={12} sm={12} md={12} lg={6} key='contact-col-3'>
-					<Descriptions title="Connect" size={'small'}>
-						<Descriptions.Item>
+					<Descriptions title="Connect" size={'small'} key='descriptions-2'>
+						<Descriptions.Item key='descriptions-2-0'>
 							<StyledLink
 								href={configuration.facebookLink}>
 								<FacebookOutlined 
@@ -53,8 +53,8 @@ export default (params) => {
 					</Descriptions>
 				</Col>
 				<Col xs={12} sm={12} md={6} key='contact-col-4'>
-					<Descriptions title="Instagram" size={'small'}>
-						<Descriptions.Item>
+					<Descriptions title="Instagram" size={'small'} key='descriptions-3'>
+						<Descriptions.Item key='descriptions-3-0'>
 							<StyledLink
 								href={configuration.instagramLink}>
 								<InstagramOutlined 

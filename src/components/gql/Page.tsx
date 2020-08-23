@@ -5,6 +5,7 @@ export const GET_PAGE = gql`
 	query Page($pageId: ID!) {
 		page(where: {id: $pageId}) {
 			id,
+			title,
 			heading,
 			content {
 				html
