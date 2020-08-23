@@ -1,5 +1,14 @@
 export class Configuration {
 	id: string;
+
+	siteName: string;
+	siteDescription: string;
+	siteKeywords: string;
+
+	favicon: MetaImage;
+	appleTouchIcon: MetaImage;
+	manifestJson: string;
+
     logoHtml: string;
     primaryColor: Color;
     accentColor: Color;
@@ -12,6 +21,15 @@ export class Configuration {
 	
 	constructor(
 		id: string, 
+
+		siteName: string,
+		siteDescription: string,
+		siteKeywords: string,
+
+		favicon: MetaImage,
+		appleTouchIcon: MetaImage,
+		manifestJson: string,
+
 		logoHtml: string,
 		primaryColor: Color, 
 		accentColor: Color, 
@@ -23,6 +41,15 @@ export class Configuration {
 		instagramLink: string) {
 
 		this.id = id;
+
+		this.siteName = siteName;
+		this.siteDescription = siteDescription;
+		this.siteKeywords = siteKeywords;
+
+		this.favicon = favicon;
+		this.appleTouchIcon = appleTouchIcon;
+		this.manifestJson = manifestJson;
+
 		this.logoHtml = logoHtml;
 		this.primaryColor = primaryColor;
 		this.accentColor = accentColor;
@@ -40,6 +67,14 @@ export class Color {
 
 	constructor(hex: string) {
 		this.hex = hex;
+	}
+}
+
+export class MetaImage {
+	url: string;
+
+	constructor(url: string) {
+		this.url = url;
 	}
 }
 

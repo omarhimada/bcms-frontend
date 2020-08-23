@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Helmet } from "react-helmet";
 import { useQuery } from '@apollo/client';
 import { styled } from 'baseui';
 import { BackTop, Button, Layout } from 'antd';
@@ -26,17 +27,32 @@ export default () => {
 	const configuration: Configuration = data.configurations[0];
 	const pages: ContentPage[] = data.pages;
 
+	console.log(configuration);
 	return (
 		<>
-			<Centered>
+			{/* Helmet for site-specific meta */}
+			<Helmet>
+				<link rel="icon" id="favicon" href={configuration.favicon.url} />
+				<link rel="apple-touch-icon" href={configuration.appleTouchIcon.url} />
+				
+				<meta name="theme-color" content={configuration.primaryColor.hex} />
+				<meta name="description" content={configuration.siteDescription} />
+				<meta name="keywords" content={configuration.siteKeywords} />
+				
+				{/* Inline the manifest.json */}
+				<link rel="manifest" href={`data:application/manifest+json,${configuration.manifestJson}`} />
+
+				<title>{configuration.siteName}</title>
+			</Helmet>
+			<Centered id='centered-root'>
 				{/* Nav component for the header and content */}
-				<Nav 
-					pages={pages} 
+				<Nav
+					pages={pages}
 					configuration={configuration} />
 			</Centered>
 			<Footer>
 				{/* Footing component for the footer */}
-				<Footing 
+				<Footing
 					configuration={configuration} />
 			</Footer>
 			<BackTop>
@@ -55,9 +71,9 @@ export default () => {
 export function _renderLogo(logoHtml: string) {
 	// If the logo HTML is an <svg> use dangerouslySetInnerHtml to avoid React parsing issues
 	return (
-		<div 
-			className='tabs-logo-wrap' 
-			dangerouslySetInnerHTML={{__html: logoHtml}} 
+		<div
+			className='tabs-logo-wrap'
+			dangerouslySetInnerHTML={{ __html: logoHtml }}
 			onClick={() => {
 				// If the user clicks the logo navigate to the first tab (assume 'Home')
 				let homeTab = document.querySelector<HTMLButtonElement>('button[data-baseweb=tab]:first-child');

@@ -10,6 +10,16 @@ export const GET_INIT = gql`
 		}
 	 	configurations(first: 1) {
 			id
+			siteName
+			siteDescription
+			siteKeywords
+			appleTouchIcon {
+				url
+			}
+			favicon {
+				url
+			}
+			manifestJson
 			logoHtml
 			primaryColor {
 				hex
