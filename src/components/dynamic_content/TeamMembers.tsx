@@ -21,12 +21,13 @@ export function _renderTeamMembers(teamMembers: TeamMember[]) {
 	return teamMembers.map(teamMember =>
 		<Col
 			key={`col-team-member-${teamMember.name}`} 
-			xs={{ span: 24 }} 
+			xs={{ span: 12 }} 
 			lg={{ span: 8 }}>
 			<Card
 				overrides={{
 					Root: {
 						style: {
+							margin: 'auto',
 							marginBottom: '1rem',
 							maxWidth: `${teamMember.profileImage.width}px`
 						}

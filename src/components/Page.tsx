@@ -2,13 +2,13 @@ import * as React from 'react';
 import { useQuery } from '@apollo/client';
 import ReactHtmlParser from 'react-html-parser';
 import Loading from './Loading';
-import { Block } from 'baseui/block';
 import { Button, SIZE } from 'baseui/button';
 import { ArrowRight } from 'baseui/icon';
 import { Layout, Row, Col, Carousel, Divider, Typography } from 'antd';
 import { GET_PAGE } from './gql/Page';
 import DynamicContent from './dynamic_content/DynamicContent';
 
+/* This component renders the header and content of the layout */
 const { Content } = Layout;
 const { Title } = Typography;
 
@@ -24,33 +24,35 @@ export default (params) => {
 	if (error) return (<span>Error! {error.message}</span>);
 
 	return (
-		<React.Fragment>
-			<Block maxWidth={'1376px'} width={'100%'}>
+		<>
+			<Content>
 				<Typography>
-					<Layout className="layout">
-						{_renderHeading(data.page)}
-						<Content>
-							<div className="site-layout-content">
-								<Row gutter={[16, 16]} style={{ margin: '0 -16px 16px' }}>
-									{_renderCarousel(data.page)}
-									{_renderPageContent(data.page)}
-									{/* Dynamic content (e.g.: services, FAQ, etc.) */}
-									<DynamicContent type={data.page.dynamicContent} />
-								</Row>
-							</div>
-						</Content>
-						{/* <Footer>Footer</Footer> */}
-					</Layout>
+					{_renderHeading(data.page)}
+					<div className="site-layout-content">
+						<Row gutter={[16, 16]} style={{ margin: '0' }}>
+							{_renderCarousel(data.page)}
+						</Row>
+						<Row gutter={[16, 16]} style={{ margin: '0', padding: '8px' }}>
+							{_renderPageContent(data.page)}
+						</Row>
+						<Row gutter={[16, 16]} style={{ margin: '0' }}>
+							{/* Dynamic content (e.g.: services, FAQ, etc.) */}
+							<DynamicContent type={data.page.dynamicContent} />
+						</Row>
+					</div>
 				</Typography>
-			</Block>
-		</React.Fragment>
+			</Content>
+		</>
+		
 	);
 };
 
 /* Render the hero/heading text if no carousel data was setup for this page (optional) */
 export function _renderHeading(page) {
 	return page.heading !== null && !page.carouselImages.length ? 
-		<Title level={1}>{page.heading}</Title>
+		<Title level={1}>
+			{page.heading}
+		</Title>
 	: '';
 }
 
@@ -96,7 +98,7 @@ export function _renderCarousel(page) {
 /* Render the main WYSIWYG content of the page */
 export function _renderPageContent(page) {
 	return (
-		<Col xs={{ span: 24 }} style={{ padding: '0px 16px 0' }}>
+		<Col xs={{ span: 24 }} style={{ padding: '0' }}>
 			{/* Page content */}
 			{ReactHtmlParser(page.content.html)}
 		</Col>

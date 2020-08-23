@@ -32,7 +32,7 @@ const engine = new Styletron();
 
 // Override baseui defaults
 const primitives = {
-	primaryFontFamily: 'Roboto',
+	primaryFontFamily: 'Roboto'
 };
 
 // Custom baseui theme

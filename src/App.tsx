@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import Nav from './components/Nav';
+import Root from './components/Root';
 
 export default () => {
 	return (
 		<React.Fragment>
-			<Nav />
+			<Root />
 		</React.Fragment>
 	);
 };

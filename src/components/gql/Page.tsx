@@ -19,13 +19,3 @@ export const GET_PAGE = gql`
 		}
 	}
 `;
-
-// Get page titles and IDs for navigation
-export const GET_PAGES_NAV = gql`
-	query PagesNav {
-		pages {
-			title
-			id
-		}
-	}
-`;

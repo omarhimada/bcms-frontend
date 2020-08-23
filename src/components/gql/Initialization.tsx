@@ -1,9 +1,14 @@
 import { gql } from '@apollo/client';
 
-// Get the first (and only) configuration
-export const GET_CONFIGURATION = gql`
-	query Configuration {
-		configurations(first: 1) {
+/* Get page titles and IDs for navigation, 
+ * as well as the site's first (and only) configuration */
+export const GET_INIT = gql`
+	query Initialization {
+		pages {
+			title
+			id
+		}
+	 	configurations(first: 1) {
 			id
 			logoHtml
 			primaryColor {
@@ -21,5 +26,7 @@ export const GET_CONFIGURATION = gql`
 			facebookLink
 			instagramLink
 		}
-	}
+  	}
 `;
+
+  
