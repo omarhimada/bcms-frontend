@@ -28,16 +28,10 @@ export default (params) => {
 			<Typography>
 				{_renderHeading(data.page)}
 				<div className="site-layout-content">
-					<Row gutter={[16, 16]} style={{ margin: '0' }}>
-						{_renderCarousel(data.page)}
-					</Row>
-					<Row gutter={[16, 16]} style={{ margin: '0', padding: '8px' }}>
-						{_renderPageContent(data.page)}
-					</Row>
-					<Row gutter={[16, 16]} style={{ margin: '0' }}>
-						{/* Dynamic content (e.g.: services, FAQ, etc.) */}
-						<DynamicContent type={data.page.dynamicContent} />
-					</Row>
+					{_renderCarousel(data.page)}
+					{_renderPageContent(data.page)}
+					{/* Dynamic content (e.g.: services, FAQ, etc.) */}
+					<DynamicContent type={data.page.dynamicContent} />
 				</div>
 			</Typography>
 		</Content>
@@ -67,53 +61,59 @@ export function _renderCarousel(page) {
 		);
 
 	return (
-		<Col 
-			xs={{ span: 24 }} 
-			style={{ 
-				padding: '0', 
-				marginTop: '-16px',
-				minHeight: `${maximumHeightOfCarouselImage + 48}px` }}>
-			<Carousel 
-				effect='fade' 
-				autoplay 
-				autoplaySpeed={2250}
-				slidesToScroll={1}
-				adaptiveHeight={true}>
-				{page.carouselImages.map(carouselImage => 
-					<div 
-						className='page-carousel-item'
-						key={`carousel-${carouselImage.url}`}>
-							<img alt={carouselImage.id} src={carouselImage.url} />
-							{/* Carousel with hero/heading text inside */}
-							{page.heading !== null ?
-								<Title 
-									className='page-carousel-heading' 
-									level={1}>{page.heading}
-								</Title>
-							: ''}
-							{/* CTA button on the carousel */}
-							{page.carouselCtaText !== null && page.carouselCtaLink !== null ?
-								<Button
-									onClick={() => window.open(page.carouselCtaLink)}
-									startEnhancer={() => <ArrowRight size={24} />}
-									size={SIZE.large}>
-									{page.carouselCtaText}
-								</Button>
-							: ''}
-					</div>
-				)}
-			</Carousel>
-			<Divider />
-		</Col>
+		<Row gutter={[16, 16]} style={{ margin: '0' }}>
+			<Col 
+				xs={{ span: 24 }} 
+				style={{ 
+					padding: '0', 
+					marginTop: '-16px',
+					minHeight: `${maximumHeightOfCarouselImage + 48}px` }}>
+				<Carousel 
+					effect='fade' 
+					autoplay 
+					autoplaySpeed={2250}
+					slidesToScroll={1}
+					adaptiveHeight={true}>
+					{page.carouselImages.map(carouselImage => 
+						<div 
+							className='page-carousel-item'
+							key={`carousel-${carouselImage.url}`}>
+								<img alt={carouselImage.id} src={carouselImage.url} />
+								{/* Carousel with hero/heading text inside */}
+								{page.heading !== null ?
+									<Title 
+										className='page-carousel-heading' 
+										level={1}>{page.heading}
+									</Title>
+								: ''}
+								{/* CTA button on the carousel */}
+								{page.carouselCtaText !== null && page.carouselCtaLink !== null ?
+									<Button
+										onClick={() => window.open(page.carouselCtaLink)}
+										startEnhancer={() => <ArrowRight size={24} />}
+										size={SIZE.large}>
+										{page.carouselCtaText}
+									</Button>
+								: ''}
+						</div>
+					)}
+				</Carousel>
+				<Divider />
+			</Col>
+		</Row>
 	);
 }
 
 /* Render the main WYSIWYG content of the page */
 export function _renderPageContent(page) {
+	if (page.content === null) return '';
+
 	return (
-		<Col xs={{ span: 24 }} style={{ padding: '0' }}>
-			{/* Page content */}
-			{ReactHtmlParser(page.content.html)}
-		</Col>
+		<Row gutter={[16, 16]} style={{ margin: '0', padding: '8px' }}>
+			<Col xs={{ span: 24 }} style={{ padding: '0' }}>
+				{/* Page content */}
+				{ReactHtmlParser(page.content.html)}
+			</Col>
+		</Row>
 	);
 }

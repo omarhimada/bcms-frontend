@@ -21,6 +21,13 @@ export default (params) => {
 						width: '100%'
 					}
 				},
+				TabHighlight: {
+					style: ({ $theme }) => {
+						return {
+							backgroundColor: $theme.colors.primaryA
+						};
+					}
+				},
 				TabList: {
 					/* Override the default baseui tabs to include the logo and tabsRef */
 					component: function TabsListOverride(props: any) {

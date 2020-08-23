@@ -2,6 +2,9 @@ import * as React from 'react';
 import { Helmet } from "react-helmet";
 import { useQuery } from '@apollo/client';
 import { styled } from 'baseui';
+import { BaseProvider, createTheme } from 'baseui';
+import { Client as Styletron } from 'styletron-engine-atomic';
+import { Provider as StyletronProvider } from 'styletron-react';
 import { BackTop, Button, Layout } from 'antd';
 import { UpOutlined } from '@ant-design/icons';
 import { GET_INIT } from './queries';
@@ -13,6 +16,9 @@ import { ContentPage } from '../Page/types';
 
 /* ant.design's Footer */
 const { Footer } = Layout;
+
+/* Styletron for baseui */
+const engine = new Styletron();
 
 export default () => {
 	// Init: get navigational information and site configuration
@@ -27,43 +33,59 @@ export default () => {
 	const configuration: Configuration = data.configurations[0];
 	const pages: ContentPage[] = data.pages;
 
-	console.log(configuration);
-	return (
-		<>
-			{/* Helmet for site-specific meta */}
-			<Helmet>
-				<link rel="icon" id="favicon" href={configuration.favicon.url} />
-				<link rel="apple-touch-icon" href={configuration.appleTouchIcon.url} />
-				
-				<meta name="theme-color" content={configuration.primaryColor.hex} />
-				<meta name="description" content={configuration.siteDescription} />
-				<meta name="keywords" content={configuration.siteKeywords} />
-				
-				{/* Inline the manifest.json */}
-				<link rel="manifest" href={`data:application/manifest+json,${configuration.manifestJson}`} />
+	// Override baseui defaults
+	const primitives = {
+		primaryFontFamily: 'Roboto',
+		primaryColor: configuration.primaryColor.hex
+	};
+	const overrides = {
+		colors: {
+			primaryA: primitives.primaryColor
+		}
+	};
 
-				<title>{configuration.siteName}</title>
-			</Helmet>
-			<Centered id='centered-root'>
-				{/* Nav component for the header and content */}
-				<Nav
-					pages={pages}
-					configuration={configuration} />
-			</Centered>
-			<Footer>
-				{/* Footing component for the footer */}
-				<Footing
-					configuration={configuration} />
-			</Footer>
-			<BackTop>
-				<Button size='large'>
-					<UpOutlined />
-					<BackTopInner>
-						TOP
-					</BackTopInner>
-				</Button>
-			</BackTop>
-		</>
+	// Custom baseui theme
+	const _baseWebTheme = createTheme(primitives, overrides);
+
+	//console.log(configuration);
+	return (
+		<StyletronProvider value={engine}>
+			<BaseProvider theme={_baseWebTheme}>
+				{/* Helmet for site-specific meta */}
+				<Helmet>
+					<link rel="icon" id="favicon" href={configuration.favicon.url} />
+					<link rel="apple-touch-icon" href={configuration.appleTouchIcon.url} />
+					
+					<meta name="theme-color" content={configuration.primaryColor.hex} />
+					<meta name="description" content={configuration.siteDescription} />
+					<meta name="keywords" content={configuration.siteKeywords} />
+					
+					{/* Inline the manifest.json */}
+					<link rel="manifest" href={`data:application/manifest+json,${configuration.manifestJson}`} />
+
+					<title>{configuration.siteName}</title>
+				</Helmet>
+				<Centered id='centered-root'>
+					{/* Nav component for the header and content */}
+					<Nav
+						pages={pages}
+						configuration={configuration} />
+				</Centered>
+				<Footer>
+					{/* Footing component for the footer */}
+					<Footing
+						configuration={configuration} />
+				</Footer>
+				<BackTop>
+					<Button size='large'>
+						<UpOutlined />
+						<BackTopInner>
+							TOP
+						</BackTopInner>
+					</Button>
+				</BackTop>
+			</BaseProvider>
+		</StyletronProvider>
 	);
 };
 

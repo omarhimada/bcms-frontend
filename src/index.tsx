@@ -2,9 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { BaseProvider, createTheme } from 'baseui';
-import { Client as Styletron } from 'styletron-engine-atomic';
-import { Provider as StyletronProvider } from 'styletron-react';
 import * as serviceWorker from './serviceWorker';
 
 // Roboto font
@@ -27,25 +24,10 @@ const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
 	cache: new InMemoryCache()
 });
 
-// Styletron for baseui
-const engine = new Styletron();
-
-// Override baseui defaults
-const primitives = {
-	primaryFontFamily: 'Roboto'
-};
-
-// Custom baseui theme
-const _baseWebTheme = createTheme(primitives);
-
 ReactDOM.render(
 	// Apollo for GraphQL
 	<ApolloProvider client={client}>
-		<StyletronProvider value={engine}>
-			<BaseProvider theme={_baseWebTheme}>
-				<App />
-			</BaseProvider>
-		</StyletronProvider>
+		<App />
 	</ApolloProvider>,
 	document.getElementById('root')
 );
