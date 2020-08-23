@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { useQuery } from '@apollo/client';
 import ReactHtmlParser from 'react-html-parser';
-import Loading from './Loading';
+import Loading from '../Loading';
 import { Button, SIZE } from 'baseui/button';
 import { ArrowRight } from 'baseui/icon';
 import { Layout, Row, Col, Carousel, Divider, Typography } from 'antd';
-import { GET_PAGE } from './gql/Page';
-import DynamicContent from './dynamic_content/DynamicContent';
+import { GET_PAGE } from './queries';
+import DynamicContent from '../DynamicContent';
 
 /* This component renders the header and content of the layout */
 const { Content } = Layout;
@@ -24,26 +24,23 @@ export default (params) => {
 	if (error) return (<span>Error! {error.message}</span>);
 
 	return (
-		<>
-			<Content>
-				<Typography>
-					{_renderHeading(data.page)}
-					<div className="site-layout-content">
-						<Row gutter={[16, 16]} style={{ margin: '0' }}>
-							{_renderCarousel(data.page)}
-						</Row>
-						<Row gutter={[16, 16]} style={{ margin: '0', padding: '8px' }}>
-							{_renderPageContent(data.page)}
-						</Row>
-						<Row gutter={[16, 16]} style={{ margin: '0' }}>
-							{/* Dynamic content (e.g.: services, FAQ, etc.) */}
-							<DynamicContent type={data.page.dynamicContent} />
-						</Row>
-					</div>
-				</Typography>
-			</Content>
-		</>
-		
+		<Content id={`page-${data.page.id}`}>
+			<Typography>
+				{_renderHeading(data.page)}
+				<div className="site-layout-content">
+					<Row gutter={[16, 16]} style={{ margin: '0' }}>
+						{_renderCarousel(data.page)}
+					</Row>
+					<Row gutter={[16, 16]} style={{ margin: '0', padding: '8px' }}>
+						{_renderPageContent(data.page)}
+					</Row>
+					<Row gutter={[16, 16]} style={{ margin: '0' }}>
+						{/* Dynamic content (e.g.: services, FAQ, etc.) */}
+						<DynamicContent type={data.page.dynamicContent} />
+					</Row>
+				</div>
+			</Typography>
+		</Content>
 	);
 };
 
@@ -58,8 +55,24 @@ export function _renderHeading(page) {
 
 /* Render the carousel with the hero/heading and CTA (optional) */
 export function _renderCarousel(page) {
-	return page.carouselImages !== null && page.carouselImages.length ?
-		<Col xs={{ span: 24 }} style={{ padding: '0', marginTop: '-16px' }}>
+	if (page.carouselImages === null || !page.carouselImages.length) return '';
+	
+	/* Get the maximum height of the carousel images to set as the minimum height of the column
+     * (this is prevents flickering when fading baseui tab panels) */
+	const maximumHeightOfCarouselImage = 
+		Math.max.apply(Math, 
+			page.carouselImages.map(function(o) { 
+				return o.height; 
+			})
+		);
+
+	return (
+		<Col 
+			xs={{ span: 24 }} 
+			style={{ 
+				padding: '0', 
+				marginTop: '-16px',
+				minHeight: `${maximumHeightOfCarouselImage + 48}px` }}>
 			<Carousel 
 				effect='fade' 
 				autoplay 
@@ -92,7 +105,7 @@ export function _renderCarousel(page) {
 			</Carousel>
 			<Divider />
 		</Col>
-	: '';
+	);
 }
 
 /* Render the main WYSIWYG content of the page */

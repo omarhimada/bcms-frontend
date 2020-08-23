@@ -3,9 +3,9 @@ import { useQuery } from '@apollo/client';
 import ReactHtmlParser from 'react-html-parser';
 import { Card, StyledBody } from 'baseui/card';
 import { Col } from 'antd';
-import { GET_TEAM_MEMBERS } from '../gql/dynamic_content/TeamMember';
-import { TeamMember } from '../types/dynamic_content/TeamMember';
-import Loading from '../Loading';
+import { GET_TEAM_MEMBERS } from './queries';
+import { TeamMember } from './types';
+import Loading from '../../Loading';
 
 export default () => {
 	const { loading, error, data } = useQuery(GET_TEAM_MEMBERS);

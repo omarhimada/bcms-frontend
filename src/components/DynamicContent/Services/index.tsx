@@ -2,10 +2,10 @@ import * as React from 'react';
 import { useQuery } from '@apollo/client';
 import { Card } from 'baseui/card';
 import { ListItem, ListItemLabel } from 'baseui/list';
-import Loading from '../Loading';
+import Loading from '../../Loading';
 import { Col, Typography } from 'antd';
-import { GET_SERVICES } from '../gql/dynamic_content/Service';
-import { ServiceCategory } from '../types/dynamic_content/Service';
+import { GET_SERVICES } from './queries';
+import { ServiceCategory } from './types';
 
 const { Title } = Typography;
 

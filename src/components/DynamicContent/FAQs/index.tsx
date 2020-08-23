@@ -3,9 +3,9 @@ import { useQuery } from '@apollo/client';
 import ReactHtmlParser from 'react-html-parser';
 import { List, Typography } from 'antd';
 import { QuestionOutlined } from '@ant-design/icons'
-import Loading from '../Loading';
-import { GET_FAQS } from '../gql/dynamic_content/FAQ';
-import { FAQCategory, FAQ } from '../types/dynamic_content/FAQ';
+import Loading from '../../Loading';
+import { GET_FAQS } from './queries';
+import { FAQCategory, FAQ } from './types';
 import { Accordion, Panel } from 'baseui/accordion';
 
 const { Title } = Typography;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ThemeProvider, DarkTheme } from 'baseui';
 import { StyledLink } from "baseui/link";
 import { Row, Col, Descriptions } from 'antd';
-import { Configuration } from './types/Configuration';
+import { Configuration } from '../Root/types';
 import { FacebookOutlined, InstagramOutlined } from '@ant-design/icons';
 
 /* Use the retrieved configuration to render the footer,

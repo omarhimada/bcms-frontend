@@ -3,12 +3,12 @@ import { useQuery } from '@apollo/client';
 import { styled } from 'baseui';
 import { BackTop, Button, Layout } from 'antd';
 import { UpOutlined } from '@ant-design/icons';
-import { GET_INIT } from './gql/Initialization';
-import Nav from './Nav';
-import Loading from './Loading';
-import Footing from './Footing';
-import { Configuration } from './types/Configuration';
-import { ContentPage } from './types/ContentPage';
+import { GET_INIT } from './queries';
+import Nav from '../Nav';
+import Loading from '../Loading';
+import Footing from '../Footing';
+import { Configuration } from './types';
+import { ContentPage } from '../Page/types';
 
 /* ant.design's Footer */
 const { Footer } = Layout;
@@ -29,16 +29,15 @@ export default () => {
 	return (
 		<>
 			<Centered>
+				{/* Nav component for the header and content */}
 				<Nav 
 					pages={pages} 
-					configuration={configuration} 
-				/>
+					configuration={configuration} />
 			</Centered>
 			<Footer>
 				{/* Footing component for the footer */}
 				<Footing 
-					configuration={configuration} 
-				/>
+					configuration={configuration} />
 			</Footer>
 			<BackTop>
 				<Button size='large'>

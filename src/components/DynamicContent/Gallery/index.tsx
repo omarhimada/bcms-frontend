@@ -3,9 +3,9 @@ import { Divider, Row, Col, Button, Modal } from 'antd';
 import GraphImg from 'graphcms-image';
 import { useQuery } from '@apollo/client';
 import { Heading, HeadingLevel } from 'baseui/heading';
-import Loading from '../Loading';
-import { Gallery } from '../types/dynamic_content/Gallery';
-import { GET_GALLERIES } from '../gql/dynamic_content/Gallery';
+import Loading from '../../Loading';
+import { Gallery } from './types';
+import { GET_GALLERIES } from './queries';
 
 export default () => {
 	const { loading, error, data } = useQuery(GET_GALLERIES);

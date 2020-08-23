@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Grid, Cell } from 'baseui/layout-grid';
 import { Tab, StatefulTabs, FILL, StyledTabList } from 'baseui/tabs-motion';
 import { Layout } from 'antd';
-import Page from './Page'
-import { Configuration } from './types/Configuration';
-import { ContentPage } from './types/ContentPage';
+import Page from '../Page'
+import { Configuration } from '../Root/types';
+import { ContentPage } from '../Page/types';
 
 export default (params) => {
 	const configuration: Configuration = params.configuration;

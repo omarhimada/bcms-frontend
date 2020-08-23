@@ -12,8 +12,9 @@ export const GET_PAGE = gql`
 			},
 			dynamicContent,
 			carouselImages {
-				url
 				id
+				url
+				height
 			},
 			carouselCtaText,
 			carouselCtaLink
