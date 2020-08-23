@@ -12,7 +12,7 @@ export default (params) => {
 	return (
 		<ThemeProvider theme={DarkTheme}>
 			<Row style={{ maxWidth: '1376px', margin: '0 auto' }} justify="center" key='footer-row-0'>
-				<Col xs={12} sm={12} md={12} lg={6} key='contact-col-1'>
+				<Col xs={24} sm={24} md={12} lg={6} key='contact-col-1'>
 					<Descriptions title="Contact" size={'small'} column={{ xxl: 3, xs: 3 }} key='descriptions-0'>
 						<Descriptions.Item span={3} label='Phone' key='descriptions-0-0'>
 							<StyledLink
@@ -30,15 +30,15 @@ export default (params) => {
 						</Descriptions.Item>
 					</Descriptions>
 				</Col>
-				<Col xs={12} sm={12} md={12} lg={6} key='contact-col-2'>
+				<Col xs={24} sm={24} md={12} lg={6} key='contact-col-2'>
 					<Descriptions title="Address" size={'small'} key='descriptions-1'>
 						<Descriptions.Item key='descriptions-1-0' className='physical-address-wrap'>
 							{configuration.physicalAddress.split('\n').map((line, i) => <p key={`address-${i}`}>{line}</p>)}
 						</Descriptions.Item>
 					</Descriptions>
 				</Col>
-				<Col xs={12} sm={12} md={12} lg={6} key='contact-col-3'>
-					<Descriptions title="Connect" size={'small'} key='descriptions-2'>
+				<Col xs={24} sm={24} md={12} lg={6} key='contact-col-3'>
+					<Descriptions title="Facebook" size={'small'} key='descriptions-2'>
 						<Descriptions.Item key='descriptions-2-0'>
 							<StyledLink
 								href={configuration.facebookLink}>
@@ -52,7 +52,7 @@ export default (params) => {
 						</Descriptions.Item>
 					</Descriptions>
 				</Col>
-				<Col xs={12} sm={12} md={6} key='contact-col-4'>
+				<Col xs={24} sm={24} md={12} lg={6}  key='contact-col-4'>
 					<Descriptions title="Instagram" size={'small'} key='descriptions-3'>
 						<Descriptions.Item key='descriptions-3-0'>
 							<StyledLink

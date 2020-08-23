@@ -31,10 +31,6 @@ body {
     padding-top: 0.25rem;
 }
 
-div[data-baseweb='tab-list'] {
-	height: 100%;
-}
-
 .faq-ul, .services-ul {
 	padding: 0;
 }
@@ -303,3 +299,32 @@ footer .ant-descriptions-item.physical-address-wrap .ant-descriptions-item-conte
 footer .ant-descriptions-item.physical-address-wrap .ant-descriptions-item-content p {
 	margin-bottom: 0;
 }
+
+div[data-baseweb='tab-list'] {
+	height: 100%;
+}
+
+/* div[data-baseweb='tab-panel'],
+div[data-baseweb='tab-list'] {
+	height: 100%;
+}
+
+div[data-baseweb='tab-panel'][aria-expanded='false'] {
+	opacity: 0;
+
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-ms-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
+}
+
+div[data-baseweb='tab-panel'] {
+	opacity: 1;
+
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-ms-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
+} */
