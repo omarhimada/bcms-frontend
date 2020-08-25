@@ -144,7 +144,7 @@ export function _injectAdditionalFonts(additionalFonts) {
 					.join(',')};` +
 		`\r\n}`
 		// Join to make react-helmet play nice
-	).join(';\r\n');
+	).join('\r\n');
 }
 
 /* Use the site's configuration for the logo HTML and parse it */
