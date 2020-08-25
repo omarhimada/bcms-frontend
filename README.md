@@ -7,15 +7,24 @@ CMS front-end written in TypeScript. Uses React, GraphQL (via Apollo), ant.desig
 - [Base Web UI Framework](https://baseweb.design/)
 - [Apollo](https://www.apollographql.com/)
 
-*Also using [GraphCMS](https://graphcms.com) as the headless CMS/backend. You could substitute this with a Strapi + GraphQL deployment though.*
+*Also using .*
 
 ## Features
+#### *(that integrate with a headless CMS such as [GraphCMS](https://graphcms.com). You could substitute this with a Strapi + GraphQL deployment though)*
+- Hero/heading, Carousel & CTA callout
+- WYSIWG body content
+- Categorized products/services
+- Categorized FAQs
+- Team Members
 - Gallery 
-  - [graphcms-image](https://github.com/GraphCMS/graphcms-image)
-- FAQ
-- Products/services
-- Carousel
-- Team members
+  - Renders thumbnails and full-size images with [graphcms-image](https://github.com/GraphCMS/graphcms-image)
+
+Site-wide configuration also retrieved from CMS and injected via [react-helmet](https://github.com/nfl/react-helmet):
+  - Meta keywords, descriptions, title, etc.
+  - Footer content
+  - Primary and accent colors
+  - Additional font assets
+  - Logo HTML (e.g.: inline SVG, your own `<img>` element, etc.)
 
 ---
 ## Deploying to Azure Blob Storage as a Static Website
