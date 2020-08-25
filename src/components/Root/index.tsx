@@ -101,35 +101,46 @@ export default () => {
 
 /* Use the site's configuration to inject any additional fonts (optional) */
 export function _injectAdditionalFonts(additionalFonts) {
-	const fileNames = additionalFonts.map(f => f.fileName);
+	// Map the partial file names to [file extension, url] tuples to build the correct CSS
+	let _fileMap: { [name: string]: [string, string][]; } = {};
 
-	// Map the file names to file extensions to build the correct CSS
-	let fileMap: { [name: string]: string[]; } = {};
-
-	// e.g. input: ["Couture-Bold.woff2", "Couture-Bold.woff", "NEOTERIC-Bold.woff2"]
-	for (let fileName of fileNames) {
+	// e.g. fileNames: ["Couture-Bold.woff2", "Couture-Bold.woff", "NEOTERIC-Bold.woff2"]
+	for (let font of additionalFonts) {
 		// Split the file name
-		const split = fileName.split('.');
+		const splitName = font.fileName.split('.');
 		
 		// e.g.: 'NEOTERIC-Bold.woff2' -> ['NEOTERIC-Bold', 'woff2']
-		const name = split[0];
-		const extension = split[1];
+		const name = splitName[0];
+		const extension = splitName[1];
 		
-		if (fileMap[name] === undefined) fileMap[name] = [];
-		fileMap[name].push(extension);
+		if (_fileMap[name] === undefined) _fileMap[name] = [];
+		_fileMap[name].push([extension, font.url]);
 	}
-	// output: { "Couture-Bold": [ "woff2", "woff" ], "NEOTERIC-Bold": [ "woff2" ] } 
+	// fileNamesMap: { "Couture-Bold": [ "woff2", "woff" ], "NEOTERIC-Bold": [ "woff2" ] } 
 
 	// i.e.: mapKeys are the file names minus the extensions
-	const mapKeys = Object.keys(fileMap);
+	const mapKeys = Object.keys(_fileMap);
+
+	/* Sort the font names so the woff2 is first, then woff, then ttf last
+	 * (order of descending file sizes) */
+	for (let key of mapKeys)
+	{
+		_fileMap[key].sort((extensionUrlTuple1, extensionUrlTuple2) => {
+			const ext1 = extensionUrlTuple1[0];
+			const ext2 = extensionUrlTuple2[0];
+			if (ext1 > ext2) return -1;
+			else if (ext2 < ext1) return 1;
+			else return 0;
+		});
+	}
+
 	return mapKeys.map(fontName => 
 		/* Create a @font-face for each additional font retrieved */
 		`@font-face {` +
 			`\r\n\tfont-family: '${fontName}';` +
 			`\r\n\tsrc: ${
-				fileMap[fontName]
-					.map(extension => 
-					`\r\n\t\turl('../font/${fontName}.${extension}') format('${extension}')`)
+				_fileMap[fontName]
+					.map(extensionUrlTuple => `\r\n\t\turl('${extensionUrlTuple[1]}') format('${extensionUrlTuple[0]}')`)
 					.join(',')};` +
 		`\r\n}`
 		// Join to make react-helmet play nice
