@@ -7,10 +7,9 @@ CMS front-end written in TypeScript. Uses React, GraphQL (via Apollo), ant.desig
 - [Base Web UI Framework](https://baseweb.design/)
 - [Apollo](https://www.apollographql.com/)
 
-*Also using .*
+#### Integrates with a headless CMS such as [GraphCMS](https://graphcms.com). You could substitute this with a Strapi + GraphQL deployment though.
 
 ## Features
-#### *(that integrate with a headless CMS such as [GraphCMS](https://graphcms.com). You could substitute this with a Strapi + GraphQL deployment though)*
 - Hero/heading, Carousel & CTA callout
 - WYSIWG body content
 - Categorized products/services
