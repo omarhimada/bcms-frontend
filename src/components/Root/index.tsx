@@ -122,7 +122,7 @@ export function _injectAdditionalFonts(additionalFonts) {
 	const mapKeys = Object.keys(_fileMap);
 
 	/* Sort the font names so the woff2 is first, then woff, then ttf last
-	 * (order of descending file sizes) */
+	 * (order of ascending file sizes) */
 	for (let key of mapKeys)
 	{
 		_fileMap[key].sort((extensionUrlTuple1, extensionUrlTuple2) => {
