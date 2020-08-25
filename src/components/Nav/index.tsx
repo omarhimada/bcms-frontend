@@ -33,12 +33,12 @@ export default (params) => {
 					component: function TabsListOverride(props: any) {
 						return (
 							<Grid overrides={{ Grid: { style: { paddingLeft: '0 !important', paddingRight: '0 !important' }}}}>
-								<Cell span={[4,3,3]} overrides={LogoCellOverrides}>
+								<Cell span={[4,3,5]} overrides={LogoCellOverrides}>
 									{/* Render the logo using the logo HTML */}
 									{_renderLogo(configuration.logoHtml)}
 								</Cell>
 								{/* This cell is also overridden */}
-								<Cell span={[4,5,9]} overrides={TabsCellOverrides}>
+								<Cell span={[4,5,7]} overrides={TabsCellOverrides}>
 									<StyledTabList {...props} />
 								</Cell>
 							</Grid>

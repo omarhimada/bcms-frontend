@@ -9,6 +9,8 @@ export class Configuration {
 	appleTouchIcon: MetaImage;
 	manifestJson: string;
 
+	additionalFonts: Font[];
+
     logoHtml: string;
     primaryColor: Color;
     accentColor: Color;
@@ -30,6 +32,8 @@ export class Configuration {
 		appleTouchIcon: MetaImage,
 		manifestJson: string,
 
+		additionalFonts: Font[],
+
 		logoHtml: string,
 		primaryColor: Color, 
 		accentColor: Color, 
@@ -49,6 +53,8 @@ export class Configuration {
 		this.favicon = favicon;
 		this.appleTouchIcon = appleTouchIcon;
 		this.manifestJson = manifestJson;
+
+		this.additionalFonts = additionalFonts;
 
 		this.logoHtml = logoHtml;
 		this.primaryColor = primaryColor;
@@ -83,5 +89,15 @@ export class FooterContent {
 	
 	constructor(html: string) {
 		this.html = html;
+	}
+}
+
+export class Font {
+	fileName: string;
+	url: string;
+
+	constructor(fileName: string, url: string) {
+		this.fileName = fileName;
+		this.url = url;
 	}
 }

@@ -47,7 +47,12 @@ export default () => {
 	// Custom baseui theme
 	const _baseWebTheme = createTheme(primitives, overrides);
 
-	//console.log(configuration);
+	// Generate CSS for any additional fonts for injection
+	const additionalFontCss = 
+		configuration.additionalFonts !== null && configuration.additionalFonts!.length ?
+			_injectAdditionalFonts(configuration.additionalFonts) 
+		: '';
+
 	return (
 		<StyletronProvider value={engine}>
 			<BaseProvider theme={_baseWebTheme}>
@@ -61,9 +66,14 @@ export default () => {
 					<meta name="keywords" content={configuration.siteKeywords} />
 					
 					{/* Inline the manifest.json */}
-					<link rel="manifest" href={`data:application/manifest+json,${configuration.manifestJson}`} />
+					<link rel="manifest" href={`data:application/manifest+json,${configuration.manifestJson.toString()}`} />
 
 					<title>{configuration.siteName}</title>
+
+					<style type="text/css">
+						{/* Inject additional font CSS */}
+						{additionalFontCss}
+					</style>
 				</Helmet>
 				<Centered id='centered-root'>
 					{/* Nav component for the header and content */}
@@ -89,7 +99,44 @@ export default () => {
 	);
 };
 
-/* Get the site's configuration for the logo HTML and parse it */
+/* Use the site's configuration to inject any additional fonts (optional) */
+export function _injectAdditionalFonts(additionalFonts) {
+	const fileNames = additionalFonts.map(f => f.fileName);
+
+	// Map the file names to file extensions to build the correct CSS
+	let fileMap: { [name: string]: string[]; } = {};
+
+	// e.g. input: ["Couture-Bold.woff2", "Couture-Bold.woff", "NEOTERIC-Bold.woff2"]
+	for (let fileName of fileNames) {
+		// Split the file name
+		const split = fileName.split('.');
+		
+		// e.g.: 'NEOTERIC-Bold.woff2' -> ['NEOTERIC-Bold', 'woff2']
+		const name = split[0];
+		const extension = split[1];
+		
+		if (fileMap[name] === undefined) fileMap[name] = [];
+		fileMap[name].push(extension);
+	}
+	// output: { "Couture-Bold": [ "woff2", "woff" ], "NEOTERIC-Bold": [ "woff2" ] } 
+
+	// i.e.: mapKeys are the file names minus the extensions
+	const mapKeys = Object.keys(fileMap);
+	return mapKeys.map(fontName => 
+		/* Create a @font-face for each additional font retrieved */
+		`@font-face {` +
+			`\r\n\tfont-family: '${fontName}';` +
+			`\r\n\tsrc: ${
+				fileMap[fontName]
+					.map(extension => 
+					`\r\n\t\turl('../font/${fontName}.${extension}') format('${extension}')`)
+					.join(',')};` +
+		`\r\n}`
+		// Join to make react-helmet play nice
+	).join(';\r\n');
+}
+
+/* Use the site's configuration for the logo HTML and parse it */
 export function _renderLogo(logoHtml: string) {
 	// If the logo HTML is an <svg> use dangerouslySetInnerHtml to avoid React parsing issues
 	return (

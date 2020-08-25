@@ -19,6 +19,10 @@ export const GET_INIT = gql`
 			favicon {
 				url
 			}
+			additionalFonts {
+				fileName
+				url
+			}
 			manifestJson
 			logoHtml
 			primaryColor {
