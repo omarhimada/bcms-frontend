@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { useQuery } from '@apollo/client';
 import ReactHtmlParser from 'react-html-parser';
-import { Card, StyledBody } from 'baseui/card';
-import { Col } from 'antd';
+import { Card, Col } from 'antd';
 import { GET_TEAM_MEMBERS } from './queries';
 import { TeamMember } from './types';
 import Loading from '../../Loading';
+
+const { Meta } = Card;
 
 export default () => {
 	const { loading, error, data } = useQuery(GET_TEAM_MEMBERS);
@@ -24,20 +25,15 @@ export function _renderTeamMembers(teamMembers: TeamMember[]) {
 			xs={{ span: 12 }} 
 			lg={{ span: 8 }}>
 			<Card
-				overrides={{
-					Root: {
-						style: {
-							margin: '0 auto 1rem auto',
-							maxWidth: `${teamMember.profileImage.width}px`
-						}
-					}
-				}}
 				key={teamMember.name}
-				headerImage={teamMember.profileImage.url}
+				cover={<img alt={teamMember.name} title={teamMember.name} src={teamMember.profileImage.url} />}
+				style={{
+					margin: '0 auto 1rem auto',
+					maxWidth: `${teamMember.profileImage.width}px`,
+					height: '100%'
+				}}
 				title={teamMember.name}>
-				<StyledBody>
-					{ReactHtmlParser(teamMember.blurb.html)}
-				</StyledBody>
+				{ReactHtmlParser(teamMember.blurb.html)}
 			</Card>
 		</Col>
 	);

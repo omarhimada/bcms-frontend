@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { HeadingLevel } from 'baseui/heading';
-import { Row, Col } from 'antd';
+import { Row, Col, Divider } from 'antd';
 import Gallery from './Gallery';
 import Services from './Services';
 import FAQs from './FAQs';
@@ -13,7 +13,8 @@ export default (params) => {
 		<Row gutter={[16, 16]} style={{ margin: '0' }}>
 			<Col xs={{ span: 24 }}>
 				<HeadingLevel>
-					<Row gutter={[16, 16]}>
+					<Row className='dynamic-content-wrap' gutter={[16, 16]}>
+						<Divider />
 						{{
 							Services: <Services />,
 							TeamMembers: <TeamMembers />,

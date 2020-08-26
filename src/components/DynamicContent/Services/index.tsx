@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { useQuery } from '@apollo/client';
-import { Card } from 'baseui/card';
 import { ListItem, ListItemLabel } from 'baseui/list';
 import Loading from '../../Loading';
-import { Col, Typography } from 'antd';
+import { Card, Col, Typography } from 'antd';
 import { GET_SERVICES } from './queries';
 import { ServiceCategory } from './types';
 
@@ -24,20 +23,13 @@ export function _renderServiceCategories(serviceCategories: ServiceCategory[]) {
 	return serviceCategories.map(serviceCategory =>
 		<Col 
 			key={`col-service-category-${serviceCategory.title}`}
-			xs={{ span: 24 }} 
+			xs={{ span: 24 }}
+			sm={{ span: 24 }}
+			md={{ span: 12 }}
 			lg={{ span: 12 }}>
-			<Card
-				overrides={{
-					Root: {
-						style: {
-							marginBottom: '1rem'
-						}
-					}
-				}}
-				key={serviceCategory.title}>
-				<Title level={3}>
-					{serviceCategory.title}
-				</Title>
+			<Card 
+				key={serviceCategory.title}
+				title={serviceCategory.title} style={{ marginBottom: '1rem' }}>
 				{_renderServices(serviceCategory)}
 			</Card>
 		</Col>
@@ -53,7 +45,10 @@ export function _renderServices(serviceCategory) {
 					sublist
 					key={`${serviceCategory.title}${service.name}`}
 					endEnhancer={() => (
-						<ListItemLabel>{service.price}&nbsp;{service.per}</ListItemLabel>
+						<ListItemLabel>
+							<span className='currency-symbol'>$</span>
+							{service.price}&nbsp;{service.per}
+						</ListItemLabel>
 					)}>
 					<ListItemLabel sublist>{service.name}</ListItemLabel>
 				</ListItem>

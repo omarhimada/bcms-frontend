@@ -2,6 +2,10 @@ body {
     background: rgb(31, 31, 31);
 }
 
+#centered-root > div {
+	background: rgb(255, 255, 255);
+}
+
 .faq-ul, .services-ul {
 	padding: 0;
 }
@@ -21,4 +25,17 @@ body {
 
 .graphcms-image-outer-wrapper {
 	display: inline-block;
+}
+
+.currency-symbol {
+	opacity: 0.88;
+    font-size: 0.95rem;
+	font-weight: normal;
+	margin-right: 1px;
+}
+
+/* Shared across dynamic content blocks */
+.dynamic-content-wrap {
+	padding: 0.5rem;
+    justify-content: center;
 }

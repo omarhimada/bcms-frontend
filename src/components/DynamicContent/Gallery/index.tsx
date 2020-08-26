@@ -59,14 +59,15 @@ export function _renderImages(images) {
 					// alt="Sample"
 					image={{
 						handle: image.handle,
-						width: 330,
-						height: 330
+						width: 500,
+						height: 500
 					}}
+					fit='scale'
 					maxWidth={500}
 					withWebp
 					style={{
-						width: 330,
-						height: 330
+						width: 332,
+						height: 332
 					}}
 				/>	
 			</Button>
@@ -95,7 +96,8 @@ export function _imageModal(image) {
 						width: image.width,
 						height: image.height
 					}}
-					maxWidth={1024}
+					fit='scale'
+					maxWidth={'100%'}
 					withWebp
 					style={{
 						width: image.width,

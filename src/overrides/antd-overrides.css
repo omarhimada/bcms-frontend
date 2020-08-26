@@ -2,26 +2,42 @@
 .ant-layout.layout {
 	width: 100%;
 	padding-bottom: 4.2rem;
+	background-color: rgb(255,255,255);
+}
+
+/* Spinner/loading animation */
+.loading-spinner {
+	padding-top: 3rem;
+	text-align: center;
+}
+
+.loading-spinner .ant-spin {
+	font-size: 2rem;
+	font-weight: 300;
+	color: rgba(255,255,255,0.85);
+}
+
+.loading-spinner .ant-spin-dot-item {
+	background-color: rgba(255,255,255,0.85);
+}
+
+.loading-spinner .ant-spin-lg .ant-spin-dot {
+	font-size: 3.7rem;
+}
+
+.loading-spinner .ant-spin-lg .ant-spin-dot i {
+    width: 1.7rem;
+    height: 1.7rem;
 }
 
 html {
 	--antd-wave-shadow-color: rgba(0,0,0,0.85);
 }
 
-.ant-spin-dot-item {
-	background-color: rgba(255,255,255,0.85);
-}
-
-.ant-spin {
-	color: rgba(255,255,255,0.85);
-}
-
-.layout {
-	background-color: #fff;
-}
-
-.loading-spinner {
-	text-align: center;
+/* Cards */
+.ant-card-bordered {
+	border-color: #e4e9f0;
+	box-shadow: 0 4px 10px 0 rgba(20,19,34,.05), 0 0 10px 0 rgba(20,19,34,.05);
 }
 
 /* Headings */
@@ -133,6 +149,10 @@ h1.ant-typography {
 	margin-left: 0;
 	padding-left: 0;
 	padding-right: 0;
+}
+
+.ant-typography .services-ul li p {
+	margin-bottom: 0;
 }
 
 .ant-typography .ant-list-item-meta span.anticon-question svg {

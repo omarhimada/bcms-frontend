@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useQuery } from '@apollo/client';
 import ReactHtmlParser from 'react-html-parser';
-import { List, Typography } from 'antd';
+import { List, Typography, Card } from 'antd';
 import { QuestionOutlined } from '@ant-design/icons'
 import Loading from '../../Loading';
 import { GET_FAQS } from './queries';
@@ -16,7 +16,7 @@ export default () => {
 	if (loading) return (<Loading />);
 	if (error) return (<span>Error! {error.message}</span>);
 
-	return <React.Fragment>{_renderFAQs(data.faqCategories)}</React.Fragment>;
+	return <Card style={{ width: '100%' }}>{_renderFAQs(data.faqCategories)}</Card>;
 };
 
 /* Render an Accordion where each Panel is an FAQ category */
