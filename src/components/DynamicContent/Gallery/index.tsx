@@ -59,11 +59,10 @@ export function _renderImages(images) {
 					// alt="Sample"
 					image={{
 						handle: image.handle,
-						width: 500,
-						height: 500
+						width: 664,
+						height: 664
 					}}
 					fit='scale'
-					maxWidth={500}
 					withWebp
 					style={{
 						width: 332,
@@ -81,6 +80,9 @@ export function _imageModal(image) {
 		icon: <></>,
 		className: 'image-modal',
 		maskClosable: true,
+		style: {
+			top: 0
+		},
 		okButtonProps: {
 			hidden: true
 		},
@@ -96,12 +98,13 @@ export function _imageModal(image) {
 						width: image.width,
 						height: image.height
 					}}
-					fit='scale'
-					maxWidth={'100%'}
+					fit='max'
+					maxWidth={1376}
 					withWebp
 					style={{
 						width: image.width,
-						height: image.height
+						height: image.height,
+						maxHeight: window.innerHeight - 40
 					}}
 				/>	
 			</div>
