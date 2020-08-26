@@ -17,16 +17,14 @@ module.exports = {
   },
   plugins: [
     'react',
-	'@typescript-eslint',
-	'baseui'
+		'@typescript-eslint',
+		'baseui'
   ],
   rules: {
-	"sort-imports": ["error", {
-        "ignoreCase": false,
-        "ignoreDeclarationSort": false,
-        "ignoreMemberSort": false,
-        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
-        "allowSeparatedGroups": false
-    }]
+		"sort-imports": [2, {
+			"ignoreCase": false,
+			"ignoreMemberSort": false,
+			"memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+		}]
   }
 };

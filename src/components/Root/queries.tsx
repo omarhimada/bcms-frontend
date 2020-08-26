@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-/* Get page titles and IDs for navigation, 
+/* Get page titles and IDs for navigation,
  * as well as the site's first (and only) configuration */
 export const GET_INIT = gql`
 	query Initialization {
@@ -40,7 +40,5 @@ export const GET_INIT = gql`
 			facebookLink
 			instagramLink
 		}
-  	}
+	}
 `;
-
-  

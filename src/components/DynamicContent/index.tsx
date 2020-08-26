@@ -1,29 +1,29 @@
 import * as React from 'react';
 import { HeadingLevel } from 'baseui/heading';
-import { Row, Col, Divider } from 'antd';
+import { Col, Divider, Row } from 'antd';
 import Gallery from './Gallery';
 import Services from './Services';
 import FAQs from './FAQs';
 import TeamMembers from './TeamMembers';
 
 export default (params) => {
-	if (params.type === null || params.type === 'None') return <></>;
+  if (params.type === null || params.type === 'None') return <></>;
 
-	return (
-		<Row gutter={[16, 16]} style={{ margin: '0' }}>
-			<Col xs={{ span: 24 }}>
-				<HeadingLevel>
-					<Row className='dynamic-content-wrap' gutter={[16, 16]}>
-						<Divider />
-						{{
-							Services: <Services />,
-							TeamMembers: <TeamMembers />,
-							FAQs: <FAQs />,
-							Gallery: <Gallery />
-						}[params.type]}
-					</Row>
-				</HeadingLevel>
-			</Col>
-		</Row>
-	);
+  return (
+    <Row gutter={[16, 16]} style={{ margin: '0' }}>
+      <Col xs={{ span: 24 }}>
+        <HeadingLevel>
+          <Row className="dynamic-content-wrap" gutter={[16, 16]}>
+            <Divider />
+            {{
+						  Services: <Services />,
+						  TeamMembers: <TeamMembers />,
+						  FAQs: <FAQs />,
+						  Gallery: <Gallery />,
+            }[params.type]}
+          </Row>
+        </HeadingLevel>
+      </Col>
+    </Row>
+  );
 };
