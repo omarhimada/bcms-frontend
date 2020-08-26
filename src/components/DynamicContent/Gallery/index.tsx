@@ -80,6 +80,10 @@ export function _imageModal(image) {
 		icon: <></>,
 		className: 'image-modal',
 		maskClosable: true,
+		cancelButtonProps: {
+			
+		},
+		onCancel: () => { },
 		style: {
 			top: 0
 		},

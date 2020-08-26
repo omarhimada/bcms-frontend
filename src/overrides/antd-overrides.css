@@ -240,6 +240,12 @@ footer .ant-descriptions-item.physical-address-wrap .ant-descriptions-item-conte
     border-color: rgba(0,0,0,0.85);
 }
 
+.image-modal.ant-modal-confirm .ant-modal-close {
+	display: block;
+	color: rgba(255,255,255,0.85);
+	background: rgba(0,0,0,0.85);
+}
+
 .image-modal.ant-modal-confirm .ant-modal-body {
 	padding: 0;
 }
@@ -287,12 +293,12 @@ footer .ant-descriptions-item.physical-address-wrap .ant-descriptions-item-conte
 
 .page-carousel-item button {
 	margin: auto;
-    position: absolute;
-    width: 100%;
+	position: absolute;
+	width: 100%;
 	left: 33%;
 	width: 33%;
-    bottom: 7.2rem;
-    filter: opacity(0.77);
+	bottom: 7.2rem;
+	filter: opacity(0.77);
 }
 
 
