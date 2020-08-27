@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { useQuery } from '@apollo/client';
 import { BaseProvider, createTheme, styled } from 'baseui';
-
 import { Client as Styletron } from 'styletron-engine-atomic';
 import { Provider as StyletronProvider } from 'styletron-react';
 import { BackTop, Button, Layout } from 'antd';
@@ -11,7 +10,7 @@ import { GET_INIT } from './queries';
 import Nav from '../Nav';
 import Loading from '../Loading';
 import Footing from '../Footing';
-import { Configuration } from './types';
+import { Configuration, Font } from './types';
 
 /* ant.design's Footer */
 const { Footer } = Layout;
@@ -105,7 +104,7 @@ export default () => {
 };
 
 /* Use the site's configuration to inject any additional fonts (optional) */
-export function _injectAdditionalFonts(additionalFonts) {
+export function _injectAdditionalFonts(additionalFonts: Font[]) {
   // Map the partial file names to [file extension, url] tuples to build the correct CSS
   const _fileMap: { [name: string]: [string, string][]; } = {};
 

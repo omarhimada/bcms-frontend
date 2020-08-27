@@ -2,11 +2,9 @@ export class ContentPage {
 	id: string;
 
 	title: string;
-
+	heading: string;
 	content: Content;
-
 	dynamicContent: string;
-
 	carouselImages: CarouselImage[];
 
 	carouselCtaText: string;
@@ -14,21 +12,23 @@ export class ContentPage {
 	carouselCtaLink: string;
 
 	constructor(
-	  id: string,
-	  title: string,
-	  content: Content,
-	  dynamicContent: string,
-	  carouselImages: CarouselImage[],
-	  carouselCtaText: string,
-	  carouselCtaLink: string,
+		id: string,
+		title: string,
+		heading: string,
+		content: Content,
+		dynamicContent: string,
+		carouselImages: CarouselImage[],
+		carouselCtaText: string,
+		carouselCtaLink: string,
 	) {
-	  this.id = id;
-	  this.title = title;
-	  this.content = content;
-	  this.dynamicContent = dynamicContent;
-	  this.carouselImages = carouselImages;
-	  this.carouselCtaText = carouselCtaText;
-	  this.carouselCtaLink = carouselCtaLink;
+		this.id = id;
+		this.title = title;
+		this.heading = title;
+		this.content = content;
+		this.dynamicContent = dynamicContent;
+		this.carouselImages = carouselImages;
+		this.carouselCtaText = carouselCtaText;
+		this.carouselCtaLink = carouselCtaLink;
 	}
 }
 
@@ -36,17 +36,18 @@ export class Content {
 	html: string;
 
 	constructor(html: string) {
-	  this.html = html;
+		this.html = html;
 	}
 }
 
 export class CarouselImage {
 	url: string;
-
+	height: number;
 	id: string;
 
-	constructor(url: string, id: string) {
-	  this.url = url;
-	  this.id = id;
+	constructor(url: string, height: number, id: string) {
+		this.url = url;
+		this.height = height;
+		this.id = id;
 	}
 }
