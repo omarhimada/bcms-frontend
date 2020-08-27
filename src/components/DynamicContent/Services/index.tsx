@@ -6,8 +6,6 @@ import Loading from '../../Loading';
 import { GET_SERVICES } from './queries';
 import { ServiceCategory } from './types';
 
-const { Title } = Typography;
-
 export default () => {
   const { loading, error, data } = useQuery(GET_SERVICES);
 
