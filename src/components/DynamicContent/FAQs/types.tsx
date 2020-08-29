@@ -1,32 +1,32 @@
 // FAQ category has many FAQs and a title
 export class FAQCategory {
-	questions: FAQ[];
+  questions: FAQ[];
 
-	title: string;
+  title: string;
 
-	constructor(questions: FAQ[], title: string) {
-	  this.questions = questions;
-	  this.title = title;
-	}
+  constructor(questions: FAQ[], title: string) {
+    this.questions = questions;
+    this.title = title;
+  }
 }
 
 // FAQ is a question and an answer
 export class FAQ {
-	question: string;
+  question: string;
 
-	answer: Answer;
+  answer: Answer;
 
-	constructor(question: string, answer: Answer) {
-	  this.question = question;
-	  this.answer = answer;
-	}
+  constructor(question: string, answer: Answer) {
+    this.question = question;
+    this.answer = answer;
+  }
 }
 
 // Answer is HTML (WYSIWYG)
 export class Answer {
-	html: string;
+  html: string;
 
-	constructor(html: string) {
-	  this.html = html;
-	}
+  constructor(html: string) {
+    this.html = html;
+  }
 }

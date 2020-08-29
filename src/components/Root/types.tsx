@@ -1,116 +1,170 @@
+import React from "react";
+
+// Create a context for the site configuration 
+export const SiteContext = React.createContext<Configuration | undefined>(undefined);
+
 export class Configuration {
-	id: string;
+  id: string;
 
-	siteName: string;
+  /**
+   * The 'title' of the site
+   */
+  siteName: string;
 
-	siteDescription: string;
+  /**
+   * The meta 'description' for the site
+   */
+  siteDescription: string;
 
-	siteKeywords: string;
+  /**
+   * The meta 'keywords' for the site
+   */
+  siteKeywords: string;
 
-	favicon: MetaImage;
+  /**
+   * The favicon image for the site
+   */
+  favicon: MetaImage;
 
-	appleTouchIcon: MetaImage;
+  /**
+   * The 'logo192.png' for the site
+   */
+  appleTouchIcon: MetaImage;
 
-	manifestJson: string;
+  /**
+   * The 'manifest.json' file to include in the site
+   */
+  manifestJson: string;
 
-	additionalFonts: Font[];
+  /**
+   * Additional fonts to download
+   * (recommended: woff2, woff and ttf for each additional font)
+   */
+  additionalFonts: Font[];
 
-    logoHtml: string;
+  /**
+   * HTML representing the site logo (e.g.: an <svg> element, or an <img>, etc.)
+   */
+  logoHtml: string;
 
-    primaryColor: Color;
+  /**
+   * The primary color to use across the site
+   */
+  primaryColor: Color;
 
-    accentColor: Color;
+  /**
+   * The accent color to use across the site
+   */
+  accentColor: Color;
 
-    footerContent: FooterContent;
+  /**
+   * Rich-text: content to display at the footer of the page
+   */
+  footerContent: FooterContent;
 
-    physicalAddress: string;
+  /**
+   * Physical address to display as contact information
+   */
+  physicalAddress: string;
 
-    contactEmail: string;
+  /**
+   * Email to display as contact information
+   */
+  contactEmail: string;
 
-    contactPhoneNumber: string;
+  /**
+   * Phone number to display as contact information
+   */
+  contactPhoneNumber: string;
 
-    facebookLink: string;
+  /**
+   * Facebook Link
+   */
+  facebookLink: string;
 
-	instagramLink: string;
+  /**
+   * Instagram Link
+   */
+  instagramLink: string;
 
-	constructor(
-	  id: string,
+  constructor(
+    id: string,
 
-	  siteName: string,
-	  siteDescription: string,
-	  siteKeywords: string,
+    siteName: string,
+    siteDescription: string,
+    siteKeywords: string,
 
-	  favicon: MetaImage,
-	  appleTouchIcon: MetaImage,
-	  manifestJson: string,
+    favicon: MetaImage,
+    appleTouchIcon: MetaImage,
+    manifestJson: string,
 
-	  additionalFonts: Font[],
+    additionalFonts: Font[],
 
-	  logoHtml: string,
-	  primaryColor: Color,
-	  accentColor: Color,
-	  footerContent: FooterContent,
-	  physicalAddress: string,
-	  contactEmail: string,
-	  contactPhoneNumber: string,
-	  facebookLink: string,
-	  instagramLink: string,
-	) {
-	  this.id = id;
+    logoHtml: string,
+    primaryColor: Color,
+    accentColor: Color,
+    footerContent: FooterContent,
+    physicalAddress: string,
+    contactEmail: string,
+    contactPhoneNumber: string,
+    facebookLink: string,
+    instagramLink: string
+  ) {
+    this.id = id;
 
-	  this.siteName = siteName;
-	  this.siteDescription = siteDescription;
-	  this.siteKeywords = siteKeywords;
+    this.siteName = siteName;
+    this.siteDescription = siteDescription;
+    this.siteKeywords = siteKeywords;
 
-	  this.favicon = favicon;
-	  this.appleTouchIcon = appleTouchIcon;
-	  this.manifestJson = manifestJson;
+    this.favicon = favicon;
+    this.appleTouchIcon = appleTouchIcon;
+    this.manifestJson = manifestJson;
 
-	  this.additionalFonts = additionalFonts;
+    this.additionalFonts = additionalFonts;
 
-	  this.logoHtml = logoHtml;
-	  this.primaryColor = primaryColor;
-	  this.accentColor = accentColor;
-	  this.footerContent = footerContent;
-	  this.physicalAddress = physicalAddress;
-	  this.contactEmail = contactEmail;
-	  this.contactPhoneNumber = contactPhoneNumber;
-	  this.facebookLink = facebookLink;
-	  this.instagramLink = instagramLink;
-	}
+    this.logoHtml = logoHtml;
+    this.primaryColor = primaryColor;
+    this.accentColor = accentColor;
+    this.footerContent = footerContent;
+    this.physicalAddress = physicalAddress;
+    this.contactEmail = contactEmail;
+    this.contactPhoneNumber = contactPhoneNumber;
+    this.facebookLink = facebookLink;
+    this.instagramLink = instagramLink;
+  }
 }
 
 export class Color {
-	hex: string;
+  hex: string;
 
-	constructor(hex: string) {
-	  this.hex = hex;
-	}
+  constructor(hex: string) {
+    this.hex = hex;
+  }
 }
 
 export class MetaImage {
-	url: string;
+  url: string;
 
-	constructor(url: string) {
-	  this.url = url;
-	}
+  constructor(url: string) {
+    this.url = url;
+  }
 }
 
 export class FooterContent {
-	html: string;
+  html: string;
 
-	constructor(html: string) {
-	  this.html = html;
-	}
+  constructor(html: string) {
+    this.html = html;
+  }
 }
 
 export class Font {
-	fileName: string;
+  fileName: string;
 
-	url: string;
+  url: string;
 
-	constructor(fileName: string, url: string) {
-	  this.fileName = fileName;
-	  this.url = url;
-	}
+  constructor(fileName: string, url: string) {
+    this.fileName = fileName;
+    this.url = url;
+  }
 }

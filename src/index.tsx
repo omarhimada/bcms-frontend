@@ -1,11 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
 
 // Roboto font
-import 'typeface-roboto';
+import "typeface-roboto";
 
 // Apollo for GraphQL
 import {
@@ -13,10 +13,10 @@ import {
   ApolloProvider,
   InMemoryCache,
   NormalizedCacheObject,
-} from '@apollo/client';
+} from "@apollo/client";
 
 // dotenv to load environment variables
-require('dotenv').config();
+require("dotenv").config();
 
 // ApolloClient
 const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
@@ -29,7 +29,7 @@ ReactDOM.render(
   <ApolloProvider client={client}>
     <App />
   </ApolloProvider>,
-  document.getElementById('root'),
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
