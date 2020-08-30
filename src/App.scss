@@ -1,43 +1,57 @@
 body {
-    background: rgb(31, 31, 31);
+  background: rgb(31, 31, 31);
 }
 
 #centered-root > div {
-	background: rgb(255, 255, 255);
+  background: rgb(255, 255, 255);
 }
 
-.faq-ul, .services-ul {
-	padding: 0;
+.faq-ul,
+.services-ul {
+  padding: 0;
 }
 
 .faq-ul li > div {
-	display: block;
+  display: block;
 }
 
 .faq-ul li h2 {
-	margin: 0;
+  margin: 0;
 }
 
 .faq-answer {
-	width: 100%;
-	display: block;
+  width: 100%;
+  display: block;
 }
 
 .graphcms-image-wrapper,
 .graphcms-image-outer-wrapper {
-	max-width: 100%;
-	max-height: 100%;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .currency-symbol {
-	opacity: 0.88;
-	font-size: 0.95rem;
-	font-weight: normal;
-	margin-right: 1px;
+  opacity: 0.88;
+  font-size: 0.95rem;
+  font-weight: normal;
+  margin-right: 1px;
 }
 
 /* Shared across dynamic content blocks */
 .dynamic-content-wrap {
-	padding: 0.5rem;
-	justify-content: center;
+  justify-content: center;
+}
+
+/* Wrapper for the custom header actions for each page */
+.header-action-btns-wrap {
+  text-align: right;
+
+  a {
+    margin: 0 0.25rem 0 0.5rem;
+    font-weight: normal;
+    text-decoration: underline;
+  }
+  a:hover {
+    color: rgba(255, 255, 255, 1);
+  }
 }

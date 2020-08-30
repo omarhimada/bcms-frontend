@@ -1,4 +1,5 @@
 # bCMS
+
 ### TypeScript, React, GraphQL, ant.design, Base Web
 
 CMS front-end written in TypeScript. Uses React, GraphQL (via Apollo), ant.design, and Base Web UI Framework
@@ -10,34 +11,40 @@ CMS front-end written in TypeScript. Uses React, GraphQL (via Apollo), ant.desig
 #### Integrates with a headless CMS such as [GraphCMS](https://graphcms.com). You could substitute this with a Strapi + GraphQL deployment though.
 
 ## Features
+
 - Hero/heading, Carousel & CTA callout
 - WYSIWG body content
 - Categorized products/services
 - Categorized FAQs
 - Team Members
-- Gallery 
+- Gallery
   - Renders thumbnails and full-size images with [graphcms-image](https://github.com/GraphCMS/graphcms-image)
 
 Site-wide configuration also retrieved from CMS and injected via [react-helmet](https://github.com/nfl/react-helmet):
-  - Meta keywords, descriptions, title, etc.
-  - Footer content
-  - Primary and accent colors
-  - Additional font assets
-  - Logo HTML (e.g.: inline SVG, your own `<img>` element, etc.)
+
+- Meta keywords, descriptions, title, etc.
+- Footer content
+- Primary and accent colors
+- Additional font assets
+- Logo HTML (e.g.: inline SVG, your own `<img>` element, etc.)
 
 ---
+
 ## Deploying to Azure Blob Storage as a Static Website
-Because this is a React application it can be deployed as a static website. For SEO purposes a `renderAll` parameter is used where it matters (e.g.: rendering all the pages as tabs in the `StatefulTabs` component). 
+
+Because this is a React application it can be deployed as a static website. For SEO purposes a `renderAll` parameter is used where it matters (e.g.: rendering all the pages as tabs in the `StatefulTabs` component).
 
 1. Create an Azure Storage Account
 2. Once created, configure the storage account as a 'Static Website' (flip the switch in the settings)
-3. Install the Visual Studio Code extension *Azure Storage*
+3. Install the Visual Studio Code extension _Azure Storage_
 4. Run `yarn build`
-5. Right-click the `/build` directory and select *Deploy to Static Website...*
+5. Right-click the `/build` directory and select _Deploy to Static Website..._
 6. Follow the prompts, should deploy quite quickly
 
 ---
+
 ## yarn
+
 ### Available Scripts
 
 In the project directory, you can run:

@@ -19,6 +19,7 @@
     "@types/styletron-react": "^5.0.2",
     "@types/styletron-standard": "^2.0.1",
     "antd": "^4.5.4",
+    "antd-scss-theme-plugin": "^1.0.8",
     "applicationinsights": "^1.8.5",
     "baseui": "^9.95.1",
     "dotenv": "^8.2.0",
