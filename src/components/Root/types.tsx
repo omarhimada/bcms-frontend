@@ -1,116 +1,116 @@
 export class Configuration {
-	id: string;
+  id: string;
 
-	siteName: string;
+  siteName: string;
 
-	siteDescription: string;
+  siteDescription: string;
 
-	siteKeywords: string;
+  siteKeywords: string;
 
-	favicon: MetaImage;
+  favicon: MetaImage;
 
-	appleTouchIcon: MetaImage;
+  appleTouchIcon: MetaImage;
 
-	manifestJson: string;
+  manifestJson: string;
 
-	additionalFonts: Font[];
+  additionalFonts: Font[];
 
-    logoHtml: string;
+  logoHtml: string;
 
-    primaryColor: Color;
+  primaryColor: Color;
 
-    accentColor: Color;
+  accentColor: Color;
 
-    footerContent: FooterContent;
+  footerContent: FooterContent;
 
-    physicalAddress: string;
+  physicalAddress: string;
 
-    contactEmail: string;
+  contactEmail: string;
 
-    contactPhoneNumber: string;
+  contactPhoneNumber: string;
 
-    facebookLink: string;
+  facebookLink: string;
 
-	instagramLink: string;
+  instagramLink: string;
 
-	constructor(
-	  id: string,
+  constructor(
+    id: string,
 
-	  siteName: string,
-	  siteDescription: string,
-	  siteKeywords: string,
+    siteName: string,
+    siteDescription: string,
+    siteKeywords: string,
 
-	  favicon: MetaImage,
-	  appleTouchIcon: MetaImage,
-	  manifestJson: string,
+    favicon: MetaImage,
+    appleTouchIcon: MetaImage,
+    manifestJson: string,
 
-	  additionalFonts: Font[],
+    additionalFonts: Font[],
 
-	  logoHtml: string,
-	  primaryColor: Color,
-	  accentColor: Color,
-	  footerContent: FooterContent,
-	  physicalAddress: string,
-	  contactEmail: string,
-	  contactPhoneNumber: string,
-	  facebookLink: string,
-	  instagramLink: string,
-	) {
-	  this.id = id;
+    logoHtml: string,
+    primaryColor: Color,
+    accentColor: Color,
+    footerContent: FooterContent,
+    physicalAddress: string,
+    contactEmail: string,
+    contactPhoneNumber: string,
+    facebookLink: string,
+    instagramLink: string
+  ) {
+    this.id = id;
 
-	  this.siteName = siteName;
-	  this.siteDescription = siteDescription;
-	  this.siteKeywords = siteKeywords;
+    this.siteName = siteName;
+    this.siteDescription = siteDescription;
+    this.siteKeywords = siteKeywords;
 
-	  this.favicon = favicon;
-	  this.appleTouchIcon = appleTouchIcon;
-	  this.manifestJson = manifestJson;
+    this.favicon = favicon;
+    this.appleTouchIcon = appleTouchIcon;
+    this.manifestJson = manifestJson;
 
-	  this.additionalFonts = additionalFonts;
+    this.additionalFonts = additionalFonts;
 
-	  this.logoHtml = logoHtml;
-	  this.primaryColor = primaryColor;
-	  this.accentColor = accentColor;
-	  this.footerContent = footerContent;
-	  this.physicalAddress = physicalAddress;
-	  this.contactEmail = contactEmail;
-	  this.contactPhoneNumber = contactPhoneNumber;
-	  this.facebookLink = facebookLink;
-	  this.instagramLink = instagramLink;
-	}
+    this.logoHtml = logoHtml;
+    this.primaryColor = primaryColor;
+    this.accentColor = accentColor;
+    this.footerContent = footerContent;
+    this.physicalAddress = physicalAddress;
+    this.contactEmail = contactEmail;
+    this.contactPhoneNumber = contactPhoneNumber;
+    this.facebookLink = facebookLink;
+    this.instagramLink = instagramLink;
+  }
 }
 
 export class Color {
-	hex: string;
+  hex: string;
 
-	constructor(hex: string) {
-	  this.hex = hex;
-	}
+  constructor(hex: string) {
+    this.hex = hex;
+  }
 }
 
 export class MetaImage {
-	url: string;
+  url: string;
 
-	constructor(url: string) {
-	  this.url = url;
-	}
+  constructor(url: string) {
+    this.url = url;
+  }
 }
 
 export class FooterContent {
-	html: string;
+  html: string;
 
-	constructor(html: string) {
-	  this.html = html;
-	}
+  constructor(html: string) {
+    this.html = html;
+  }
 }
 
 export class Font {
-	fileName: string;
+  fileName: string;
 
-	url: string;
+  url: string;
 
-	constructor(fileName: string, url: string) {
-	  this.fileName = fileName;
-	  this.url = url;
-	}
+  constructor(fileName: string, url: string) {
+    this.fileName = fileName;
+    this.url = url;
+  }
 }

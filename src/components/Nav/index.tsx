@@ -1,78 +1,120 @@
 import * as React from 'react';
-import { Cell, Grid } from 'baseui/layout-grid';
-import {
-	FILL, StatefulTabs, StyledTabList, Tab,
-} from 'baseui/tabs-motion';
-import { Layout } from 'antd';
 import Page from '../Page';
 import { ContentPage } from '../Page/types';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Grid from '@material-ui/core/Grid';
+import Toolbar from "@material-ui/core/Toolbar";
 
-export default (params) => {
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: any;
+  value: any;
+}
+
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`nav-tabpanel-${index}`}
+      aria-labelledby={`nav-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Grid container spacing={0}>
+					<Grid item xs={12}>
+						{children}
+					</Grid>
+        </Grid>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index: any) {
+  return {
+    id: `nav-tab-${index}`,
+    'aria-controls': `nav-tabpanel-${index}`,
+  };
+}
+
+const useStyles = makeStyles((theme: Theme) => ({
+  navRoot: {
+    flexGrow: 1,
+    //backgroundColor: theme.palette.background.paper,
+	},
+	pageWrapper: {
+		maxWidth: '1376px',
+		width: '100%',
+		justifyContent: 'center',
+		margin: '0 auto',
+	},
+	tab: {
+		padding: 0
+	}
+}));
+
+export default function Nav(params) {
 	const { configuration } = params;
 	const { pages } = params;
 
+	const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setValue(newValue);
+  };
+
 	return (
-		<StatefulTabs
-			renderAll
-			fill={FILL.fixed}
-			overrides={{
-				Root: {
-					style: {
-						backgroundColor: '#fff',
-						width: '100%',
-					},
-				},
-				TabHighlight: {
-					style: ({ $theme }) => ({
-						backgroundColor: $theme.colors.primaryA,
-					}),
-				},
-				TabList: {
-					/* Override the default baseui tabs to include the logo and tabsRef */
-					component: function TabsListOverride(props: any) {
-						return (
-							<Grid overrides={{ Grid: { style: { paddingLeft: '0 !important', paddingRight: '0 !important' } } }}>
-								<Cell span={[4, 3, 5]} overrides={LogoCellOverrides}>
-									{/* Render the logo using the logo HTML */}
-									{_renderLogo(configuration.logoHtml)}
-								</Cell>
-								{/* This cell is also overridden */}
-								<Cell span={[4, 5, 7]} overrides={TabsCellOverrides}>
-									<StyledTabList {...props} />
-								</Cell>
+		<div className={classes.navRoot}>
+			<AppBar position="static">
+					<Toolbar>
+						<Grid justify={"space-between"} container>
+							<Grid xs={12} sm={5} md={5} item>
+								{/* Render the logo using the logo HTML */}
+								{_renderLogo(configuration.logoHtml)}
 							</Grid>
-						);
-					},
-				},
-			}}
-			activateOnFocus
-		>
-			{/* Render a tab for each page */}
-			{pages.map((page: ContentPage) => (
-				<Tab
+							<Grid xs={12} sm={7} md={7} item>
+								<Grid container justify={"center"}>
+								<Tabs 
+										value={value} 
+										onChange={handleChange} 
+										indicatorColor="primary"
+										variant="fullWidth"
+										aria-label="Navigation">
+										{/* Render a tab for each page */}
+										{pages.map((page: ContentPage) => (
+											<Tab 
+												className={classes.tab}
+												key={page.id}
+												label={page.title} 
+												{...a11yProps(0)} />
+										))}
+									</Tabs>
+								</Grid>
+							</Grid>
+						</Grid>
+					</Toolbar>
+			</AppBar>
+			{/* Render a tab panel for each page */}
+			{pages.map((page: ContentPage, index: number) => (
+				<TabPanel
+					value={value} 
+					index={index} 
 					key={page.id}
-					title={page.title}
-					overrides={{
-						TabPanel: {
-							style: {
-								paddingLeft: 0,
-								paddingRight: 0,
-								paddingBottom: 0,
-								maxWidth: '1376px',
-								width: '100%',
-								justifyContent: 'center',
-								margin: '0 auto',
-							},
-						},
-					}}
-				>
-					<Layout className="layout">
-						{/* Page component renders the header and content of the layout */}
-						<Page pageId={page.id} />
-					</Layout>
-				</Tab>
+					{...a11yProps(0)}>
+						<div className={classes.pageWrapper}>
+							{/* Page component renders the header and content of the layout */}
+							<Page pageId={page.id} />
+						</div>
+				</TabPanel>
 			))}
-		</StatefulTabs>
+		</div>
 	);
 };
 
@@ -92,21 +134,3 @@ export function _renderLogo(logoHtml: string) {
 		/>
 	);
 }
-
-/* Logo cell overrides */
-const LogoCellOverrides = {
-	Cell: {
-		style: {
-			paddingRight: '0 !important',
-		},
-	},
-};
-
-/* Tabs cell overrides */
-const TabsCellOverrides = {
-	Cell: {
-		style: {
-			width: '100%',
-		},
-	},
-};

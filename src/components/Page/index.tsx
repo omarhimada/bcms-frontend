@@ -1,19 +1,16 @@
 import * as React from 'react';
 import { useQuery } from '@apollo/client';
 import ReactHtmlParser from 'react-html-parser';
-import { Button, SIZE } from 'baseui/button';
-import { ArrowRight } from 'baseui/icon';
-import {
-	Carousel, Col, Divider, Layout, Row, Typography,
-} from 'antd';
 import Loading from '../Loading';
 import { GET_PAGE } from './queries';
 import DynamicContent from '../DynamicContent';
 import { ContentPage } from './types';
-
-/* This component renders the header and content of the layout */
-const { Content } = Layout;
-const { Title } = Typography;
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Slider from "react-slick";
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
+import Divider from '@material-ui/core/Divider';
 
 export default (params: any) => {
 	const { loading, error, data } = useQuery(GET_PAGE, {
@@ -33,17 +30,15 @@ export default (params: any) => {
 	}
 
 	return (
-		<Content id={`page-${data.page.id}`}>
-			<Typography>
-				{_renderHeading(data.page)}
-				<div className="site-layout-content">
-					{_renderCarousel(data.page)}
-					{_renderPageContent(data.page)}
-					{/* Dynamic content (e.g.: services, FAQ, etc.) */}
-					<DynamicContent type={data.page.dynamicContent} />
-				</div>
-			</Typography>
-		</Content>
+		<div id={`page-${data.page.id}`}>
+      {_renderHeading(data.page)}
+      <div className="site-layout-content">
+        {_renderCarousel(data.page)}
+        {_renderPageContent(data.page)}
+        {/* Dynamic content (e.g.: services, FAQ, etc.) */}
+        <DynamicContent type={data.page.dynamicContent} />
+      </div>
+		</div>
 	);
 };
 
@@ -51,9 +46,9 @@ export default (params: any) => {
 export function _renderHeading(page: ContentPage) {
 	return page.heading !== null && !page.carouselImages.length
 		? (
-			<Title level={1}>
-				{page.heading}
-			</Title>
+      <Typography variant="h1" gutterBottom>
+        {page.heading}
+      </Typography>
 		)
 		: '';
 }
@@ -69,20 +64,22 @@ export function _renderCarousel(page: ContentPage) {
 			page.carouselImages.map((o) => o.height));
 
 	return (
-		<Row gutter={[16, 16]} style={{ margin: '0' }}>
-			<Col
-				xs={{ span: 24 }}
+		<Grid container spacing={0}>
+      <Grid item 
+        xs={12}
 				style={{
-					padding: '0',
-					marginTop: '-16px',
 					minHeight: `${maximumHeightOfCarouselImage + 48}px`,
 				}}
 			>
-				<Carousel
-					effect="fade"
+				<Slider
+          fade={true}
+          arrows={false}
+          dots={true}
+          infinite={true}
 					autoplay
 					autoplaySpeed={2250}
-					slidesToScroll={1}
+          slidesToScroll={1}
+          slidesToShow={1}
 					adaptiveHeight
 				>
 					{page.carouselImages.map((carouselImage) => (
@@ -94,31 +91,46 @@ export function _renderCarousel(page: ContentPage) {
 							{/* Carousel with hero/heading text inside */}
 							{page.heading !== null
 								? (
-									<Title
-										className="page-carousel-heading"
-										level={1}
+                  <Typography 
+                    variant="h1" 
+                    gutterBottom
+                    className="page-carousel-heading"
 									>{page.heading}
-									</Title>
+									</Typography>
 								)
 								: ''}
 							{/* CTA button on the carousel */}
 							{page.carouselCtaText !== null && page.carouselCtaLink !== null
 								? (
-									<Button
-										onClick={() => window.open(page.carouselCtaLink)}
-										startEnhancer={() => <ArrowRight size={24} />}
-										size={SIZE.large}
-									>
-										{page.carouselCtaText}
-									</Button>
+                  <Button 
+                    color="primary" 
+                    variant="contained"
+                    style={{
+                      margin: "auto",
+                      position: "absolute",
+                      left: "33%",
+                      width: "33%",
+                      height: "3.3rem",
+                      fontSize: "1.4rem",
+                      fontWeight: 300,
+                      bottom: "7.2rem",
+                      backgroundColor: "rgba(0, 0, 0, 1)",
+                      filter: "opacity(0.67)",
+                    }}
+                    onClick={() => { window.open(page.carouselCtaLink) }}
+                    href={page.carouselCtaLink}
+                    target="_blank"
+                    disableElevation>
+                    {page.carouselCtaText}
+                  </Button>
 								)
 								: ''}
 						</div>
 					))}
-				</Carousel>
+				</Slider>
 				<Divider />
-			</Col>
-		</Row>
+			</Grid>
+		</Grid>
 	);
 }
 
@@ -127,11 +139,11 @@ export function _renderPageContent(page: ContentPage) {
 	if (page.content === null) return '';
 
 	return (
-		<Row gutter={[16, 16]} style={{ margin: '0', padding: '8px' }}>
-			<Col xs={{ span: 24 }} style={{ padding: '0' }}>
+		<Grid container spacing={0}>
+			<Grid item xs={12}>
 				{/* Page content */}
 				{ReactHtmlParser(page.content.html)}
-			</Col>
-		</Row>
+			</Grid>
+		</Grid>
 	);
 }

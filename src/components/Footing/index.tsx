@@ -1,46 +1,111 @@
 import * as React from 'react';
-import { DarkTheme, ThemeProvider } from 'baseui';
-import { StyledLink } from 'baseui/link';
-import { Col, Descriptions, Row } from 'antd';
-import { FacebookOutlined, InstagramOutlined } from '@ant-design/icons';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { PhoneOutlined, MailOutlined } from '@ant-design/icons';
+
+const useStyles = makeStyles((theme: Theme) => ({
+  footerRoot: {
+		flexGrow: 1,
+		maxWidth: '1376px',
+		width: '100%',
+		justifyContent: 'center',
+		margin: '0 auto',
+    //backgroundColor: theme.palette.background.paper,
+	},
+	listWrap: {
+
+	},
+	title: {
+		margin: theme.spacing(4, 0, 2),
+	},
+}));
 
 /* Use the retrieved configuration to render the footer,
  * including social links and contact details */
 export default (params: any) => {
 	const { configuration } = params;
+	const classes = useStyles();
+
 	return (
-		<ThemeProvider theme={DarkTheme}>
-			<Row style={{ maxWidth: '1376px', margin: '0 auto' }} justify="center" key="footer-row-0">
-				<Col xs={24} sm={24} md={12} lg={6} key="contact-col-1">
-					<Descriptions title="Contact" size="small" column={{ xxl: 3, xs: 3 }} key="descriptions-0">
-						<Descriptions.Item span={3} label="Phone" key="descriptions-0-0">
-							<StyledLink
-								key="footer-link-0"
+		<div className={classes.footerRoot}>
+			<Grid justify={"space-between"} container>
+				<Grid xs={12} sm={12} md={6} lg={3} item>
+					<Typography variant="h6" className={classes.title}>
+            Contact
+          </Typography>
+          <div className={classes.listWrap}>
+            <List dense={true}>
+							<ListItem
+								button 
 								href={`tel:${configuration.contactPhoneNumber}`}
-							>
-								{configuration.contactPhoneNumber}
-							</StyledLink>
-						</Descriptions.Item>
-						<Descriptions.Item span={3} label="Email" key="descriptions-0-1">
-							<StyledLink
-								key="footer-link-1"
+								component="a">
+								<ListItemIcon>
+									<PhoneOutlined />
+								</ListItemIcon>
+								<ListItemText
+									primary={configuration.contactPhoneNumber}
+								/>
+							</ListItem>
+							<ListItem
+								button 
 								href={`mailto:${configuration.contactEmail}`}
-							>
-								{configuration.contactEmail}
-							</StyledLink>
-						</Descriptions.Item>
-					</Descriptions>
-				</Col>
-				<Col xs={24} sm={24} md={12} lg={6} key="contact-col-2">
+								target="_blank"
+								component="a">
+								<ListItemIcon>
+									<MailOutlined />
+								</ListItemIcon>
+								<ListItemText
+									primary={configuration.contactEmail}
+								/>
+							</ListItem>
+            </List>
+          </div>
+				</Grid>
+				
+				<Grid xs={12} sm={12} md={6} lg={3} item>
+					<Typography variant="h6" className={classes.title}>
+						Address
+          </Typography>
+          <div className={`${classes.listWrap} physical-address-wrap`}>
+            <List dense={true}>
+							<ListItem>
+								<ListItemIcon>
+									<PhoneOutlined />
+								</ListItemIcon>
+								<ListItemText
+									primary={
+										<>
+										</>
+									}
+								/>
+							</ListItem>
+							<ListItem
+								button 
+								href={`mailto:${configuration.contactEmail}`}
+								target="_blank"
+								component="a">
+								<ListItemIcon>
+									<MailOutlined />
+								</ListItemIcon>
+								<ListItemText
+									primary={configuration.contactEmail}
+								/>
+							</ListItem>
+            </List>
+          </div>
+
+
+
 					<Descriptions title="Address" size="small" key="descriptions-1">
 						<Descriptions.Item key="descriptions-1-0" className="physical-address-wrap">
-							{configuration.physicalAddress !== null ? 
-								configuration.physicalAddress.split('\n')!.map((line, i) => <p key={`address-${i}`}>{line}</p>)
-							: ''}
+							
 						</Descriptions.Item>
 					</Descriptions>
-				</Col>
-				<Col xs={24} sm={24} md={12} lg={6} key="contact-col-3">
+				</Grid>
+				
+				<Grid xs={12} sm={12} md={6} lg={3} item>
 					<Descriptions title="Facebook" size="small" key="descriptions-2">
 						<Descriptions.Item key="descriptions-2-0">
 							<StyledLink
@@ -55,8 +120,9 @@ export default (params: any) => {
 							</StyledLink>
 						</Descriptions.Item>
 					</Descriptions>
-				</Col>
-				<Col xs={24} sm={24} md={12} lg={6} key="contact-col-4">
+				</Grid>
+				
+				<Grid xs={12} sm={12} md={6} lg={3} item>
 					<Descriptions title="Instagram" size="small" key="descriptions-3">
 						<Descriptions.Item key="descriptions-3-0">
 							<StyledLink
@@ -71,8 +137,8 @@ export default (params: any) => {
 							</StyledLink>
 						</Descriptions.Item>
 					</Descriptions>
-				</Col>
-			</Row>
-		</ThemeProvider>
+				</Grid>
+			</Grid>
+		</div>
 	);
 };

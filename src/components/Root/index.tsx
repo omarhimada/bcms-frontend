@@ -1,33 +1,53 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { useQuery } from '@apollo/client';
-import { BaseProvider, createTheme, styled } from 'baseui';
-import { Client as Styletron } from 'styletron-engine-atomic';
-import { Provider as StyletronProvider } from 'styletron-react';
-import { BackTop, Button, Layout } from 'antd';
-import { UpOutlined } from '@ant-design/icons';
 import { GET_INIT } from './queries';
 import Nav from '../Nav';
 import Loading from '../Loading';
 import Footing from '../Footing';
 import { Configuration, Font } from './types';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 
-/* ant.design's Footer */
-const { Footer } = Layout;
-
-/* Styletron for baseui */
-const engine = new Styletron();
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    wrap: {
+      flexGrow: 1,
+    },
+    /* Horizontally centered <div> */
+    centered: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100%',
+      width: '100%',
+    },
+    /* The 'TOP' button at the bottom of each page */
+    backTopInner: {
+      textAlign: 'center',
+      fontSize: '1.1rem',
+      fontWeight: 'bold',
+    },
+    /* Wrapper for the <Footing> component */
+    footer: {
+      backgroundColor: theme.palette.background.paper,
+      padding: theme.spacing(6, 0),
+    },
+  }),
+);
 
 export default () => {
   // Init: get navigational information and site configuration
   const { loading, error, data } = useQuery(GET_INIT);
+  const classes = useStyles();
 
-  if (loading) return (<Centered><Loading /></Centered>);
+  if (loading) return (<div className={classes.centered}><Loading /></div>);
   if (error || !data.configurations.length) {
     return (
       <span>
         Error during initialization.
-        {error!.message}
+        {error?.message}
       </span>
     );
   }
@@ -36,70 +56,71 @@ export default () => {
   const configuration: Configuration = data.configurations[0];
   const { pages } = data;
 
-  // Override baseui defaults
-  const primitives = {
-    primaryFontFamily: 'Roboto',
-    primaryColor: configuration.primaryColor.hex,
-  };
-  const overrides = {
-    colors: {
-      primaryA: primitives.primaryColor,
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: configuration.primaryColor.hex,
+      },
+      // secondary: {
+      //   main: configuration.accentColor.hex,
+      // },
     },
-  };
-
-  // Custom baseui theme
-  const _baseWebTheme = createTheme(primitives, overrides);
+  });
 
   // Generate CSS for any additional fonts for injection
-  const additionalFontCss = 		configuration.additionalFonts !== null && configuration.additionalFonts!.length
-    ? _injectAdditionalFonts(configuration.additionalFonts)
+  const additionalFontCss = 
+    configuration.additionalFonts !== null && configuration.additionalFonts!.length
+      ? _injectAdditionalFonts(configuration.additionalFonts)
 		  : '';
 
   return (
-    <StyletronProvider value={engine}>
-      <BaseProvider theme={_baseWebTheme}>
-        {/* Helmet for site-specific meta */}
-        <Helmet>
-          <link rel="icon" id="favicon" href={configuration.favicon.url} />
-          <link rel="apple-touch-icon" href={configuration.appleTouchIcon.url} />
+    <>
+      {/* Helmet for site-specific meta */}
+      <Helmet>
+        <link rel="icon" id="favicon" href={configuration.favicon.url} />
+        <link rel="apple-touch-icon" href={configuration.appleTouchIcon.url} />
 
-          <meta name="theme-color" content={configuration.primaryColor.hex} />
-          <meta name="description" content={configuration.siteDescription} />
-          <meta name="keywords" content={configuration.siteKeywords} />
+        <meta name="theme-color" content={configuration.primaryColor.hex} />
+        <meta name="description" content={configuration.siteDescription} />
+        <meta name="keywords" content={configuration.siteKeywords} />
 
-          {/* Inline the manifest.json */}
-          <link rel="manifest" href={`data:application/manifest+json,${configuration.manifestJson.toString()}`} />
+        {/* Inline the manifest.json */}
+        <link rel="manifest" href={`data:application/manifest+json,${configuration.manifestJson.toString()}`} />
 
-          <title>{configuration.siteName}</title>
+        <title>{configuration.siteName}</title>
 
-          <style type="text/css">
-            {/* Inject additional font CSS */}
-            {additionalFontCss}
-          </style>
-        </Helmet>
-        <Centered id="centered-root">
-          {/* Nav component for the header and content */}
-          <Nav
-            pages={pages}
-            configuration={configuration}
-          />
-        </Centered>
-        <Footer>
-          {/* Footing component for the footer */}
-          <Footing
-            configuration={configuration}
-          />
-        </Footer>
-        <BackTop>
-          <Button size="large">
-            <UpOutlined />
-            <BackTopInner>
-              TOP
-            </BackTopInner>
-          </Button>
-        </BackTop>
-      </BaseProvider>
-    </StyletronProvider>
+        <style type="text/css">
+          {/* Inject additional font CSS */}
+          {additionalFontCss}
+        </style>
+      </Helmet>
+      <ThemeProvider theme={theme}>
+        <div className={classes.wrap}>
+          <div className={classes.centered} id="centered-root">
+            {/* Nav component for the header and content */}
+            <Nav
+              pages={pages}
+              configuration={configuration}
+            />
+          </div>
+          <div className={classes.footer}>
+            {/* Footing component for the footer */}
+            <Footing
+              configuration={configuration}
+            />
+          </div>
+          {/* <BackTop>
+            <Button size="large">
+              <UpOutlined />
+              <BackTopInner>
+                TOP
+              </BackTopInner>
+            </Button>
+          </BackTop> */}
+        </div>
+      </ThemeProvider>
+      
+     </>
   );
 };
 
@@ -166,19 +187,3 @@ export function _renderLogo(logoHtml: string) {
     />
   );
 }
-
-/* Horizontally centered <div> */
-const Centered = styled('div', {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: '100%',
-  width: '100%',
-});
-
-/* The 'TOP' button at the bottom of each page */
-const BackTopInner = styled('span', {
-  textAlign: 'center',
-  fontSize: 14,
-  fontWeight: 'bold',
-});
