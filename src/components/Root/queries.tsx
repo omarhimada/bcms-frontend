@@ -39,6 +39,10 @@ export const GET_INIT = gql`
       contactPhoneNumber
       facebookLink
       instagramLink
+      geoLocation {
+        latitude
+        longitude
+      }
     }
   }
 `;

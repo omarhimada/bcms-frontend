@@ -19,7 +19,7 @@ export class ContentPage {
   /**
    * * ENUMERATION:
    * Dynamic content to load into this page
-   * Possible values: 
+   * Possible values:
    *  FAQs
    *  Gallery
    *  InstagramFeed

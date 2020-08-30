@@ -7,6 +7,7 @@ export const GET_TEAM_MEMBERS = gql`
       profileImage {
         url
         width
+        height
       }
       name
       blurb {

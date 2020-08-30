@@ -1,14 +1,15 @@
-import * as React from 'react';
-import { Helmet } from 'react-helmet';
-import { useQuery } from '@apollo/client';
-import { GET_INIT } from './queries';
-import Nav from '../Nav';
-import Loading from '../Loading';
-import Footing from '../Footing';
-import { Configuration, Font } from './types';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
+import * as React from "react";
+import { Helmet } from "react-helmet";
+import { useQuery } from "@apollo/client";
+import { GET_INIT } from "./queries";
+import Nav from "../Nav";
+import Loading from "../Loading";
+import Footing from "../Footing";
+import { Configuration, Font } from "./types";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
+import { ContentPage } from "../Page/types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,24 +18,24 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     /* Horizontally centered <div> */
     centered: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '100%',
-      width: '100%',
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "100%",
+      width: "100%",
     },
     /* The 'TOP' button at the bottom of each page */
     backTopInner: {
-      textAlign: 'center',
-      fontSize: '1.1rem',
-      fontWeight: 'bold',
+      textAlign: "center",
+      fontSize: "1.1rem",
+      fontWeight: "bold",
     },
     /* Wrapper for the <Footing> component */
     footer: {
       backgroundColor: theme.palette.background.paper,
       padding: theme.spacing(6, 0),
     },
-  }),
+  })
 );
 
 export default () => {
@@ -42,7 +43,12 @@ export default () => {
   const { loading, error, data } = useQuery(GET_INIT);
   const classes = useStyles();
 
-  if (loading) return (<div className={classes.centered}><Loading /></div>);
+  if (loading)
+    return (
+      <div className={classes.centered}>
+        <Loading />
+      </div>
+    );
   if (error || !data.configurations.length) {
     return (
       <span>
@@ -67,10 +73,11 @@ export default () => {
   });
 
   // Generate CSS for any additional fonts for injection
-  const additionalFontCss = 
-    configuration.additionalFonts !== null && configuration.additionalFonts!.length
+  const additionalFontCss =
+    configuration.additionalFonts !== null &&
+    configuration.additionalFonts!.length
       ? _injectAdditionalFonts(configuration.additionalFonts)
-		  : '';
+      : "";
 
   return (
     <>
@@ -84,7 +91,10 @@ export default () => {
         <meta name="keywords" content={configuration.siteKeywords} />
 
         {/* Inline the manifest.json */}
-        <link rel="manifest" href={`data:application/manifest+json,${configuration.manifestJson.toString()}`} />
+        <link
+          rel="manifest"
+          href={`data:application/manifest+json,${configuration.manifestJson.toString()}`}
+        />
 
         <title>{configuration.siteName}</title>
 
@@ -97,16 +107,11 @@ export default () => {
         <div className={classes.wrap}>
           <div className={classes.centered} id="centered-root">
             {/* Nav component for the header and content */}
-            <Nav
-              pages={pages}
-              configuration={configuration}
-            />
+            <Nav pages={pages} configuration={configuration} />
           </div>
           <div className={classes.footer}>
             {/* Footing component for the footer */}
-            <Footing
-              configuration={configuration}
-            />
+            <Footing configuration={configuration} />
           </div>
           {/* <BackTop>
             <Button size="large">
@@ -118,8 +123,7 @@ export default () => {
           </BackTop> */}
         </div>
       </ThemeProvider>
-      
-     </>
+    </>
   );
 };
 

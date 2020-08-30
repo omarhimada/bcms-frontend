@@ -11,9 +11,7 @@ export class Gallery {
 
 export class Image {
   handle: string;
-
   width: number;
-
   height: number;
 
   constructor(handle: string, width: number, height: number) {

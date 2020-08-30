@@ -1,17 +1,34 @@
 import * as React from "react";
 import { useQuery } from "@apollo/client";
 import ReactHtmlParser from "react-html-parser";
-import { Card, List, Typography, Divider } from "antd";
-import { QuestionOutlined } from "@ant-design/icons";
-import { Accordion, Panel } from "baseui/accordion";
 import Loading from "../../Loading";
 import { GET_FAQS } from "./queries";
-import { FAQ, FAQCategory } from "./types";
+import { FAQCategory } from "./types";
+import {
+  AccordionSummary,
+  Accordion,
+  AccordionDetails,
+  Divider,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+} from "@material-ui/core";
+import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-const { Title } = Typography;
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    heading: {
+      fontSize: theme.typography.pxToRem(15),
+      fontWeight: theme.typography.fontWeightRegular,
+    },
+  }),
+);
 
 export default () => {
   const { loading, error, data } = useQuery(GET_FAQS);
+  const classes = useStyles();
 
   if (loading) return <Loading />;
   if (error) {
@@ -26,44 +43,41 @@ export default () => {
   return (
     <>
       <Divider />
-      <Card 
-        style={{ 
-          width: "100%", 
-        }}>
-        {_renderFAQs(data.faqCategories)}
-      </Card>
+      {_renderFAQs(data.faqCategories, classes)}
       <Divider />
     </>
   );
 };
 
-/* Render an Accordion where each Panel is an FAQ category */
-export function _renderFAQs(faqCategories: FAQCategory[]) {
-  return <Accordion renderAll>{_renderFAQCategories(faqCategories)}</Accordion>;
-}
+/* Render an Accordion for each FAQ category, each holding a List of questions */
+export function _renderFAQs(faqCategories: FAQCategory[], classes: any) {
 
-/* Render a Panel which holds a List of questions */
-export function _renderFAQCategories(faqCategories: FAQCategory[]) {
   return faqCategories.map((faqCategory) => (
-    <Panel key={`panel-${faqCategory.title}`} title={faqCategory.title}>
+    <Accordion key={`accordion-${faqCategory.title}`} title={faqCategory.title}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls={`accordion-${faqCategory.title}-content`}
+        id={`accordion-${faqCategory.title}-header`}
+      >
+        <Typography className={classes.heading}>{faqCategory.title}</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
       <List
-        size="large"
-        header={<Title level={3}>{faqCategory.title}</Title>}
-        bordered
-        style={{
-          backgroundColor: "#fff",
-        }}
-        dataSource={faqCategory.questions}
-        renderItem={(faq: FAQ) => (
-          <List.Item>
-            <List.Item.Meta
-              avatar={<QuestionOutlined />}
-              title={faq.question}
-              description={ReactHtmlParser(faq.answer.html)}
+        dense={true}>
+        {faqCategory.questions.map(faq => (
+          <ListItem alignItems="flex-start">
+            <ListItemText
+              primary={faq.question}
+              secondary={
+                <>
+                  {ReactHtmlParser(faq.answer.html)}
+                </>
+              }
             />
-          </List.Item>
-        )}
-      />
-    </Panel>
+          </ListItem>
+        ))}
+      </List>
+    </AccordionDetails>
+    </Accordion>
   ));
 }

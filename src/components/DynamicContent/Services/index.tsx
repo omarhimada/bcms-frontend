@@ -1,10 +1,18 @@
 import * as React from "react";
 import { useQuery } from "@apollo/client";
-import { ListItem, ListItemLabel } from "baseui/list";
-import { Card, Col, Divider } from "antd";
 import Loading from "../../Loading";
 import { GET_SERVICES } from "./queries";
 import { ServiceCategory } from "./types";
+import {
+  Divider,
+  Card,
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
+  CardContent,
+  CardHeader,
+} from "@material-ui/core";
 
 export default () => {
   const { loading, error, data } = useQuery(GET_SERVICES);
@@ -19,53 +27,56 @@ export default () => {
     );
   }
 
-  return <><Divider />{_renderServiceCategories(data.serviceCategories)}<Divider /></>;
+  return (
+    <>
+      <Divider />
+      <Grid spacing={2} container>
+        {_renderServiceCategories(data.serviceCategories)}
+      </Grid>
+      <Divider />
+    </>
+  );
 };
 
 /* Render a Col containing a Card for each service category,
  * which holds a List of products/services */
 export function _renderServiceCategories(serviceCategories: ServiceCategory[]) {
   return serviceCategories.map((serviceCategory) => (
-    <Col
+    <Grid
+      item
       key={`col-service-category-${serviceCategory.title}`}
-      xs={{ span: 24 }}
-      sm={{ span: 24 }}
-      md={{ span: 12 }}
-      lg={{ span: 12 }}
+      xs={12}
+      sm={12}
+      md={6}
+      lg={6}
     >
-      <Card
-        key={serviceCategory.title}
-        title={serviceCategory.title}
-        style={{ marginBottom: "1rem" }}
-      >
-        {_renderServices(serviceCategory)}
+      <Card key={serviceCategory.title} style={{ marginBottom: "1rem" }}>
+        <CardHeader title={serviceCategory.title} />
+        <CardContent>{_renderServices(serviceCategory)}</CardContent>
       </Card>
-    </Col>
+    </Grid>
   ));
 }
 
 /* Render a list of services */
 export function _renderServices(serviceCategory) {
   return (
-    <ul 
-      className="services-ul" 
-      key={`services-ul-${serviceCategory.title}`}>
+    <List key={`services-ul-${serviceCategory.title}`} dense={true}>
       {serviceCategory.services.map((service) => (
-        <ListItem
-          sublist
-          key={`${serviceCategory.title}${service.name}`}
-          endEnhancer={() => (
-            <ListItemLabel>
-              <span className="currency-symbol">$</span>
-              {service.price}
-              &nbsp;
-              {service.per}
-            </ListItemLabel>
-          )}
-        >
-          <ListItemLabel sublist>{service.name}</ListItemLabel>
+        <ListItem>
+          <ListItemText
+            primary={service.name}
+            secondary={
+              <>
+                <span className="currency-symbol">$</span>
+                {service.price}
+                &nbsp;
+                {service.per}
+              </>
+            }
+          />
         </ListItem>
       ))}
-    </ul>
+    </List>
   );
 }
