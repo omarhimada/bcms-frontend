@@ -13,11 +13,11 @@ import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 
 export default (params: any) => {
-	const { loading, error, data } = useQuery(GET_PAGE, {
-		variables: {
-			pageId: params.pageId,
-		},
-	});
+  const { loading, error, data } = useQuery(GET_PAGE, {
+    variables: {
+      pageId: params.pageId,
+    },
+  });
 
 	if (loading) return (<Loading />);
 	if (error) {
@@ -55,13 +55,14 @@ export function _renderHeading(page: ContentPage) {
 
 /* Render the carousel with the hero/heading and CTA (optional) */
 export function _renderCarousel(page: ContentPage) {
-	if (page.carouselImages === null || !page.carouselImages.length) return '';
+  if (page.carouselImages === null || !page.carouselImages.length) return "";
 
-	/* Get the maximum height of the carousel images to set as the minimum height of the column
-	   * (this is prevents flickering when fading baseui tab panels) */
-	const maximumHeightOfCarouselImage =
-		Math.max.apply(Math,
-			page.carouselImages.map((o) => o.height));
+  /* Get the maximum height of the carousel images to set as the minimum height of the column
+   * (this is prevents flickering when fading baseui tab panels) */
+  const maximumHeightOfCarouselImage = Math.max.apply(
+    Math,
+    page.carouselImages.map((o) => o.height)
+  );
 
 	return (
 		<Grid container spacing={0}>
@@ -136,7 +137,7 @@ export function _renderCarousel(page: ContentPage) {
 
 /* Render the main WYSIWYG content of the page */
 export function _renderPageContent(page: ContentPage) {
-	if (page.content === null) return '';
+  if (page.content === null) return "";
 
 	return (
 		<Grid container spacing={0}>

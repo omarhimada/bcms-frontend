@@ -1,17 +1,15 @@
-import * as React from 'react';
-import {
-  Button, Col, Divider, Modal, Row,
-} from 'antd';
-import GraphImg from 'graphcms-image';
-import { useQuery } from '@apollo/client';
-import { Heading, HeadingLevel } from 'baseui/heading';
-import Loading from '../../Loading';
-import { GET_GALLERIES } from './queries';
+import * as React from "react";
+import { Button, Col, Divider, Modal, Row } from "antd";
+import GraphImg from "graphcms-image";
+import { useQuery } from "@apollo/client";
+import { Heading, HeadingLevel } from "baseui/heading";
+import Loading from "../../Loading";
+import { GET_GALLERIES } from "./queries";
 
 export default () => {
   const { loading, error, data } = useQuery(GET_GALLERIES);
 
-  if (loading) return (<Loading />);
+  if (loading) return <Loading />;
   if (error) {
     return (
       <span>
@@ -25,6 +23,7 @@ export default () => {
 
   return (
     <>
+      <Divider />
       <HeadingLevel>
         {galleries.map((gallery) => (
           <Row
@@ -33,7 +32,7 @@ export default () => {
             align="middle"
             gutter={[8, 8]}
             style={{
-						  margin: '0',
+              margin: "0",
             }}
           >
             <Heading>{gallery.title}</Heading>
@@ -42,6 +41,7 @@ export default () => {
           </Row>
         ))}
       </HeadingLevel>
+      <Divider />
     </>
   );
 };
@@ -50,34 +50,32 @@ export default () => {
  * wrapped in a button that opens the image modal */
 export function _renderImages(images) {
   return images.map((image) => (
-    <Col
-      key={`col-${image.handle}`}
-    >
+    <Col key={`col-${image.handle}`}>
       <Button
         type="ghost"
         ghost
         onClick={() => _imageModal(image)}
         style={{
-				  width: '332px',
-				  height: '332px',
-				  padding: 0,
+          width: "332px",
+          height: "332px",
+          padding: 0,
         }}
       >
         {/* Render a clickable thumbnail image */}
         <GraphImg
           key={image.handle}
-					// title="Sample"
-					// alt="Sample"
+          // title="Sample"
+          // alt="Sample"
           image={{
-					  handle: image.handle,
-					  width: 664,
-					  height: 664,
+            handle: image.handle,
+            width: 664,
+            height: 664,
           }}
           fit="scale"
           withWebp
           style={{
-					  width: 332,
-					  height: 332,
+            width: 332,
+            height: 332,
           }}
         />
       </Button>
@@ -89,14 +87,12 @@ export function _renderImages(images) {
 export function _imageModal(image) {
   Modal.info({
     icon: <></>,
-    className: 'image-modal',
+    className: "image-modal",
     maskClosable: true,
-    cancelButtonProps: {
-
-    },
-    onCancel: () => { },
+    cancelButtonProps: {},
+    onCancel: () => {},
     style: {
-      top: '1.5rem',
+      top: "1.5rem",
     },
     okButtonProps: {
       hidden: true,
@@ -110,20 +106,20 @@ export function _imageModal(image) {
         <GraphImg
           key={`large-${image.handle}`}
           image={{
-					  handle: image.handle,
-					  width: image.width,
-					  height: image.height,
+            handle: image.handle,
+            width: image.width,
+            height: image.height,
           }}
           fit="max"
           maxWidth={1376}
           withWebp
           style={{
-					  width: image.width,
-					  height: image.height,
-					  maxHeight: window.innerHeight - 40,
+            width: image.width,
+            height: image.height,
+            maxHeight: window.innerHeight - 40,
           }}
         />
       </div>
     ),
-	  });
+  });
 }

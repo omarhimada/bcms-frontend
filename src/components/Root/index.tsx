@@ -52,9 +52,8 @@ export default () => {
     );
   }
 
-  // There should only be one configuration, so get the first 1
   const configuration: Configuration = data.configurations[0];
-  const { pages } = data;
+  const pages: ContentPage[] = data.pages;
 
   const theme = createMuiTheme({
     palette: {
@@ -125,14 +124,16 @@ export default () => {
 };
 
 /* Use the site's configuration to inject any additional fonts (optional) */
-export function _injectAdditionalFonts(additionalFonts: Font[]) {
+export function _injectAdditionalFonts(additionalFonts: Font[] | undefined) {
+  if (additionalFonts === undefined) return "";
+
   // Map the partial file names to [file extension, url] tuples to build the correct CSS
-  const _fileMap: { [name: string]: [string, string][]; } = {};
+  const _fileMap: { [name: string]: [string, string][] } = {};
 
   // e.g. fileNames: ["Couture-Bold.woff2", "Couture-Bold.woff", "NEOTERIC-Bold.woff2"]
   for (const font of additionalFonts) {
     // Split the file name
-    const splitName = font.fileName.split('.');
+    const splitName = font.fileName.split(".");
 
     // e.g.: 'NEOTERIC-Bold.woff2' -> ['NEOTERIC-Bold', 'woff2']
     const name = splitName[0];
@@ -147,7 +148,7 @@ export function _injectAdditionalFonts(additionalFonts: Font[]) {
   const mapKeys = Object.keys(_fileMap);
 
   /* Sort the font names so the woff2 is first, then woff, then ttf last
-	 * (order of ascending file sizes) */
+   * (order of ascending file sizes) */
   for (const key of mapKeys) {
     _fileMap[key].sort((extensionUrlTuple1, extensionUrlTuple2) => {
       const ext1 = extensionUrlTuple1[0];
@@ -158,17 +159,22 @@ export function _injectAdditionalFonts(additionalFonts: Font[]) {
     });
   }
 
-  return mapKeys.map((fontName) =>
-  /* Create a @font-face for each additional font retrieved */
-	'@font-face {'
-		+ `\r\n\tfont-family: '${fontName}';`
-		+ `\r\n\tsrc: ${
-			_fileMap[fontName]
-				.map((extensionUrlTuple) => `\r\n\t\turl('${extensionUrlTuple[1]}') format('${extensionUrlTuple[0]}')`)
-				.join(',')};`
-		+ '\r\n}',
-	// Join to make react-helmet play nice
-  ).join('\r\n');
+  return mapKeys
+    .map(
+      (fontName) =>
+        /* Create a @font-face for each additional font retrieved */
+        "@font-face {" +
+        `\r\n\tfont-family: '${fontName}';` +
+        `\r\n\tsrc: ${_fileMap[fontName]
+          .map(
+            (extensionUrlTuple) =>
+              `\r\n\t\turl('${extensionUrlTuple[1]}') format('${extensionUrlTuple[0]}')`
+          )
+          .join(",")};` +
+        "\r\n}"
+      // Join to make react-helmet play nice
+    )
+    .join("\r\n");
 }
 
 /* Use the site's configuration for the logo HTML and parse it */
@@ -179,10 +185,12 @@ export function _renderLogo(logoHtml: string) {
       className="tabs-logo-wrap"
       dangerouslySetInnerHTML={{ __html: logoHtml }}
       onClick={() => {
-			  // If the user clicks the logo navigate to the first tab (assume 'Home')
-			  const homeTab = document.querySelector<HTMLButtonElement>('button[data-baseweb=tab]:first-child');
-				homeTab!.click();
-				homeTab!.focus();
+        // If the user clicks the logo navigate to the first tab (assume 'Home')
+        const homeTab = document.querySelector<HTMLButtonElement>(
+          "button[data-baseweb=tab]:first-child"
+        );
+        homeTab!.click();
+        homeTab!.focus();
       }}
     />
   );

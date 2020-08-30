@@ -1,15 +1,15 @@
-import * as React from 'react';
-import { useQuery } from '@apollo/client';
-import { ListItem, ListItemLabel } from 'baseui/list';
-import { Card, Col, Typography } from 'antd';
-import Loading from '../../Loading';
-import { GET_SERVICES } from './queries';
-import { ServiceCategory } from './types';
+import * as React from "react";
+import { useQuery } from "@apollo/client";
+import { ListItem, ListItemLabel } from "baseui/list";
+import { Card, Col, Divider } from "antd";
+import Loading from "../../Loading";
+import { GET_SERVICES } from "./queries";
+import { ServiceCategory } from "./types";
 
 export default () => {
   const { loading, error, data } = useQuery(GET_SERVICES);
 
-  if (loading) return (<Loading />);
+  if (loading) return <Loading />;
   if (error) {
     return (
       <span>
@@ -19,7 +19,7 @@ export default () => {
     );
   }
 
-  return <>{_renderServiceCategories(data.serviceCategories)}</>;
+  return <><Divider />{_renderServiceCategories(data.serviceCategories)}<Divider /></>;
 };
 
 /* Render a Col containing a Card for each service category,
@@ -36,7 +36,7 @@ export function _renderServiceCategories(serviceCategories: ServiceCategory[]) {
       <Card
         key={serviceCategory.title}
         title={serviceCategory.title}
-        style={{ marginBottom: '1rem' }}
+        style={{ marginBottom: "1rem" }}
       >
         {_renderServices(serviceCategory)}
       </Card>
@@ -47,7 +47,9 @@ export function _renderServiceCategories(serviceCategories: ServiceCategory[]) {
 /* Render a list of services */
 export function _renderServices(serviceCategory) {
   return (
-    <ul className="services-ul">
+    <ul 
+      className="services-ul" 
+      key={`services-ul-${serviceCategory.title}`}>
       {serviceCategory.services.map((service) => (
         <ListItem
           sublist
