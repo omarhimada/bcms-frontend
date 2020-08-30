@@ -29,11 +29,9 @@ export default () => {
 
   return (
     <>
-      <Divider />
       <Grid spacing={2} container>
         {_renderServiceCategories(data.serviceCategories)}
       </Grid>
-      <Divider />
     </>
   );
 };

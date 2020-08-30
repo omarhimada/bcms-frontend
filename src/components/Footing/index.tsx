@@ -17,7 +17,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: "0 auto",
     //backgroundColor: theme.palette.background.paper,
   },
-  listWrap: {},
+	listWrap: {},
+	addressLine: {
+		margin: 0
+	},
   inline: {
     display: "inline",
   },
@@ -74,7 +77,7 @@ export default (params: any) => {
             <List dense={true}>
               <ListItem
                 button
-                href={`http://maps.google.com/maps/place/${configuration.siteName}/@${configuration.geoLocation.latitude},${configuration.geoLocation.longitude},15z/`}
+                href={`http://maps.google.com/maps/search/${configuration.shortName}/@${configuration.geoLocation.latitude},${configuration.geoLocation.longitude},15z/`}
                 target="_blank"
                 component="a"
               >
@@ -94,7 +97,7 @@ export default (params: any) => {
                           ? configuration.physicalAddress
                               .split("\n")!
                               .map((line, i) => (
-                                <p key={`address-${i}`}>{line}</p>
+                                <p className={classes.addressLine} key={`address-${i}`}>{line}</p>
                               ))
                           : ""}
                       </Typography>
@@ -121,7 +124,7 @@ export default (params: any) => {
                 <ListItemIcon>
                   <FacebookIcon />
                 </ListItemIcon>
-                <ListItemText primary={configuration.siteName} />
+                <ListItemText primary={configuration.shortName} />
               </ListItem>
             </List>
           </div>
@@ -142,7 +145,7 @@ export default (params: any) => {
                 <ListItemIcon>
                   <InstagramIcon />
                 </ListItemIcon>
-                <ListItemText primary={configuration.siteName} />
+                <ListItemText primary={configuration.shortName} />
               </ListItem>
             </List>
           </div>

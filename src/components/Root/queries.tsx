@@ -11,6 +11,7 @@ export const GET_INIT = gql`
     configurations(first: 1) {
       id
       siteName
+      shortName
       siteDescription
       siteKeywords
       appleTouchIcon {

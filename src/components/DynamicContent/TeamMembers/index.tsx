@@ -28,11 +28,9 @@ export default () => {
 
   return (
     <>
-      <Divider />
       <Grid container spacing={2}>
         {_renderTeamMembers(data.teamMembers)}
       </Grid>
-      <Divider />
     </>
   );
 };

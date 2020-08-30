@@ -42,9 +42,7 @@ export default () => {
 
   return (
     <>
-      <Divider />
       {_renderFAQs(data.faqCategories, classes)}
-      <Divider />
     </>
   );
 };

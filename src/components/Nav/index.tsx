@@ -84,7 +84,7 @@ export default function Nav(params) {
                 <Tabs
                   value={value}
                   onChange={handleChange}
-                  indicatorColor="primary"
+                  TabIndicatorProps={{ style: { background: "#fff" } }}
                   variant="fullWidth"
                   aria-label="Navigation"
                 >
@@ -106,10 +106,10 @@ export default function Nav(params) {
       {/* Render a tab panel for each page */}
       {pages.map((page: ContentPage, index: number) => (
         <TabPanel value={value} index={index} key={page.id} {...a11yProps(0)}>
-          <div className={classes.pageWrapper}>
-            {/* Page component renders the header and content of the layout */}
-            <Page pageId={page.id} configuration={configuration} />
-          </div>
+					<div className={classes.pageWrapper}>
+						{/* Page component renders the header and content of the layout */}
+						<Page pageId={page.id} configuration={configuration} />
+					</div>
         </TabPanel>
       ))}
     </div>

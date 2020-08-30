@@ -13,6 +13,8 @@ export class Configuration {
    */
   siteName: string;
 
+  shortName: string;
+
   /**
    * The meta 'description' for the site
    */
@@ -98,6 +100,7 @@ export class Configuration {
     id: string,
 
     siteName: string,
+    shortName: string,
     siteDescription: string,
     siteKeywords: string,
 
@@ -121,6 +124,7 @@ export class Configuration {
     this.id = id;
 
     this.siteName = siteName;
+    this.shortName = shortName;
     this.siteDescription = siteDescription;
     this.siteKeywords = siteKeywords;
 

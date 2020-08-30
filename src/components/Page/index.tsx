@@ -9,7 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Slider from "react-slick";
 import Button from "@material-ui/core/Button";
-import Divider from "@material-ui/core/Divider";
+import { Paper } from "@material-ui/core";
 import { Configuration } from "../Root/types";
 
 export default (params: any) => {
@@ -33,16 +33,18 @@ export default (params: any) => {
 
   return (
     <div id={`page-${data.page.id}`}>
-      {_renderHeading(data.page)}
-      <div className="site-layout-content">
-        {_renderCarousel(data.page)}
-        {_renderPageContent(data.page)}
-        {/* Dynamic content (e.g.: services, FAQ, etc.) */}
-        <DynamicContent
-          type={data.page.dynamicContent}
-          configuration={configuration}
-        />
-      </div>
+			<Paper elevation={3} square>
+				{_renderHeading(data.page)}
+				<div className="site-layout-content">
+					{_renderCarousel(data.page)}
+					{_renderPageContent(data.page)}
+					{/* Dynamic content (e.g.: services, FAQ, etc.) */}
+					<DynamicContent
+						type={data.page.dynamicContent}
+						configuration={configuration}
+					/>
+				</div>
+			</Paper>
     </div>
   );
 };
@@ -78,69 +80,68 @@ export function _renderCarousel(page: ContentPage) {
           minHeight: `${maximumHeightOfCarouselImage + 48}px`,
         }}
       >
-        <Slider
-          fade={true}
-          arrows={false}
-          dots={true}
-          infinite={true}
-          autoplay
-          autoplaySpeed={1650}
-          slidesToScroll={1}
-          slidesToShow={1}
-          adaptiveHeight
-        >
-          {page.carouselImages.map((carouselImage) => (
-            <div
-              className="page-carousel-item"
-              key={`carousel-${carouselImage.url}`}
-            >
-              <img alt={carouselImage.id} src={carouselImage.url} />
-              {/* Carousel with hero/heading text inside */}
-              {page.heading !== null ? (
-                <Typography
-                  variant="h1"
-                  gutterBottom
-                  className="page-carousel-heading"
-                >
-                  {page.heading}
-                </Typography>
-              ) : (
-                ""
-              )}
-              {/* CTA button on the carousel */}
-              {page.carouselCtaText !== null &&
-              page.carouselCtaLink !== null ? (
-                <Button
-                  color="primary"
-                  variant="contained"
-                  style={{
-                    margin: "auto",
-                    position: "absolute",
-                    left: "33%",
-                    width: "33%",
-                    height: "3.3rem",
-                    fontSize: "1.4rem",
-                    fontWeight: 300,
-                    bottom: "7.2rem",
-                    backgroundColor: "rgba(0, 0, 0, 1)",
-                    filter: "opacity(0.67)",
-                  }}
-                  onClick={() => {
-                    window.open(page.carouselCtaLink);
-                  }}
-                  href={page.carouselCtaLink}
-                  target="_blank"
-                  disableElevation
-                >
-                  {page.carouselCtaText}
-                </Button>
-              ) : (
-                ""
-              )}
-            </div>
-          ))}
-        </Slider>
-        <Divider />
+				<Slider
+					fade={true}
+					arrows={false}
+					dots={true}
+					infinite={true}
+					autoplay
+					autoplaySpeed={1650}
+					slidesToScroll={1}
+					slidesToShow={1}
+					adaptiveHeight
+				>
+					{page.carouselImages.map((carouselImage) => (
+						<div
+							className="page-carousel-item"
+							key={`carousel-${carouselImage.url}`}
+						>
+							<img alt={carouselImage.id} src={carouselImage.url} />
+							{/* Carousel with hero/heading text inside */}
+							{page.heading !== null ? (
+								<Typography
+									variant="h1"
+									gutterBottom
+									className="page-carousel-heading"
+								>
+									{page.heading}
+								</Typography>
+							) : (
+								""
+							)}
+							{/* CTA button on the carousel */}
+							{page.carouselCtaText !== null &&
+							page.carouselCtaLink !== null ? (
+								<Button
+									color="primary"
+									variant="contained"
+									style={{
+										margin: "auto",
+										position: "absolute",
+										left: "33%",
+										width: "33%",
+										height: "3.3rem",
+										fontSize: "1.4rem",
+										fontWeight: 300,
+										bottom: "7.2rem",
+										backgroundColor: "rgba(0, 0, 0, 1)",
+										filter: "opacity(0.67)",
+									}}
+									onClick={() => {
+										window.open(page.carouselCtaLink);
+									}}
+									href={page.carouselCtaLink}
+									target="_blank"
+									disableElevation
+								>
+									{page.carouselCtaText}
+								</Button>
+							) : (
+								""
+							)}
+						</div>
+					))}
+				</Slider>
       </Grid>
     </Grid>
   );

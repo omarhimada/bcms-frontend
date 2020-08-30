@@ -53,7 +53,6 @@ export default () => {
 
   return (
     <>
-      <Divider />
         {galleries.map((gallery) => (
           <>
             <Typography
@@ -127,7 +126,6 @@ export default () => {
             </div>
           )}
         </Dialog>
-      <Divider />
     </>
   );
 };
