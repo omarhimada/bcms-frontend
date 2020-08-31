@@ -40,12 +40,14 @@ export function _renderTeamMembers(teamMembers: TeamMember[]) {
   return teamMembers.map((teamMember) => (
     <Grid item key={`col-team-member-${teamMember.name}`} xs={6} lg={4}>
       <Card
+        square 
         key={teamMember.name}
         style={{
           margin: "0 auto 1rem auto",
           maxWidth: `${teamMember.profileImage.width}px`,
           height: "100%",
         }}
+        variant="outlined"
         title={teamMember.name}
       >
         <CardHeader title={teamMember.name} />

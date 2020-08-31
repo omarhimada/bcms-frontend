@@ -22,7 +22,10 @@ import { Image } from './types'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    
+    gridImageWrap: {
+      overflow: "hidden",
+      textAlign: "center" 
+    },
   }),
 );
 
@@ -53,79 +56,89 @@ export default () => {
 
   return (
     <>
-        {galleries.map((gallery) => (
-          <>
-            <Typography
-              variant="h2"
-              gutterBottom
-            >
-              {gallery.title}
-            </Typography>
-            <Divider />
-            <Grid container
-              key={`row-${gallery.title}`}
-              spacing={2}
-              justify="space-around"
-            >
-              {gallery.images.map((image) => (
-                <Grid item xs={12} sm={12} md={6} lg={3} key={`col-${image.handle}`}>
-                  <ButtonBase
-                    focusRipple
+      {galleries.map((gallery) => (
+        <>
+          <Typography
+            variant="h2"
+            gutterBottom
+          >
+            {gallery.title}
+          </Typography>
+          <Grid container
+            key={`row-${gallery.title}`}
+            spacing={0}
+
+            justify="space-around"
+          >
+            {gallery.images.map((image) => (
+              <Grid item 
+                xs={12} sm={12} md={6} lg={3} 
+                spacing={0}
+                key={`col-${image.handle}`}
+                className={classes.gridImageWrap}>
+                <ButtonBase
+                  focusRipple
+                  key={image.handle}
+                  onClick={() => handleClickOpen(image)}
+                >
+                  {/* Render a clickable thumbnail image */}
+                  <GraphImg
                     key={image.handle}
-                    onClick={() => handleClickOpen(image)}
-                  >
-                    {/* Render a clickable thumbnail image */}
-                    <GraphImg
-                      key={image.handle}
-                      // title="Sample"
-                      // alt="Sample"
-                      image={{
-                        handle: image.handle,
-                        width: 664,
-                        height: 664,
-                      }}
-                      fit="scale"
-                      withWebp
-                      style={{
-                        width: 332,
-                        height: 332,
-                      }}
-                    />
-                  </ButtonBase>
-                </Grid>
-              ))}
-            </Grid>
-          </>
-        ))}
-        <Dialog
-          fullScreen
-          open={selectedImage !== null}
-          onClose={handleClose}
-        >
-          {selectedImage && (
-            <div
-              key={`image-modal-wrap-${selectedImage.handle}`}
-              className="image-modal-wrap"
-            >
-              <GraphImg
-                key={`large-${selectedImage.handle}`}
-                image={{
-                  handle: selectedImage.handle,
-                  width: selectedImage.width,
-                  height: selectedImage.height,
-                }}
-                fit="max"
-                maxWidth={1376}
-                withWebp
-                style={{
-                  width: selectedImage.width,
-                  height: selectedImage.height,
-                  maxHeight: window.innerHeight - 40,
-                }}
-              />
-            </div>
-          )}
-        </Dialog>
+                    // title="Sample"
+                    // alt="Sample"
+                    image={{
+                      handle: image.handle,
+                      width: 664,
+                      height: 664,
+                    }}
+                    fit="scale"
+                    withWebp
+                    style={{
+                      width: 332,
+                      height: 332,
+                    }}
+                  />
+                </ButtonBase>
+              </Grid>
+            ))}
+          </Grid>
+        </>
+      ))}
+      <Dialog
+        open={selectedImage !== null}
+        onClose={handleClose}
+        disableBackdropClick={false}
+        onBackdropClick={handleClose}
+        PaperProps={{
+          style: {
+            background: 0
+          }
+        }}
+      >
+        {selectedImage && (
+          <div
+            key={`image-modal-wrap-${selectedImage.handle}`}
+            className="image-modal-wrap"
+          >
+            <GraphImg
+              key={`large-${selectedImage.handle}`}
+              image={{
+                handle: selectedImage.handle,
+                width: selectedImage.width,
+                height: selectedImage.height,
+              }}
+              fit="max"
+              maxWidth={1376}
+              withWebp
+              style={{
+                width: selectedImage.width,
+                height: selectedImage.height,
+                maxHeight: window.innerHeight - 40,
+              }}
+            />
+          </div>
+        )}
+      </Dialog>
     </>
   );
 };

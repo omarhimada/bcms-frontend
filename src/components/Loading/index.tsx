@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Spin } from "antd";
+import { CircularProgress } from "@material-ui/core";
 
 export default (params) => (
   <div className="loading-spinner">
-    <Spin size={params?.size ?? "large"} tip="Loading..." />
+    <CircularProgress />
   </div>
 );

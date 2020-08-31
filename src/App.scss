@@ -2,8 +2,25 @@ body {
   background: rgb(31, 31, 31);
 }
 
-#centered-root > div {
-  background: rgb(252, 252, 252);
+/* Spinner/loading animation */
+.loading-spinner {
+  padding-top: 3rem;
+  text-align: center;
+}
+
+/* Carousel/slider */
+.site-layout-content .slick-slider {
+  margin: -1rem -1.5rem;
+}
+
+.page-carousel-item {
+  text-align: center;
+}
+
+.page-carousel-item img {
+  filter: brightness(55%);
+  width: 100%;
+  height: 100%;
 }
 
 /* Logo in tab navigation */
@@ -17,13 +34,95 @@ body {
   width: 100%;
   height: 100%;
 
-	text {
-		fill: rgba(255, 255, 255, 0.7) !important;
-	}
+	// text {
+	// 	fill: rgba(255, 255, 255, 0.7) !important;
+	// }
 }
 
+/* Tabs */
 .MuiTab-wrapper {
   height: 64px;
+}
+
+.tab-hidden {
+  display: none;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
+
+/* <h6> */
+h6 {
+  font-size: 1.18rem;
+  line-height: 1.18rem;
+  margin-bottom: calc(1.18rem / 2);
+}
+
+/* <h5> */
+h5 {
+  font-size: 1.38rem;
+  line-height: 1.38rem;
+  margin-bottom: calc(1.38rem / 2);
+}
+
+/* <h4> */
+h4 {
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  margin-bottom: calc(1.5rem / 2);
+}
+
+/* <h3> */
+h3 {
+  font-size: 1.88rem;
+  line-height: 1.88rem;
+  margin-bottom: calc(1.88rem / 2);
+}
+
+/* <h2> */
+h2 {
+  font-size: 2.4rem;
+  line-height: 2.4rem;
+  margin-bottom: calc(2.4rem / 2);
+}
+
+/* <h1> */
+h1 {
+  font-size: 4.2rem;
+  line-height: 4.2rem;
+  margin-bottom: calc(4.2rem / 3);
+  font-weight: 300;
+  padding: 0 8px;
+}
+
+/* <h1>: carousel */
+h1.page-carousel-heading {
+  position: absolute;
+  top: 5rem;
+  padding: 1rem;
+  width: 100%;
+  font-size: 5rem;
+  line-height: 5rem;
+  font-weight: 300;
+  filter: opacity(0.5);
+  color: rgba(255, 255, 255, 0.7);
+  filter: sepia(1);
+}
+
+@media (max-width: 767px) {
+  /* <h1>: carousel */
+  h1.page-carousel-heading {
+    top: 3rem;
+    padding: 0.8rem;
+    font-size: 4.2rem;
+  }
 }
 
 .faq-ul,
@@ -44,12 +143,6 @@ body {
   display: block;
 }
 
-.graphcms-image-wrapper,
-.graphcms-image-outer-wrapper {
-  max-width: 100%;
-  max-height: 100%;
-}
-
 .currency-symbol {
   opacity: 0.88;
   font-size: 0.95rem;
@@ -61,4 +154,31 @@ body {
 .dynamic-content-wrap {
   padding: 0.5rem;
   justify-content: center;
+}
+
+/* Footer */
+#footer {
+  width: 100%;
+  background: #1f1f1f;
+  color: rgba(255, 255, 255, 0.85);
+  padding: 1rem 0 0 0;
+
+  svg path {
+    fill: rgba(255, 255, 255, 0.85);
+  }
+
+  a span {
+    color: rgba(255, 255, 255, 0.85);
+  }
+}
+
+/* Gallery/image modal */
+.MuiDialog-paperFullScreen.MuiPaper-root {
+  background-color: none;
+}
+
+.graphcms-image-wrapper,
+.graphcms-image-outer-wrapper {
+  max-width: 100%;
+  max-height: 100%;
 }

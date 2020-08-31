@@ -7,6 +7,8 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Grid from "@material-ui/core/Grid";
 import Toolbar from "@material-ui/core/Toolbar";
+import { Container } from "@material-ui/core";
+import Loading from "../Loading";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -20,18 +22,18 @@ function TabPanel(props: TabPanelProps) {
   return (
     <div
       role="tabpanel"
-      hidden={value !== index}
+      className={value !== index ? "tab-hidden" : ""}
       id={`nav-tabpanel-${index}`}
       aria-labelledby={`nav-tab-${index}`}
       {...other}
     >
-      {value === index && (
+      {value === index ? (
         <Grid container spacing={0}>
           <Grid item xs={12}>
             {children}
           </Grid>
         </Grid>
-      )}
+      ) : <Loading />}
     </div>
   );
 }
@@ -49,7 +51,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     //backgroundColor: theme.palette.background.paper,
   },
   pageWrapper: {
-    maxWidth: "1376px",
     width: "100%",
     justifyContent: "center",
     margin: "0 auto",
@@ -72,7 +73,7 @@ export default function Nav(params) {
 
   return (
     <div className={classes.navRoot}>
-      <AppBar position="static">
+      <AppBar position="static" color="default" variant="outlined">
         <Toolbar>
           <Grid justify={"space-between"} container>
             <Grid xs={12} sm={5} md={5} item>
@@ -84,7 +85,8 @@ export default function Nav(params) {
                 <Tabs
                   value={value}
                   onChange={handleChange}
-                  TabIndicatorProps={{ style: { background: "#fff" } }}
+                  indicatorColor="primary"
+                  textColor="primary"
                   variant="fullWidth"
                   aria-label="Navigation"
                 >
@@ -106,10 +108,10 @@ export default function Nav(params) {
       {/* Render a tab panel for each page */}
       {pages.map((page: ContentPage, index: number) => (
         <TabPanel value={value} index={index} key={page.id} {...a11yProps(0)}>
-					<div className={classes.pageWrapper}>
+					<Container className={classes.pageWrapper}>
 						{/* Page component renders the header and content of the layout */}
 						<Page pageId={page.id} configuration={configuration} />
-					</div>
+					</Container>
         </TabPanel>
       ))}
     </div>
@@ -126,7 +128,7 @@ export function _renderLogo(logoHtml: string) {
       onClick={() => {
         // If the user clicks the logo navigate to the first tab (assume 'Home')
         const homeTab = document.querySelector<HTMLButtonElement>(
-          "button[data-baseweb=tab]:first-child"
+          "#nav-tab-0"
         );
         homeTab!.click();
         homeTab!.focus();

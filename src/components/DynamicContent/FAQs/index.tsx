@@ -51,7 +51,12 @@ export default () => {
 export function _renderFAQs(faqCategories: FAQCategory[], classes: any) {
 
   return faqCategories.map((faqCategory) => (
-    <Accordion key={`accordion-${faqCategory.title}`} title={faqCategory.title}>
+    <Accordion 
+      square 
+      style={{ marginBottom: "0.166rem" }} 
+      variant="outlined" 
+      key={`accordion-${faqCategory.title}`} 
+      title={faqCategory.title}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls={`accordion-${faqCategory.title}-content`}

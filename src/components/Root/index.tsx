@@ -10,24 +10,25 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import { ContentPage } from "../Page/types";
+import { Paper } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     wrap: {
-      flexGrow: 1,
+      flexGrow: 1
     },
     /* Horizontally centered <div> */
     centered: {
       display: "flex",
       justifyContent: "center",
-      alignItems: "center",
-      height: "100%",
+      background: "rgb(250,250,250)",
       width: "100%",
+      minHeight: "77vh"
     },
     /* The 'TOP' button at the bottom of each page */
     backTopInner: {
       textAlign: "center",
-      fontSize: "1.1rem",
+      fontSize:  "1.1rem",
       fontWeight: "bold",
     },
     /* Wrapper for the <Footing> component */
@@ -45,9 +46,9 @@ export default () => {
 
   if (loading)
     return (
-      <div className={classes.centered}>
+      <Paper className={classes.centered} id="centered-root">
         <Loading />
-      </div>
+      </Paper>
     );
   if (error || !data.configurations.length) {
     return (
@@ -70,7 +71,79 @@ export default () => {
       //   main: configuration.accentColor.hex,
       // },
     },
+    overrides: {
+      MuiCard: {
+        root: {
+          borderRadius: 0
+        }
+      },
+      MuiPaper: {
+        root: {
+          borderRadius: 0
+        }
+      },
+      MuiButton: {
+        root: {
+          borderRadius: 0
+        }
+      },
+      MuiButtonBase: {
+        root: {
+          borderRadius: 0
+        }
+      }
+    }
   });
+
+  /* Headings */
+  /* <h6> */
+  theme.typography.h6 = {
+    fontSize: "1.18rem",
+    lineHeight: "1.18rem",
+    marginBottom: "calc(1.18rem / 2)",
+    fontWeight: "normal"
+  };
+
+  /* <h5> */
+  theme.typography.h5 = {
+    fontSize: "1.38rem",
+    lineHeight: "1.38rem",
+    marginBottom: "calc(1.38rem / 2)",
+    fontWeight: "normal"
+  };
+
+  /* <h4> */
+  theme.typography.h4 = {
+    fontSize: "1.5rem",
+    lineHeight: "1.5rem",
+    marginBottom: "calc(1.5rem / 2)",
+    fontWeight: "normal"
+  };
+
+  /* <h3> */
+  theme.typography.h3 = {
+    fontSize: "1.88rem",
+    lineHeight: "1.88rem",
+    marginBottom: "calc(1.88rem / 2)",
+    fontWeight: "normal"
+  };
+
+  /* <h2> */
+  theme.typography.h2 = {
+    fontSize: "2.4rem",
+    lineHeight: "2.4rem",
+    marginBottom: "calc(2.4rem / 2)",
+    fontWeight: "normal"
+  };
+
+  /* <h1> */
+  theme.typography.h1 = {
+    fontSize: "4.2rem",
+    lineHeight: "4.2rem",
+    marginBottom: "calc(4.2rem / 3)",
+    fontWeight: 300,
+    padding: "0 8px"
+  };
 
   // Generate CSS for any additional fonts for injection
   const additionalFontCss =
@@ -105,14 +178,14 @@ export default () => {
       </Helmet>
       <ThemeProvider theme={theme}>
         <div className={classes.wrap}>
-          <div className={classes.centered} id="centered-root">
+          <Paper elevation={0} className={classes.centered} id="centered-root">
             {/* Nav component for the header and content */}
             <Nav pages={pages} configuration={configuration} />
-          </div>
-          <div className={classes.footer}>
+          </Paper>
+          <footer id="footer" className={classes.footer}>
             {/* Footing component for the footer */}
             <Footing configuration={configuration} />
-          </div>
+          </footer>
           {/* <BackTop>
             <Button size="large">
               <UpOutlined />
@@ -179,23 +252,4 @@ export function _injectAdditionalFonts(additionalFonts: Font[] | undefined) {
       // Join to make react-helmet play nice
     )
     .join("\r\n");
-}
-
-/* Use the site's configuration for the logo HTML and parse it */
-export function _renderLogo(logoHtml: string) {
-  // If the logo HTML is an <svg> use dangerouslySetInnerHtml to avoid React parsing issues
-  return (
-    <div
-      className="tabs-logo-wrap"
-      dangerouslySetInnerHTML={{ __html: logoHtml }}
-      onClick={() => {
-        // If the user clicks the logo navigate to the first tab (assume 'Home')
-        const homeTab = document.querySelector<HTMLButtonElement>(
-          "button[data-baseweb=tab]:first-child"
-        );
-        homeTab!.click();
-        homeTab!.focus();
-      }}
-    />
-  );
 }

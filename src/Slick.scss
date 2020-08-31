@@ -1,21 +1,4 @@
 @charset 'UTF-8';
-/* Carousel/slider */
-.page-carousel-item {
-  position: relative;
-  text-align: center;
-}
-
-.page-carousel-item img {
-  filter: brightness(55%);
-}
-
-@media screen and (max-width: 768px) {
-  .page-carousel-item a {
-    left: 12.5%;
-    width: 75%;
-  }
-}
-
 /**
  * https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css
  */

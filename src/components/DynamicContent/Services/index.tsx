@@ -48,7 +48,11 @@ export function _renderServiceCategories(serviceCategories: ServiceCategory[]) {
       md={6}
       lg={6}
     >
-      <Card key={serviceCategory.title} style={{ marginBottom: "1rem" }}>
+      <Card 
+        key={serviceCategory.title} 
+        style={{ marginBottom: "1rem" }}
+        variant="outlined"
+        >
         <CardHeader title={serviceCategory.title} />
         <CardContent>{_renderServices(serviceCategory)}</CardContent>
       </Card>
